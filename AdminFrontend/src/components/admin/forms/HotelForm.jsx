@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Upload, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Upload, X, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/Primitives';
 import { Input } from '@/components/ui/Primitives';
 import { Label } from '@/components/ui/Primitives';
@@ -14,13 +14,37 @@ import {
   SelectValue,
 } from '@/components/ui/Interactive';
 import { Separator } from '@/components/ui/Primitives';
+import destinationService from '@/services/destinationService';
 
 const tiers = ['Lite', 'Standard', 'Pro', 'Premium', 'Elite'];
 
 export function HotelForm({ onClose, initialData }) {
   const [isActive, setIsActive] = useState(initialData?.isActive ?? true);
-  const [selectedTiers, setSelectedTiers] = useState(initialData?.tierApplicability ?? ['Premium']);
+  const [selectedTiers, setSelectedTiers] = useState(
+    Array.isArray(initialData?.packageType) 
+      ? initialData.packageType 
+      : (initialData?.packageType ? [initialData.packageType] : ['Premium'])
+  );
   const [selectedImages, setSelectedImages] = useState(initialData?.images ?? []);
+  const [destinations, setDestinations] = useState([]);
+  const [isDestinationsLoading, setIsDestinationsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      try {
+        const data = await destinationService.fetchAllDestinations();
+        // Extract unique state names from destinations
+        const uniqueStates = [...new Set((data || []).map(dest => dest.stateName))].filter(Boolean);
+        setDestinations(uniqueStates);
+      } catch (error) {
+        console.error('Failed to fetch destinations:', error);
+      } finally {
+        setIsDestinationsLoading(false);
+      }
+    };
+
+    fetchDestinations();
+  }, []);
 
   const handleTierChange = (tier, checked) => {
     if (checked) {
@@ -30,9 +54,23 @@ export function HotelForm({ onClose, initialData }) {
     }
   };
 
+  const [selectedDestination, setSelectedDestination] = useState(initialData?.destination || '');
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
+    const formData = {
+      name: e.target.name.value,
+      destination: selectedDestination,
+      location: e.target.location.value,
+      rating: e.target.rating ? e.target.rating.value : (initialData?.rating || 5),
+      description: e.target.description.value,
+      packageType: selectedTiers,
+      amenities: e.target.amenities.value.split(',').map(a => a.trim()),
+      images: selectedImages,
+      isActive
+    };
+    console.log('Form submitted:', formData);
+    // Handle form submission (e.g., call hotelService.createHotel(formData))
     onClose();
   };
 
@@ -48,15 +86,27 @@ export function HotelForm({ onClose, initialData }) {
           </div>
           <div className="space-y-2">
             <Label htmlFor="destination">Destination *</Label>
-            <Select defaultValue={initialData?.destination}>
+            <Select 
+              value={selectedDestination} 
+              onValueChange={setSelectedDestination}
+            >
               <SelectTrigger>
-                <SelectValue placeholder="Select destination" />
+                <SelectValue placeholder={isDestinationsLoading ? "Loading..." : "Select destination"} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Rajasthan">Rajasthan</SelectItem>
-                <SelectItem value="Kerala">Kerala</SelectItem>
-                <SelectItem value="Delhi-Agra-Jaipur">Delhi-Agra-Jaipur</SelectItem>
-                <SelectItem value="Goa">Goa</SelectItem>
+                {isDestinationsLoading ? (
+                  <div className="flex items-center justify-center p-4">
+                    <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                  </div>
+                ) : destinations.length > 0 ? (
+                  destinations.map((state) => (
+                    <SelectItem key={state} value={state}>
+                      {state}
+                    </SelectItem>
+                  ))
+                ) : (
+                  <SelectItem value="none" disabled>No destinations available</SelectItem>
+                )}
               </SelectContent>
             </Select>
           </div>
