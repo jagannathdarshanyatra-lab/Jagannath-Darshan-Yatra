@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { FaHotel, FaMapMarkerAlt, FaStar, FaCheck, FaWifi, FaSwimmingPool, FaUtensils, FaSpa } from 'react-icons/fa';
 import { sonnerToast as toast } from '@/components/ui/feedback';
 import BookingModal from '@/components/BookingModal';
+import HotelDetailsModal from '@/components/HotelDetailsModal';
 import { fetchPackageById } from '@/services/packageService';
 
 const HotelSelection = () => {
@@ -16,8 +17,10 @@ const HotelSelection = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedHotel, setSelectedHotel] = useState(null);
+  const [viewingHotel, setViewingHotel] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
   const user = JSON.parse(localStorage.getItem('user') || 'null');
   const token = localStorage.getItem('token');
   const initialTravelers = location.state?.travelers || 2;
@@ -88,6 +91,15 @@ const HotelSelection = () => {
     setSelectedHotel(hotel);
   };
 
+  const handleDeselect = () => {
+    setSelectedHotel(null);
+  };
+
+  const openHotelDetails = (hotel) => {
+    setViewingHotel(hotel);
+    setShowDetailsModal(true);
+  };
+
   const handleSubmit = async () => {
     if (!selectedHotel) {
       toast.error('Please select a hotel to continue');
@@ -102,6 +114,50 @@ const HotelSelection = () => {
 
     try {
       setSubmitting(true);
+
+      // --- OTA API Integration Flow ---
+      if (selectedHotel.otaApiLink) {
+        toast.info(`Connecting to OTA Booking Engine: ${selectedHotel.name}...`);
+        
+        // Simulating the OTA Processing Time
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Simulating the OTA API Call
+        console.log('Calling OTA API:', selectedHotel.otaApiLink);
+        
+        // We simulate a successful booking via the OTA link
+        toast.success(`Booking confirmed automatically via OTA for ${selectedHotel.name}!`);
+        
+        // For OTA flow, we might still want to record it in our backend
+        // but since we don't have a specific requirement for that yet,
+        // we'll proceed to the success page.
+        
+        // If we need to notify our backend about the OTA booking:
+        const otaPayload = {
+          selectedHotels: [{
+            city: selectedHotel.destination,
+            hotelId: selectedHotel._id,
+            hotelName: selectedHotel.name,
+            isOTA: true,
+            otaLink: selectedHotel.otaApiLink
+          }]
+        };
+
+        if (bookingId) {
+          await fetch(`${import.meta.env.VITE_API_URL}/api/bookings/${bookingId}/hotels`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(otaPayload)
+          });
+        }
+
+        navigate(`/booking-success?id=${bookingId || 'OTA_BOOKING'}`);
+        return;
+      }
+      // --- End OTA API Integration Flow ---
       
       const payload = {
         selectedHotels: [{
@@ -223,7 +279,7 @@ const HotelSelection = () => {
                   ? 'ring-4 ring-orange-500 shadow-xl shadow-orange-200' 
                   : 'shadow-lg hover:shadow-xl border border-gray-100'
               }`}
-              onClick={() => handleSelect(hotel)}
+              onClick={() => openHotelDetails(hotel)}
             >
               {/* Image */}
               <div className="h-52 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
@@ -366,6 +422,17 @@ const HotelSelection = () => {
           </div>
         </div>
       </div>
+      {/* Hotel Details Modal */}
+      <HotelDetailsModal
+        isOpen={showDetailsModal}
+        onClose={() => setShowDetailsModal(false)}
+        hotel={viewingHotel}
+        isSelected={selectedHotel?._id === viewingHotel?._id}
+        onSelect={handleSelect}
+        onDeselect={handleDeselect}
+        packageType={booking?.packageName || packageDetails?.name}
+      />
+
       {/* Booking Modal */}
       {packageDetails && (
         <BookingModal

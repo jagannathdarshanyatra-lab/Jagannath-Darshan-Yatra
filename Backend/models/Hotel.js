@@ -40,6 +40,11 @@ const hotelSchema = new mongoose.Schema(
     isActive: {
       type: Boolean,
       default: true,
+    },
+    otaApiLink: {
+      type: String,
+      trim: true,
+      default: ''
     }
   },
   {

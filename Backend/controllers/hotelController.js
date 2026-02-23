@@ -91,7 +91,17 @@ const getHotelById = async (req, res) => {
 // @access  Admin (Protected)
 const createHotel = async (req, res) => {
   try {
-    const { name, destination, location, packageType, images, amenities, description, rating } = req.body;
+    const { 
+      name, 
+      destination, 
+      location, 
+      packageType, 
+      images, 
+      amenities, 
+      description, 
+      rating,
+      otaApiLink 
+    } = req.body;
 
     const hotel = new Hotel({
       name,
@@ -102,6 +112,7 @@ const createHotel = async (req, res) => {
       amenities,
       description,
       rating,
+      otaApiLink,
     });
 
     const createdHotel = await hotel.save();
@@ -116,7 +127,18 @@ const createHotel = async (req, res) => {
 // @access  Admin (Protected)
 const updateHotel = async (req, res) => {
   try {
-    const { name, destination, location, packageType, images, amenities, description, rating, isActive } = req.body;
+    const { 
+      name, 
+      destination, 
+      location, 
+      packageType, 
+      images, 
+      amenities, 
+      description, 
+      rating, 
+      isActive,
+      otaApiLink 
+    } = req.body;
 
     const hotel = await Hotel.findById(req.params.id);
 
@@ -130,6 +152,7 @@ const updateHotel = async (req, res) => {
       hotel.description = description || hotel.description;
       hotel.rating = rating !== undefined ? rating : hotel.rating;
       hotel.isActive = isActive !== undefined ? isActive : hotel.isActive;
+      hotel.otaApiLink = otaApiLink !== undefined ? otaApiLink : hotel.otaApiLink;
 
       const updatedHotel = await hotel.save();
       res.json(updatedHotel);

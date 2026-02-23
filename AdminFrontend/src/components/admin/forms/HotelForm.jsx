@@ -80,7 +80,8 @@ export function HotelForm({ onClose, initialData }) {
       packageType: selectedTiers,
       amenities: e.target.amenities.value.split(',').map(a => a.trim()).filter(Boolean),
       images: selectedImages,
-      isActive
+      isActive,
+      otaApiLink: e.target.otaApiLink.value
     };
 
     try {
@@ -196,6 +197,25 @@ export function HotelForm({ onClose, initialData }) {
             placeholder="Pool, Spa, Restaurant, WiFi, Gym"
             defaultValue={initialData?.amenities?.join(', ')}
           />
+        </div>
+      </div>
+
+      {/* OTA Configuration */}
+      <div className="form-section">
+        <h4 className="font-semibold text-foreground mb-4">OTA Configuration</h4>
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="otaApiLink">OTA API Link (Optional)</Label>
+            <Input 
+              id="otaApiLink" 
+              name="otaApiLink" 
+              placeholder="https://ota-provider.com/api/v1/booking" 
+              defaultValue={initialData?.otaApiLink} 
+            />
+            <p className="text-xs text-muted-foreground italic">
+              When provided, users will be redirected to this API for automated booking.
+            </p>
+          </div>
         </div>
       </div>
 
