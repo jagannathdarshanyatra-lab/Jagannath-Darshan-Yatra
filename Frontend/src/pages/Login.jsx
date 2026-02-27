@@ -17,6 +17,8 @@ const Login = () => {
   const location = useLocation();
   const returnTo = location.state?.from || '/';
   const [isLogin, setIsLogin] = useState(true);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -27,13 +29,27 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (isForgotPassword && formData.password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    
     setIsLoading(true);
 
     try {
-      const endpoint = isLogin ? "/auth/login" : "/auth/register";
-      const body = isLogin
+      let endpoint;
+      if (isForgotPassword) {
+        endpoint = "/auth/reset-password";
+      } else {
+        endpoint = isLogin ? "/auth/login" : "/auth/register";
+      }
+
+      const body = isForgotPassword
         ? { email: formData.email, password: formData.password }
-        : formData;
+        : isLogin
+          ? { email: formData.email, password: formData.password }
+          : formData;
 
       const response = await fetch(`${API_URL}${endpoint}`, {
         method: "POST",
@@ -46,12 +62,18 @@ const Login = () => {
       const data = await response.json();
 
       if (data.success) {
-        // Store token and user data
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        
-        toast.success(isLogin ? "Welcome back!" : "Account created successfully!");
-        navigate(returnTo);
+        if (isForgotPassword) {
+          toast.success("Password reset successfully! You can now log in.");
+          setIsForgotPassword(false);
+          setIsLogin(true);
+        } else {
+          // Store token and user data
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+          
+          toast.success(isLogin ? "Welcome back!" : "Account created successfully!");
+          navigate(returnTo);
+        }
       } else {
         toast.error(data.error || "Something went wrong");
       }
@@ -85,12 +107,14 @@ const Login = () => {
                   <img src={Logo} alt="Bharat Darshan Logo" className="h-20 w-auto" />
                 </Link>
                 <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-                  {isLogin ? "Welcome Back!" : "Join Our Community"}
+                  {isForgotPassword ? "Reset Password" : isLogin ? "Welcome Back!" : "Join Our Community"}
                 </h2>
                 <p className="text-primary-foreground/80 text-lg">
-                  {isLogin
-                    ? "Log in to access your bookings and exclusive offers."
-                    : "Sign up to start your journey with amazing travel experiences."}
+                  {isForgotPassword 
+                    ? "Enter your email and a new password to reset your account."
+                    : isLogin
+                      ? "Log in to access your bookings and exclusive offers."
+                      : "Sign up to start your journey with amazing travel experiences."}
                 </p>
               </div>
               
@@ -114,22 +138,31 @@ const Login = () => {
             {/* Right Side - Form */}
             <div className="md:w-1/2 p-8 md:p-12 relative bg-card">
               <div className="flex justify-end mb-8">
-                <button
-                  onClick={() => setIsLogin(!isLogin)}
-                  className="text-sm font-medium text-primary hover:text-primary-dark transition-colors"
-                >
-                  {isLogin ? "Create an account" : "Already have an account?"}
-                </button>
+                {isForgotPassword ? (
+                   <button
+                   onClick={() => setIsForgotPassword(false)}
+                   className="text-sm font-medium text-primary hover:text-primary-dark transition-colors"
+                 >
+                   Back to Login
+                 </button>
+                ) : (
+                  <button
+                    onClick={() => setIsLogin(!isLogin)}
+                    className="text-sm font-medium text-primary hover:text-primary-dark transition-colors"
+                  >
+                    {isLogin ? "Create an account" : "Already have an account?"}
+                  </button>
+                )}
               </div>
 
               <div className="mb-8">
                 <h3 className="font-serif text-2xl font-bold text-foreground">
-                  {isLogin ? "Sign In" : "Sign Up"}
+                  {isForgotPassword ? "Forgot Password" : isLogin ? "Sign In" : "Sign Up"}
                 </h3>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-5">
-                {!isLogin && (
+                {!isLogin && !isForgotPassword && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
@@ -149,6 +182,7 @@ const Login = () => {
                           onChange={handleChange}
                           className="w-full pl-12 pr-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:bg-card focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                           placeholder="John Doe"
+                          required
                         />
                       </div>
                     </div>
@@ -165,6 +199,7 @@ const Login = () => {
                           onChange={handleChange}
                           className="w-full pl-12 pr-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:bg-card focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                           placeholder="+91 98765 43210"
+                          required
                         />
                       </div>
                     </div>
@@ -173,7 +208,7 @@ const Login = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    Email Address
+                    {isForgotPassword ? "Confirm Email Address" : "Email Address"}
                   </label>
                   <div className="relative">
                     <Mail className="absolute left-4 top-3.5 w-5 h-5 text-muted-foreground" />
@@ -184,13 +219,14 @@ const Login = () => {
                       onChange={handleChange}
                       className="w-full pl-12 pr-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:bg-card focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                       placeholder="john@example.com"
+                      required
                     />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    Password
+                    {isForgotPassword ? "New Password" : "Password"}
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-4 top-3.5 w-5 h-5 text-muted-foreground" />
@@ -201,15 +237,47 @@ const Login = () => {
                       onChange={handleChange}
                       className="w-full pl-12 pr-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:bg-card focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                       placeholder="••••••••"
+                      required
                     />
                   </div>
                 </div>
 
-                {isLogin && (
+                {isForgotPassword && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="space-y-5 overflow-hidden"
+                  >
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Confirm New Password
+                      </label>
+                      <div className="relative">
+                        <Lock className="absolute left-4 top-3.5 w-5 h-5 text-muted-foreground" />
+                        <input
+                          type="password"
+                          name="confirmPassword"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          className="w-full pl-12 pr-4 py-3 rounded-xl bg-muted/50 border border-border focus:border-primary focus:bg-card focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                          placeholder="••••••••"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {isLogin && !isForgotPassword && (
                   <div className="flex justify-end">
-                    <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    <button 
+                      type="button"
+                      onClick={() => setIsForgotPassword(true)}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
                       Forgot Password?
-                    </a>
+                    </button>
                   </div>
                 )}
 
@@ -217,11 +285,11 @@ const Login = () => {
                   {isLoading ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      {isLogin ? "Signing In..." : "Creating Account..."}
+                      {isForgotPassword ? "Resetting..." : isLogin ? "Signing In..." : "Creating Account..."}
                     </>
                   ) : (
                     <>
-                      {isLogin ? "Sign In" : "Create Account"}
+                      {isForgotPassword ? "Reset Password" : isLogin ? "Sign In" : "Create Account"}
                       <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                     </>
                   )}
