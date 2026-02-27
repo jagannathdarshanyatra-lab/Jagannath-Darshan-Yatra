@@ -162,6 +162,25 @@ const bookingSchema = new mongoose.Schema(
     adminNotes: {
       type: String,
       default: null,
+    },
+    // --- OTA Integration Fields ---
+    source: {
+      type: String,
+      enum: ['direct', 'ota'],
+      default: 'direct',
+    },
+    otaBookingId: {
+      type: String,
+      default: null,
+      sparse: true, // Allows multiple nulls but enforces uniqueness for non-null values
+    },
+    otaProvider: {
+      type: String,
+      default: null,
+    },
+    otaRawPayload: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
     }
   },
   {

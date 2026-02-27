@@ -31,6 +31,7 @@ app.use('/api/faqs', require('./routes/faqRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/admin/dashboard', require('./routes/dashboardRoutes'));
 app.use('/api/settings', require('./routes/settingsRoutes'));
+app.use('/api/ota/webhook', require('./routes/otaWebhookRoutes'));
 
 
 app.get('/api/health', (req, res) => {
