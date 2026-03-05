@@ -20,7 +20,7 @@ const TermsOfService = () => {
               <section>
                 <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">1. Introduction</h2>
                 <p>
-                  Welcome to Bharat Darshan. By accessing our website, mobile application, or booking services, you agree to comply with and be bound by these Terms of Service. Please read them carefully. If you do not agree with any part of these terms, you must not use our services.
+                  Welcome to Jagannath Darshan Yatra. By accessing our website, mobile application, or booking services, you agree to comply with and be bound by these Terms of Service. Please read them carefully. If you do not agree with any part of these terms, you must not use our services.
                 </p>
               </section>
 
@@ -51,21 +51,21 @@ const TermsOfService = () => {
               <section>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">4. User Responsibilities</h3>
                 <p>
-                  You agree to use our services only for lawful purposes. You are responsible for ensuring that all information provided during booking is accurate. Bharat Darshan is not liable for issues arising from incorrect details (e.g., wrong dates, name mismatches).
+                  You agree to use our services only for lawful purposes. You are responsible for ensuring that all information provided during booking is accurate. Jagannath Darshan Yatra is not liable for issues arising from incorrect details (e.g., wrong dates, name mismatches).
                 </p>
               </section>
 
               <section>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">5. Intellectual Property</h3>
                 <p>
-                  All content on this website, including text, graphics, logos, and images, is the property of Bharat Darshan or its content suppliers and is protected by copyright laws. Unauthorized use of any content is strictly prohibited.
+                  All content on this website, including text, graphics, logos, and images, is the property of Jagannath Darshan Yatra or its content suppliers and is protected by copyright laws. Unauthorized use of any content is strictly prohibited.
                 </p>
               </section>
 
               <section>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">6. Limitation of Liability</h3>
                 <p>
-                  Bharat Darshan acts as an aggregator and facilitator. We are not liable for:
+                  Jagannath Darshan Yatra acts as an aggregator and facilitator. We are not liable for:
                 </p>
                 <ul className="list-disc pl-6 space-y-2 mt-2">
                   <li>Acts of God, force majeure events, or expenses arising from delays or changes in schedules.</li>

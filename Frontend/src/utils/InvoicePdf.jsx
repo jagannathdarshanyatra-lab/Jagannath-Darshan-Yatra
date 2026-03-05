@@ -82,7 +82,7 @@ export async function generateInvoicePdf(booking) {
     doc.setFontSize(6.5);
     doc.setTextColor(...WHITE);
     doc.text(
-      "© 2026 Bharat Darshan. All rights reserved. | www.bharat-darshan.com",
+      "© 2026 Jagannath Darshan Yatra. All rights reserved. | www.jagannathdarshanyatra.com",
       pageW / 2,
       pageH - 3,
       { align: "center" }
@@ -123,7 +123,7 @@ export async function generateInvoicePdf(booking) {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
     doc.setTextColor(...PRIMARY);
-    doc.text("Bharat Darshan", margin + 6, y + 22);
+    doc.text("Jagannath Darshan Yatra", margin + 6, y + 22);
   }
 
   // Right side - INVOICE title + company location

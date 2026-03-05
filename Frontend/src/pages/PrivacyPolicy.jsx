@@ -24,7 +24,7 @@ const PrivacyPolicy = () => {
                   <h2 className="font-serif text-2xl font-bold text-gray-900">Privacy Policy Overview</h2>
                 </div>
                 <p>
-                  Privacy policy is required by the law and this policy only applies to Bharat Darshan and not to the websites of other companies, individuals or organisations to whom we provide links to our websites.
+                  Privacy policy is required by the law and this policy only applies to Jagannath Darshan Yatra and not to the websites of other companies, individuals or organisations to whom we provide links to our websites.
                 </p>
                 <div className="bg-orange-50 border-l-4 border-orange-500 p-4 mt-4 rounded-r-lg">
                   <p className="font-medium text-orange-800">
@@ -36,7 +36,7 @@ const PrivacyPolicy = () => {
               <section>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Use of Your Information</h3>
                 <p>
-                  We collect your information for the safety of our users who use our platform and guests who book through Bharat Darshan to understand who we are accommodating at our partner properties, for the safety of staff. In addition, website user and guest data is collected for statistical purposes. We also collect our guests’ nationality, date of birth, gender, for statistical analysis purposes. When you visit our websites, we may automatically log your IP address (the unique address which identifies your computer on the internet). We use IP addresses to help us manage our websites and to collect broad demographic information for analytical use. For reservations, we send guests confirmation emails and will therefore require your email address. Exceptions may occur in the case of us needing to contact previous guests in relation to post or lost property.
+                  We collect your information for the safety of our users who use our platform and guests who book through Jagannath Darshan Yatra to understand who we are accommodating at our partner properties, for the safety of staff. In addition, website user and guest data is collected for statistical purposes. We also collect our guests’ nationality, date of birth, gender, for statistical analysis purposes. When you visit our websites, we may automatically log your IP address (the unique address which identifies your computer on the internet). We use IP addresses to help us manage our websites and to collect broad demographic information for analytical use. For reservations, we send guests confirmation emails and will therefore require your email address. Exceptions may occur in the case of us needing to contact previous guests in relation to post or lost property.
                 </p>
               </section>
 
@@ -63,7 +63,7 @@ const PrivacyPolicy = () => {
               <section>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Credit Card Data</h3>
                 <p>
-                  In order to guarantee reservations via all channels (telephone, website or smartphone application, but not restricted to), we require a full 16 digit debit/credit card number, name on the card, card type (we accept VISA, Master card or Maestro), three digit security code and the expiry date. Your debit/credit card details are only used to secure your booking and Bharat Darshan will only debit the account if you do not follow our cancellation procedure. For details on cancellation policies, please refer to the policy for the individual partner for which the booking is being made. Additionally, we may charge a monthly subscription fee if the user subscribes to a Bharat Darshan paid membership and when the user authorizes Bharat Darshan to periodically charge the card (monthly/quarterly/bi-annually/yearly) based on the type of membership chosen. The user can cancel the membership at any time. Bharat Darshan indemnifies itself against all data use on and reservations made via third party websites/agents. Please refer to their relevant privacy policy and terms and conditions. Guests' Personal Data Bharat Darshan respects guest privacy and will not sell or disclose guests’ personal information to any other person, business or third party unless in the case of an emergency and/or it is seen as part of our duty of care.
+                  In order to guarantee reservations via all channels (telephone, website or smartphone application, but not restricted to), we require a full 16 digit debit/credit card number, name on the card, card type (we accept VISA, Master card or Maestro), three digit security code and the expiry date. Your debit/credit card details are only used to secure your booking and Jagannath Darshan Yatra will only debit the account if you do not follow our cancellation procedure. For details on cancellation policies, please refer to the policy for the individual partner for which the booking is being made. Additionally, we may charge a monthly subscription fee if the user subscribes to a Jagannath Darshan Yatra paid membership and when the user authorizes Jagannath Darshan Yatra to periodically charge the card (monthly/quarterly/bi-annually/yearly) based on the type of membership chosen. The user can cancel the membership at any time. Jagannath Darshan Yatra indemnifies itself against all data use on and reservations made via third party websites/agents. Please refer to their relevant privacy policy and terms and conditions. Guests' Personal Data Jagannath Darshan Yatra respects guest privacy and will not sell or disclose guests’ personal information to any other person, business or third party unless in the case of an emergency and/or it is seen as part of our duty of care.
                 </p>
               </section>
 
@@ -87,7 +87,7 @@ const PrivacyPolicy = () => {
               <section>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Third Party Websites</h3>
                 <p>
-                  Our website contains links to many other websites promoting their business and needs to our guests. Bharat Darshan indemnifies itself against all data use on and reservations made via third party websites/agents. Please refer to their relevant privacy policy and terms and conditions.
+                  Our website contains links to many other websites promoting their business and needs to our guests. Jagannath Darshan Yatra indemnifies itself against all data use on and reservations made via third party websites/agents. Please refer to their relevant privacy policy and terms and conditions.
                 </p>
               </section>
 
@@ -124,7 +124,7 @@ const PrivacyPolicy = () => {
                   <h3 className="font-serif text-xl font-bold text-gray-900">CALIFORNIA-RESIDENT SPECIFIC RIGHTS</h3>
                 </div>
                 <p className="mb-4">
-                  To the extent you are a 'consumer' as defined under the California Consumer Privacy Act of 2018 ("CCPA") and Bharat Darshan is a 'business' as defined under CCPA, the following applies to you:
+                  To the extent you are a 'consumer' as defined under the California Consumer Privacy Act of 2018 ("CCPA") and Jagannath Darshan Yatra is a 'business' as defined under CCPA, the following applies to you:
                 </p>
                 <p className="mb-4">
                   Subject to the provisions of the CCPA, you have the right to request in the manner provided herein, for the following:
@@ -134,8 +134,8 @@ const PrivacyPolicy = () => {
                   <div>
                     <h4 className="font-bold text-gray-800">a. Right to request for information about the:</h4>
                     <ul className="list-disc pl-6 space-y-1 mt-2">
-                       <li>Categories of Personal Data Bharat Darshan has collected about you.</li>
-                       <li>Specific pieces of Personal Data Bharat Darshan has collected about you.</li>
+                       <li>Categories of Personal Data Jagannath Darshan Yatra has collected about you.</li>
+                       <li>Specific pieces of Personal Data Jagannath Darshan Yatra has collected about you.</li>
                        <li>Categories of sources from which the Personal Data is collected.</li>
                        <li>Business or commercial purpose for collecting Personal Data.</li>
                        <li>Categories of third parties with whom the business shares Personal Data.</li>
@@ -143,7 +143,7 @@ const PrivacyPolicy = () => {
                   </div>
                   
                   <div>
-                     <h4 className="font-bold text-gray-800">b. Right to request for deletion of any Personal Data collected about you by Bharat Darshan.</h4>
+                     <h4 className="font-bold text-gray-800">b. Right to request for deletion of any Personal Data collected about you by Jagannath Darshan Yatra.</h4>
                   </div>
                 </div>
 
@@ -151,7 +151,7 @@ const PrivacyPolicy = () => {
                   If you seek to exercise the foregoing rights to access or delete Personal Data which constitutes 'Personal information' as defined in CCPA, please contact us at <a href="mailto:bharatdarshan.hq@gmail.com" className="text-orange-600 hover:underline">bharatdarshan.hq@gmail.com</a>. We respond to all requests we receive from you wishing to exercise your data protection rights within a reasonable timeframe in accordance with applicable data protection laws. By writing to us, you agree to receive communication from us seeking information from you in order to verify you to be the consumer from whom we have collected the Personal Data from and such other information as reasonably required to enable us to honour your request.
                 </p>
                 <p className="mt-4">
-                  The list of categories of Personal Data collected and disclosed about consumers are enlisted under the head 'Use of Your Information'. Separately, Bharat Darshan does not sell your Personal Data.
+                  The list of categories of Personal Data collected and disclosed about consumers are enlisted under the head 'Use of Your Information'. Separately, Jagannath Darshan Yatra does not sell your Personal Data.
                 </p>
               </section>
 

@@ -11,8 +11,8 @@ const app = express();
 app.use(
   cors({
     origin: process.env.FRONTEND_URL 
-      ? [process.env.FRONTEND_URL, 'https://bharat-darshan01.vercel.app', 'https://www.bharat-darshan.com', 'https://bharat-darshan.com', 'https://admin.bharat-darshan.com', 'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:3000', 'http://localhost:8081']
-      : ['https://bharat-darshan01.vercel.app', 'https://www.bharat-darshan.com', 'https://bharat-darshan.com', 'https://admin.bharat-darshan.com', 'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:3000', 'http://localhost:8081'],
+      ? [process.env.FRONTEND_URL, 'https://jagannath-darshan-yatra.vercel.app', 'https://jagannath-darshan-yatra-admin1.vercel.app', 'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:3000', 'http://localhost:8081']
+      : ['https://jagannath-darshan-yatra.vercel.app', 'https://jagannath-darshan-yatra-admin1.vercel.app', 'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:3000', 'http://localhost:8081'],
     credentials: true,
   })
 );
@@ -35,7 +35,7 @@ app.use('/api/ota/webhook', require('./routes/otaWebhookRoutes'));
 
 
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'Bharat Darshan API is running' });
+  res.json({ status: 'ok', message: 'Jagannath Darshan Yatra API is running' });
 });
 app.use((req, res, next) => {
   res.status(404).json({

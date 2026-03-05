@@ -24,7 +24,7 @@ const RefundPolicy = () => {
                   <h2 className="font-serif text-2xl font-bold text-gray-900">Overview</h2>
                 </div>
                 <p>
-                  At Bharat Darshan, we value our customers and understand that plans can change. We strive to make our cancellation and refund process as smooth as possible, while also respecting the policies of our partners (hotels, transporters).
+                  At Jagannath Darshan Yatra, we value our customers and understand that plans can change. We strive to make our cancellation and refund process as smooth as possible, while also respecting the policies of our partners (hotels, transporters).
                 </p>
               </section>
 
@@ -102,7 +102,7 @@ const RefundPolicy = () => {
                <section>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Force Majeure</h3>
                 <p>
-                  In the event of cancellations due to "Force Majeure" events (natural disasters, pandemics, government restrictions, temple closure orders), Bharat Darshan will work with partners to provide a maximum possible refund or a credit note for future travel. However, full refunds cannot be guaranteed in such extreme circumstances.
+                  In the event of cancellations due to "Force Majeure" events (natural disasters, pandemics, government restrictions, temple closure orders), Jagannath Darshan Yatra will work with partners to provide a maximum possible refund or a credit note for future travel. However, full refunds cannot be guaranteed in such extreme circumstances.
                 </p>
               </section>
 
