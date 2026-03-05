@@ -3,7 +3,7 @@
  * Handles all FAQ CRUD operations with the backend API
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+import { API_URL } from '../config/api';
 
 /**
  * Get admin token from localStorage
