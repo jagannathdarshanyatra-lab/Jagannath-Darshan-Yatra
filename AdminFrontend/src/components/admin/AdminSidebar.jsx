@@ -12,7 +12,7 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-  Menu,
+  ClipboardCheck,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Primitives';
@@ -30,6 +30,11 @@ const navItems = [
   { path: '/faqs', label: 'FAQs', icon: HelpCircle },
 ];
 
+// SuperAdmin-only nav items
+const superAdminNavItems = [
+  { path: '/approvals', label: 'Approvals', icon: ClipboardCheck },
+];
+
 const bottomNavItems = [
   { path: '/settings', label: 'Settings', icon: Settings },
 ];
@@ -37,6 +42,7 @@ const bottomNavItems = [
 export function AdminSidebar({ isCollapsed, onToggle }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const isSuperAdmin = adminAuthService.isSuperAdmin();
 
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to logout?")) {
@@ -44,6 +50,11 @@ export function AdminSidebar({ isCollapsed, onToggle }) {
       navigate('/login');
     }
   };
+
+  // Combine nav items based on role
+  const allNavItems = isSuperAdmin
+    ? [...navItems, ...superAdminNavItems]
+    : navItems;
 
   return (
     <motion.aside
@@ -72,9 +83,23 @@ export function AdminSidebar({ isCollapsed, onToggle }) {
         </Button>
       </div>
 
+      {/* Role Badge */}
+      {!isCollapsed && (
+        <div className="px-4 py-2">
+          <div className={cn(
+            "text-xs font-semibold px-3 py-1.5 rounded-lg text-center",
+            isSuperAdmin
+              ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+              : "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+          )}>
+            {isSuperAdmin ? 'Super Admin' : '👤 Admin'}
+          </div>
+        </div>
+      )}
+
       {/* Navigation */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-        {navItems.map((item) => {
+        {allNavItems.map((item) => {
           const isActive = location.pathname === item.path;
           return (
             <RouterNavLink

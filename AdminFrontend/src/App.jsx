@@ -13,6 +13,7 @@ import FAQPage from "./pages/FAQPage";
 import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
+import ApprovalsPage from "./pages/ApprovalsPage";
 import ProtectedAdminRoute from "@/components/ProtectedAdminRoute";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
               <Route path="/inquiries" element={<InquiriesPage />} />
               <Route path="/faqs" element={<FAQPage />} />
               <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/approvals" element={<ApprovalsPage />} />
             </Route>
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

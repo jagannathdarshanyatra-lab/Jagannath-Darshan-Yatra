@@ -14,7 +14,7 @@ const BORDER = [230, 210, 190];
 // ── Helpers ──
 // Note: jsPDF built-in fonts do not support ₹ (Unicode U+20B9), so we use "Rs."
 const fmt = (num) =>
-  num != null ? `Rs. ${Number(num).toLocaleString("en-IN")}` : "—";
+  num != null ? `Rs. ${Number(num).toLocaleString("en-IN")}` : "-";
 
 const fmtDate = (d) =>
   d
@@ -24,7 +24,7 @@ const fmtDate = (d) =>
         month: "short",
         day: "numeric",
       })
-    : "—";
+    : "-";
 
 const getBookingId = (booking) => {
   if (booking.bookingId) return booking.bookingId;
@@ -105,11 +105,11 @@ export async function generateInvoicePdf(booking) {
     doc.text(label, margin + 4, y);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(...DARK);
-    doc.text(String(value || "—"), margin + 50, y);
+    doc.text(String(value || "-"), margin + 50, y);
     y += 7;
   };
   // ══════════════════════════════════════════
-  //  PAGE 1 — Header, Customer, Tour, Hotels
+  //  PAGE 1 - Header, Customer, Tour, Hotels
   // ══════════════════════════════════════════
 
   // ── HEADER BAND ──
@@ -126,7 +126,7 @@ export async function generateInvoicePdf(booking) {
     doc.text("Bharat Darshan", margin + 6, y + 22);
   }
 
-  // Right side — INVOICE title + company location
+  // Right side - INVOICE title + company location
   doc.setFont("helvetica", "bold");
   doc.setFontSize(22);
   doc.setTextColor(...PRIMARY);
@@ -185,6 +185,104 @@ export async function generateInvoicePdf(booking) {
   infoRow("Travelers:", `${booking.travelers || 1} Person(s)`);
   infoRow("Booking Status:", (booking.status || "pending").toUpperCase());
   y += 6;
+
+  // ── TRAVELLER DETAILS (Table) ──
+  const travellerDetails = booking.travellerDetails || [];
+  if (travellerDetails.length > 0) {
+    // Check if we need a new page (need at least ~60mm for a small table)
+    const estimatedHeight = 20 + travellerDetails.length * 8;
+    if (y + estimatedHeight > pageH - 55) {
+      drawPageFooterBar();
+      doc.addPage();
+      y = margin;
+    }
+
+    sectionHeader("Traveller Details");
+
+    // Table header
+    const colX = {
+      num: margin + 4,
+      name: margin + 16,
+      gender: margin + 90,
+      age: margin + 125,
+      type: margin + 145,
+    };
+
+    // Header row background
+    doc.setFillColor(...ACCENT_BG);
+    doc.rect(margin, y - 5, contentW, 8, "F");
+    doc.setDrawColor(...BORDER);
+    doc.setLineWidth(0.15);
+    doc.line(margin, y + 3, pageW - margin, y + 3);
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(...PRIMARY_DARK);
+    doc.text("#", colX.num, y);
+    doc.text("Name", colX.name, y);
+    doc.text("Gender", colX.gender, y);
+    doc.text("Age", colX.age, y);
+    doc.text("Type", colX.type, y);
+    y += 8;
+
+    // Data rows
+    travellerDetails.forEach((t, i) => {
+      // Check for page overflow
+      if (y + 8 > pageH - 55) {
+        drawPageFooterBar();
+        doc.addPage();
+        y = margin;
+      }
+
+      // Alternating row background
+      doc.setFillColor(...(i % 2 === 0 ? LIGHT_BG : WHITE));
+      doc.rect(margin, y - 5, contentW, 8, "F");
+      doc.setDrawColor(...BORDER);
+      doc.setLineWidth(0.1);
+      doc.line(margin, y + 3, pageW - margin, y + 3);
+
+      const isChild = t.isChild || (t.age != null && t.age < 10);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8.5);
+      doc.setTextColor(...DARK);
+      doc.text(String(i + 1), colX.num, y);
+      doc.setFont("helvetica", "bold");
+      doc.text(t.name || "-", colX.name, y);
+      doc.setFont("helvetica", "normal");
+      doc.text(t.gender || "-", colX.gender, y);
+      doc.text(t.age != null ? String(t.age) : "-", colX.age, y);
+
+      // Type badge
+      if (isChild) {
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(37, 99, 235); // blue
+        doc.text("Child", colX.type, y);
+      } else {
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(22, 163, 74); // green
+        doc.text("Adult", colX.type, y);
+      }
+
+      y += 8;
+    });
+
+    // Summary row
+    const adultCount = travellerDetails.filter(t => !t.isChild && (t.age == null || t.age >= 10)).length;
+    const childCount = travellerDetails.length - adultCount;
+    doc.setFillColor(...ACCENT_BG);
+    doc.rect(margin, y - 5, contentW, 8, "F");
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(...PRIMARY_DARK);
+    doc.text(
+      `Total: ${travellerDetails.length} traveller(s) - ${adultCount} adult(s)${childCount > 0 ? `, ${childCount} child(ren) (under 10, free)` : ""}`,
+      margin + 4,
+      y
+    );
+    y += 10;
+  }
+
   // ── HOTEL DETAILS (Table) ──
   const hotels = booking.selectedHotels || [];
   if (hotels.length > 0) {
@@ -199,9 +297,9 @@ export async function generateInvoicePdf(booking) {
           if (data && (data.hotel || data)) {
             const h = data.hotel || data;
             return {
-              name: h.name || hotel.hotelName || "—",
-              destination: h.destination || hotel.city || "—",
-              location: h.location || "—",
+              name: h.name || hotel.hotelName || "-",
+              destination: h.destination || hotel.city || "-",
+              location: h.location || "-",
               amenities: h.amenities || [],
             };
           }
@@ -209,9 +307,9 @@ export async function generateInvoicePdf(booking) {
           // fallback to booking data
         }
         return {
-          name: hotel.hotelName || "—",
-          destination: hotel.city || "—",
-          location: "—",
+          name: hotel.hotelName || "-",
+          destination: hotel.city || "-",
+          location: "-",
           amenities: [],
         };
       })
@@ -263,7 +361,7 @@ export async function generateInvoicePdf(booking) {
       doc.setTextColor(...DARK);
       const amenitiesText = hotel.amenities.length > 0
         ? hotel.amenities.join(" • ")
-        : "—";
+        : "-";
       // Wrap amenities text if it's too long
       const maxAmenityW = contentW - 54;
       const amenityLines = doc.splitTextToSize(amenitiesText, maxAmenityW);
@@ -280,18 +378,18 @@ export async function generateInvoicePdf(booking) {
     });
   }
 
-  // ── Page 1 — "Continued on next page" note ──
+  // ── Page 1 - "Continued on next page" note ──
   y += 10;
   doc.setFont("helvetica", "italic");
   doc.setFontSize(8);
   doc.setTextColor(...MUTED);
-  doc.text("— Continued on next page —", pageW / 2, y, { align: "center" });
+  doc.text("- Continued on next page -", pageW / 2, y, { align: "center" });
 
   // Page 1 bottom bar
   drawPageFooterBar();
 
   // ══════════════════════════════════════════
-  //  PAGE 2 — Pricing Summary + Footer
+  //  PAGE 2 - Pricing Summary + Footer
   // ══════════════════════════════════════════
   doc.addPage();
   y = margin;
@@ -342,7 +440,7 @@ export async function generateInvoicePdf(booking) {
         packageOriginalPrice = Number(pkg.originalPrice);
       }
     } catch {
-      // fallback — no original price available
+      // fallback - no original price available
     }
   }
 
@@ -401,7 +499,7 @@ export async function generateInvoicePdf(booking) {
     : 0;
   const savingsAmount = hasOriginalPrice ? originalTotalForPax - basePrice : 0;
 
-  // Row 1: Original Price (strikethrough) — only if discount exists
+  // Row 1: Original Price (strikethrough) - only if discount exists
   if (hasOriginalPrice) {
     pricingRow(
       `Original Price (for ${travelers} pax)`,
@@ -443,12 +541,12 @@ export async function generateInvoicePdf(booking) {
     doc.setTextColor(...WHITE);
     doc.text("TOTAL AMOUNT", labelX, y + 3);
 
-    // Discounted price — large, bold, right-aligned
+    // Discounted price - large, bold, right-aligned
     doc.setFontSize(15);
     doc.text(fmt(totalPrice), valueX, y + 3.5, { align: "right" });
 
     // Line 2: Original price with strikethrough (right) + "You save" (left)
-    // Original price — smaller, faded, with strikethrough
+    // Original price - smaller, faded, with strikethrough
     const origText = fmt(originalTotalForPax);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
@@ -459,7 +557,7 @@ export async function generateInvoicePdf(booking) {
     doc.setLineWidth(0.35);
     doc.line(valueX - origTextW, y + 9.8, valueX, y + 9.8);
 
-    // Line 3: "You save Rs. X,XXX" + discount badge — right-aligned below original price
+    // Line 3: "You save Rs. X,XXX" + discount badge - right-aligned below original price
     const discountBadge = `${discountPercent}% OFF`;
     doc.setFontSize(7);
     const badgeW = doc.getTextWidth(discountBadge) + 6;
@@ -482,7 +580,7 @@ export async function generateInvoicePdf(booking) {
     const saveTextX = badgeX - 3;
     doc.text(saveText, saveTextX, y + 19, { align: "right" });
   } else {
-    // No discount — simple layout
+    // No discount - simple layout
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
     doc.setTextColor(...WHITE);
@@ -538,7 +636,7 @@ export async function generateInvoicePdf(booking) {
   });
 
   // ────────────────────────────────────────
-  //  FOOTER — Company + Signature (pinned to bottom of page 2)
+  //  FOOTER - Company + Signature (pinned to bottom of page 2)
   // ────────────────────────────────────────
   const footerY = pageH - 48;
 

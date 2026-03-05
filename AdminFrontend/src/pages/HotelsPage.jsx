@@ -80,7 +80,7 @@ export default function HotelsPage() {
   const fetchHotels = async () => {
     try {
       setIsLoading(true);
-      const data = await hotelService.getHotels();
+      const data = await hotelService.getAllHotelsAdmin();
       setHotels(data);
     } catch (error) {
       console.error('Failed to fetch hotels:', error);
@@ -205,10 +205,15 @@ export default function HotelsPage() {
                 alt={hotel.name}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute top-3 left-3">
+              <div className="absolute top-3 left-3 flex gap-2">
                 <Badge className={hotel.isActive ? 'bg-primary/90 text-white' : 'bg-muted text-muted-foreground'}>
                   {hotel.isActive ? 'Active' : 'Inactive'}
                 </Badge>
+                {hotel.approvalStatus && hotel.approvalStatus !== 'approved' && (
+                  <Badge className={hotel.approvalStatus === 'pending' ? 'bg-amber-500 text-white' : 'bg-red-500 text-white'}>
+                    {hotel.approvalStatus === 'pending' ? '⏳ Pending' : '❌ Rejected'}
+                  </Badge>
+                )}
               </div>
               <div className="absolute top-3 right-3">
                 <DropdownMenu>
@@ -303,6 +308,17 @@ export default function HotelsPage() {
                   <Badge variant={selectedHotel.isActive ? "default" : "secondary"} className={selectedHotel.isActive ? "bg-green-500 text-white" : ""}>
                     {selectedHotel.isActive ? 'Active' : 'Inactive'}
                   </Badge>
+                  {selectedHotel.approvalStatus && (
+                    <Badge className={
+                      selectedHotel.approvalStatus === 'approved' ? 'bg-emerald-500 text-white' :
+                      selectedHotel.approvalStatus === 'pending' ? 'bg-amber-500 text-white' :
+                      'bg-red-500 text-white'
+                    }>
+                      {selectedHotel.approvalStatus === 'approved' ? '✅ Approved' :
+                       selectedHotel.approvalStatus === 'pending' ? '⏳ Pending Approval' :
+                       '❌ Rejected'}
+                    </Badge>
+                  )}
                   <div className="flex items-center gap-1 bg-muted px-2 py-0.5 rounded-full">
                     <Star className="h-3 w-3 text-accent fill-accent" />
                     <span className="text-xs font-medium">{selectedHotel.rating} Star</span>

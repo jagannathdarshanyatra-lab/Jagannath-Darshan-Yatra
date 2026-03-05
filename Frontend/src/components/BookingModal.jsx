@@ -110,7 +110,7 @@ const BookingModal = ({ isOpen, onClose, pkg, user, token, initialTravelers = 2,
           key: orderData.key,
           amount: orderData.order.amount,
           currency: orderData.order.currency,
-          name: 'Bharat Darshan',
+          name: 'Jagannath Darshan Yatra',
           description: `Booking for ${pkg.name}`,
           order_id: orderData.order.id,
           handler: async (response) => {

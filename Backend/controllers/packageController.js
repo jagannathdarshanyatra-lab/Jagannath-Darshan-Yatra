@@ -19,7 +19,7 @@ const getPackages = async (req, res) => {
     } = req.query;
 
     // Build query
-    const query = { isActive: true };
+    const query = { isActive: true, approvalStatus: 'approved' };
 
     if (state) {
       query.stateName = new RegExp(`^${state}$`, 'i');
@@ -94,12 +94,12 @@ const getPackageById = async (req, res) => {
 
     // Check if it's a valid MongoDB ObjectId
     if (id.match(/^[0-9a-fA-F]{24}$/)) {
-      pkg = await Package.findOne({ _id: id, isActive: true }).select('-__v');
+      pkg = await Package.findOne({ _id: id, isActive: true, approvalStatus: 'approved' }).select('-__v');
     }
 
     // If not found by ObjectId, try legacy ID
     if (!pkg) {
-      pkg = await Package.findOne({ legacyId: Number(id), isActive: true }).select('-__v');
+      pkg = await Package.findOne({ legacyId: Number(id), isActive: true, approvalStatus: 'approved' }).select('-__v');
     }
 
     if (!pkg) {
@@ -132,6 +132,7 @@ const getPackageBySlug = async (req, res) => {
     const pkg = await Package.findOne({
       slug: req.params.slug,
       isActive: true,
+      approvalStatus: 'approved',
     }).select('-__v');
 
     if (!pkg) {
@@ -164,6 +165,7 @@ const getPackagesByDestinationName = async (req, res) => {
     const packages = await Package.find({
       primaryDestination: new RegExp(`^${req.params.dest}$`, 'i'),
       isActive: true,
+      approvalStatus: 'approved',
     })
       .sort({ type: 1, price: 1 })
       .select('-__v');
@@ -331,6 +333,7 @@ const createPackage = async (req, res) => {
       rating: Number(req.body.rating) || 4.5,
       reviews: Number(req.body.reviews) || 0,
       isActive: req.body.isActive !== 'false' && req.body.isActive !== false,
+      approvalStatus: req.admin && req.admin.role === 'superadmin' ? 'approved' : 'pending',
     };
 
     // Add uploaded images
@@ -690,6 +693,97 @@ const deletePackage = async (req, res) => {
   }
 };
 
+/**
+ * @desc    Get pending packages for SuperAdmin approval
+ * @route   GET /api/packages/admin/pending
+ * @access  Private (SuperAdmin)
+ */
+const getPendingPackages = async (req, res) => {
+  try {
+    const packages = await Package.find({ approvalStatus: 'pending' })
+      .sort({ createdAt: -1 })
+      .select('-__v');
+
+    res.json({
+      success: true,
+      count: packages.length,
+      packages,
+    });
+  } catch (error) {
+    console.error('Error fetching pending packages:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch pending packages',
+    });
+  }
+};
+
+/**
+ * @desc    Approve a package
+ * @route   PATCH /api/packages/:id/approve
+ * @access  Private (SuperAdmin)
+ */
+const approvePackage = async (req, res) => {
+  try {
+    const pkg = await Package.findById(req.params.id);
+
+    if (!pkg) {
+      return res.status(404).json({
+        success: false,
+        error: 'Package not found',
+      });
+    }
+
+    pkg.approvalStatus = 'approved';
+    await pkg.save();
+
+    res.json({
+      success: true,
+      message: 'Package approved successfully',
+      package: pkg,
+    });
+  } catch (error) {
+    console.error('Error approving package:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to approve package',
+    });
+  }
+};
+
+/**
+ * @desc    Reject a package
+ * @route   PATCH /api/packages/:id/reject
+ * @access  Private (SuperAdmin)
+ */
+const rejectPackage = async (req, res) => {
+  try {
+    const pkg = await Package.findById(req.params.id);
+
+    if (!pkg) {
+      return res.status(404).json({
+        success: false,
+        error: 'Package not found',
+      });
+    }
+
+    pkg.approvalStatus = 'rejected';
+    await pkg.save();
+
+    res.json({
+      success: true,
+      message: 'Package rejected',
+      package: pkg,
+    });
+  } catch (error) {
+    console.error('Error rejecting package:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to reject package',
+    });
+  }
+};
+
 module.exports = {
   getPackages,
   getPackageById,
@@ -699,4 +793,7 @@ module.exports = {
   createPackage,
   updatePackage,
   deletePackage,
+  getPendingPackages,
+  approvePackage,
+  rejectPackage,
 };

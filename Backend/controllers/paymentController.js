@@ -273,7 +273,7 @@ const processRefund = async (req, res) => {
 
     // Check if payment was made
     if (!booking.paymentId) {
-      // No payment was made — just mark as completed
+      // No payment was made - just mark as completed
       booking.refundStatus = 'completed';
       booking.refundProcessedAt = new Date();
       await booking.save();
@@ -286,7 +286,7 @@ const processRefund = async (req, res) => {
 
     // Check if Razorpay is initialized
     if (!razorpay) {
-      // Razorpay not configured — mark refund as pending for manual processing
+      // Razorpay not configured - mark refund as pending for manual processing
       booking.refundStatus = 'pending';
       await booking.save();
       return res.json({
@@ -328,7 +328,7 @@ const processRefund = async (req, res) => {
         },
       });
     } catch (razorpayError) {
-      // Refund failed — update status
+      // Refund failed - update status
       booking.refundStatus = 'failed';
       await booking.save();
       

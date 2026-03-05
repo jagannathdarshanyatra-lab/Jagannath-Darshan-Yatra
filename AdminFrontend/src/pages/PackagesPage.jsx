@@ -274,6 +274,11 @@ export default function PackagesPage() {
                       Inactive
                     </Badge>
                   )}
+                  {pkg.approvalStatus && pkg.approvalStatus !== 'approved' && (
+                    <Badge className={pkg.approvalStatus === 'pending' ? 'bg-amber-500 text-white' : 'bg-red-500 text-white'}>
+                      {pkg.approvalStatus === 'pending' ? '⏳ Pending' : '❌ Rejected'}
+                    </Badge>
+                  )}
                 </div>
                 <div className="absolute top-3 right-3">
                   <DropdownMenu>
@@ -355,6 +360,17 @@ export default function PackagesPage() {
                   <Badge variant={selectedPackage.isActive ? "default" : "secondary"} className={selectedPackage.isActive ? "bg-green-500 text-white" : ""}>
                     {selectedPackage.isActive ? 'Active' : 'Inactive'}
                   </Badge>
+                  {selectedPackage.approvalStatus && (
+                    <Badge className={
+                      selectedPackage.approvalStatus === 'approved' ? 'bg-emerald-500 text-white' :
+                      selectedPackage.approvalStatus === 'pending' ? 'bg-amber-500 text-white' :
+                      'bg-red-500 text-white'
+                    }>
+                      {selectedPackage.approvalStatus === 'approved' ? '✅ Approved' :
+                       selectedPackage.approvalStatus === 'pending' ? '⏳ Pending Approval' :
+                       '❌ Rejected'}
+                    </Badge>
+                  )}
                 </div>
                 <DialogTitle className="font-display text-2xl mt-2">{selectedPackage.name}</DialogTitle>
                 <DialogDescription className="flex items-center gap-2 text-base">

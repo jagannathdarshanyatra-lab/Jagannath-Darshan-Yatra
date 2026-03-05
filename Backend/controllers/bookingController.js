@@ -8,6 +8,8 @@ const createBooking = async (req, res) => {
       packageName,
       packageImage, 
       travelers,
+      totalTravelers,
+      travellerDetails,
       tripDate,
       totalPrice,
       destination,
@@ -39,6 +41,8 @@ const createBooking = async (req, res) => {
       packageName,
       packageImage: packageImage || '',
       travelers,
+      totalTravelers: totalTravelers || null,
+      travellerDetails: travellerDetails || [],
       tripDate,
       totalPrice,
       destination,
@@ -186,7 +190,7 @@ const updateBookingHotels = async (req, res) => {
   }
 };
 
-// @desc    Update booking status (Admin only) — with transition validation
+// @desc    Update booking status (Admin only) - with transition validation
 // @route   PUT /api/bookings/:id/status
 // @access  Private/Admin
 const updateBookingStatus = async (req, res) => {

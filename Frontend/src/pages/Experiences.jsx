@@ -82,7 +82,7 @@ const Experiences = () => {
         <section className="relative h-[60vh] overflow-hidden">
           <img
             src={experienceHero}
-            alt="Bharat Darshan Experience"
+            alt="Jagannath Darshan Yatra Experience"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-foreground/70 via-foreground/50 to-foreground/80" />
@@ -93,7 +93,7 @@ const Experiences = () => {
               className="text-center px-4"
             >
               <span className="inline-block px-4 py-2 rounded-full bg-primary/30 backdrop-blur-sm text-primary-foreground text-sm font-medium mb-6">
-                 The Bharat Darshan Experience
+                 The Jagannath Darshan Yatra Experience
               </span>
               <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4">
                 Why Travel With Us?
@@ -142,7 +142,7 @@ const Experiences = () => {
                 Trust & Excellence
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-                The Bharat Darshan Promise
+                The Jagannath Darshan Yatra Promise
               </h2>
               <p className="text-muted-foreground text-lg">
                 We don't just plan trips; we craft experiences. Here's what sets us apart 
@@ -253,7 +253,7 @@ const Experiences = () => {
                 </h2>
                 <div className="space-y-4 text-muted-foreground">
                   <p>
-                    Bharat Darshan was founded by a group of passionate Odisha natives who saw 
+                    Jagannath Darshan Yatra was founded by a group of passionate Odisha natives who saw 
                     tourists struggling with unreliable guides, overpriced hotels, and missed 
                     experiences in their beautiful homeland.
                   </p>

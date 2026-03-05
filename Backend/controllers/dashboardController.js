@@ -13,22 +13,21 @@ exports.getDashboardStats = async (req, res) => {
     // 1. Static/Hardcoded Base Values
     const baseWebsiteVisits = 11000;
     const baseBookingAttempts = 144;
-    const baseActiveHotels = 92;
 
     // 2. Fetch Real Counts
     const totalBookingsCount = await Booking.countDocuments();
-    const activeHotelsCount = await Hotel.countDocuments({ isActive: true });
+    const activeHotelsCount = await Hotel.countDocuments();
     
     // Calculate final displayed values (Base + Real)
     // For website visits, we don't have real tracking, so just return base
     const websiteVisits = baseWebsiteVisits;
     // For bookings, we add real bookings to base
     const totalBookings = baseBookingAttempts + totalBookingsCount;
-    // For hotels, we add real hotels to base
-    const activeHotels = baseActiveHotels + activeHotelsCount;
+    // For hotels, show actual count from database
+    const activeHotels = activeHotelsCount;
 
     // 3. Dynamic Counts
-    const activePackages = await Package.countDocuments({ isActive: true });
+    const activePackages = await Package.countDocuments();
     const activeDestinations = await Destination.countDocuments({ isActive: true });
 
     // 4. Financials (Revenue)

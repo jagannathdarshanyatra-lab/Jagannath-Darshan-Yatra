@@ -30,7 +30,28 @@ const adminAuthService = {
   },
 
   getAdminUser: () => {
-    return JSON.parse(localStorage.getItem('adminUser'));
+    const user = localStorage.getItem('adminUser');
+    return user ? JSON.parse(user) : null;
+  },
+
+  getRole: () => {
+    const user = localStorage.getItem('adminUser');
+    if (!user) return null;
+    try {
+      return JSON.parse(user).role;
+    } catch {
+      return null;
+    }
+  },
+
+  isSuperAdmin: () => {
+    const user = localStorage.getItem('adminUser');
+    if (!user) return false;
+    try {
+      return JSON.parse(user).role === 'superadmin';
+    } catch {
+      return false;
+    }
   },
 
   isAuthenticated: () => {

@@ -17,7 +17,7 @@ const Maintenance = () => {
         </p>
         
         <div className="text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} Bharat Darshan. All rights reserved.
+          &copy; {new Date().getFullYear()} Jagannath Darshan Yatra. All rights reserved.
         </div>
       </div>
     </div>

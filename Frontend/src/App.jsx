@@ -20,6 +20,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import RefundPolicy from "./pages/RefundPolicy";
 import DownloadInvoice from "./pages/DownloadInvoice";
+import BookingForm from "./pages/BookingForm";
 
 import ScrollToTop from "@/components/ScrollToTop";
 
@@ -62,6 +63,7 @@ const AppRoutes = () => {
       <Route path="/bookings/:bookingId/select-hotels" element={<HotelSelection />} />
       <Route path="/packages/:packageId/hotels" element={<HotelSelection />} />
       <Route path="/booking-success" element={<BookingSuccess />} />
+      <Route path="/booking-form" element={<BookingForm />} />
       <Route path="/privacy" element={<PrivacyPolicy />} />
       <Route path="/terms" element={<TermsOfService />} />
       <Route path="/refund" element={<RefundPolicy />} />

@@ -8,6 +8,16 @@ const hotelService = {
     return response.data;
   },
 
+  getAllHotelsAdmin: async () => {
+    const token = localStorage.getItem('adminToken');
+    const response = await axios.get(`${API_URL}/hotels/admin/all`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    return response.data.hotels;
+  },
+
   getHotelById: async (id) => {
     const response = await axios.get(`${API_URL}/hotels/${id}`);
     return response.data;

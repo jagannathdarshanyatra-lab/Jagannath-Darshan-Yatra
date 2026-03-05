@@ -49,8 +49,8 @@ const VALID_TRANSITIONS = {
   pending: ['confirmed', 'cancellation_requested', 'cancelled'],
   confirmed: ['completed', 'cancellation_requested', 'cancelled'],
   cancellation_requested: ['cancelled', 'confirmed'], // Admin can approve (→cancelled) or reject (→confirmed)
-  cancelled: [], // Terminal state — cannot transition out
-  completed: [], // Terminal state — cannot transition out
+  cancelled: [], // Terminal state - cannot transition out
+  completed: [], // Terminal state - cannot transition out
 };
 
 /**

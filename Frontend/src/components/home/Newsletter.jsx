@@ -4,7 +4,7 @@ import { MessageCircle, Phone, Sparkles } from "lucide-react";
 
 const WhatsAppCTA = () => {
   const whatsappNumber = "917205099129";
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi! I'm interested in Bharat Darshan travel packages. Please share the latest offers.`;
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi! I'm interested in Jagannath Darshan Yatra travel packages. Please share the latest offers.`;
 
   return (
     <section className="py-20 bg-hero-gradient relative overflow-hidden">

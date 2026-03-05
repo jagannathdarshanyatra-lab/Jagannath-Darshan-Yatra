@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Eye, EyeOff, Lock, Mail, ArrowRight } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, ArrowRight, Shield, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/Logo_Bharat_Darshan.webp';
 import adminAuthService from '../services/adminAuthService';
 import { toast } from 'sonner';
 
+const tabs = [
+  { id: 'admin', label: 'Admin', icon: Shield },
+  { id: 'superadmin', label: 'Super Admin', icon: ShieldCheck },
+];
+
 export default function AuthPage() {
+  const [activeTab, setActiveTab] = useState('admin');
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,8 +27,29 @@ export default function AuthPage() {
       const response = await adminAuthService.login(email, password);
 
       if (response.success) {
+        // Validate that the logged-in role matches the selected tab
+        const loggedInRole = response.admin?.role;
+        if (activeTab === 'superadmin' && loggedInRole !== 'superadmin') {
+          toast.error("Access Denied", {
+            description: "These credentials are not valid for Super Admin access."
+          });
+          adminAuthService.logout();
+          setIsLoading(false);
+          return;
+        }
+        if (activeTab === 'admin' && loggedInRole === 'superadmin') {
+          toast.error("Access Denied", {
+            description: "Please use the Super Admin tab for Super Admin credentials."
+          });
+          adminAuthService.logout();
+          setIsLoading(false);
+          return;
+        }
+
         toast.success("Login Successful", {
-          description: "Welcome back to the Admin Panel."
+          description: loggedInRole === 'superadmin'
+            ? "Welcome back, Super Admin."
+            : "Welcome back to the Admin Panel."
         });
         navigate('/');
       } else {
@@ -84,6 +111,42 @@ export default function AuthPage() {
           layout
           className="glass-card rounded-2xl p-8 backdrop-blur-xl border border-white/20 shadow-2xl"
         >
+          {/* Role Tabs */}
+          <div className="relative flex mb-6 bg-muted/50 rounded-xl p-1">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => {
+                  setActiveTab(tab.id);
+                  setEmail('');
+                  setPassword('');
+                }}
+                className={`relative flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 z-10 ${
+                  activeTab === tab.id
+                    ? 'text-white'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <tab.icon className="w-4 h-4" />
+                {tab.label}
+              </button>
+            ))}
+            {/* Animated tab indicator */}
+            <motion.div
+              layout
+              className="absolute top-1 bottom-1 rounded-lg bg-gradient-primary shadow-lg"
+              style={{
+                width: 'calc(50% - 4px)',
+              }}
+              animate={{
+                x: activeTab === 'admin' ? 0 : '100%',
+                left: activeTab === 'admin' ? '4px' : '4px',
+              }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            />
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="relative">
               <Mail className={iconClasses} />
@@ -123,7 +186,7 @@ export default function AuthPage() {
               type="submit"
               disabled={isLoading}
             >
-              <span>{isLoading ? 'Signing In...' : 'Sign In'}</span>
+              <span>{isLoading ? 'Signing In...' : `Sign In as ${activeTab === 'superadmin' ? 'Super Admin' : 'Admin'}`}</span>
               {!isLoading && <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />}
             </motion.button>
           </form>

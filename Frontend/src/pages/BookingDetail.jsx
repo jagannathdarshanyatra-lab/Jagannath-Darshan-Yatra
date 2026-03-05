@@ -248,6 +248,71 @@ const BookingDetail = () => {
                     )}
                 </div>
 
+                {/* Traveller Details Card */}
+                {booking.travellerDetails && booking.travellerDetails.length > 0 && (
+                  <div className="bg-card rounded-2xl border border-border shadow-sm p-6 md:p-8">
+                    <h3 className="text-lg font-bold mb-6 flex items-center gap-2 border-b border-border pb-4">
+                      <Users className="w-5 h-5 text-primary" />
+                      Traveller Details
+                    </h3>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="border-b border-border">
+                            <th className="text-left py-3 px-2 text-muted-foreground font-medium text-xs uppercase tracking-wider">#</th>
+                            <th className="text-left py-3 px-2 text-muted-foreground font-medium text-xs uppercase tracking-wider">Name</th>
+                            <th className="text-left py-3 px-2 text-muted-foreground font-medium text-xs uppercase tracking-wider">Gender</th>
+                            <th className="text-left py-3 px-2 text-muted-foreground font-medium text-xs uppercase tracking-wider">Age</th>
+                            <th className="text-left py-3 px-2 text-muted-foreground font-medium text-xs uppercase tracking-wider">Type</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {booking.travellerDetails.map((t, i) => {
+                            const isChild = t.isChild || (t.age != null && t.age < 10);
+                            return (
+                              <tr key={i} className={`border-b border-border/50 ${isChild ? 'bg-blue-50/50' : ''}`}>
+                                <td className="py-3 px-2 text-muted-foreground">{i + 1}</td>
+                                <td className="py-3 px-2 font-medium">{t.name || '-'}</td>
+                                <td className="py-3 px-2">{t.gender || '-'}</td>
+                                <td className="py-3 px-2">{t.age != null ? t.age : '-'}</td>
+                                <td className="py-3 px-2">
+                                  {isChild ? (
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700">
+                                      Child
+                                    </span>
+                                  ) : (
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700">
+                                      Adult
+                                    </span>
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                    {/* Summary */}
+                    {(() => {
+                      const adults = booking.travellerDetails.filter(t => !t.isChild && (t.age == null || t.age >= 10)).length;
+                      const children = booking.travellerDetails.length - adults;
+                      return (
+                        <div className="mt-4 pt-3 border-t border-border flex items-center gap-3 text-sm text-muted-foreground">
+                          <span className="font-medium">{booking.travellerDetails.length} Traveller(s)</span>
+                          <span>•</span>
+                          <span>{adults} Adult(s)</span>
+                          {children > 0 && (
+                            <>
+                              <span>•</span>
+                              <span className="text-blue-600">{children} Child(ren) <span className="text-xs">(under 10, free)</span></span>
+                            </>
+                          )}
+                        </div>
+                      );
+                    })()}
+                  </div>
+                )}
+
                 {/* Cancellation Request Status Card */}
                 {isCancellationRequested && (
                   <motion.div

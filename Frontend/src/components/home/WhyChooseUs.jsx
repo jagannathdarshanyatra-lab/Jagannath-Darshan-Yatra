@@ -49,7 +49,7 @@ const WhyChooseUs = () => {
             Trust & Excellence
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Why Choose Bharat Darshan?
+            Why Choose Jagannath Darshan Yatra?
           </h2>
           <p className="text-muted-foreground text-lg">
             We don't just plan trips; we craft memories. Here's what sets us apart 

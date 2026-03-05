@@ -23,11 +23,11 @@ const handleBookingConfirmation = async (req, res) => {
       });
     }
 
-    // 2. Idempotency check — prevent duplicate bookings
+    // 2. Idempotency check - prevent duplicate bookings
     if (normalizedData.otaBookingId) {
       const existingBooking = await Booking.findOne({ otaBookingId: normalizedData.otaBookingId });
       if (existingBooking) {
-        console.log(`[OTA Webhook] Duplicate booking detected: ${normalizedData.otaBookingId} — returning existing`);
+        console.log(`[OTA Webhook] Duplicate booking detected: ${normalizedData.otaBookingId} - returning existing`);
         return res.status(200).json({
           success: true,
           message: 'Booking already exists (idempotent)',

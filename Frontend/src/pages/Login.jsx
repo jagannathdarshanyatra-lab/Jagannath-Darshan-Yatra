@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/forms";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
-import Logo from "@/assets/Logo_Bharat_Darshan.webp";
+
 
 // API base URL - change for production
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -104,7 +104,7 @@ const Login = () => {
             <div className="md:w-1/2 bg-hero-gradient p-12 text-primary-foreground flex flex-col justify-between relative overflow-hidden">
               <div className="relative z-10">
                 <Link to="/" className="inline-block mb-8">
-                  <img src={Logo} alt="Bharat Darshan Logo" className="h-20 w-auto" />
+                  <span className="font-serif text-2xl md:text-3xl font-bold text-primary-foreground">Jagannath Darshan Yatra</span>
                 </Link>
                 <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
                   {isForgotPassword ? "Reset Password" : isLogin ? "Welcome Back!" : "Join Our Community"}

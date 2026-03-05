@@ -135,6 +135,11 @@ const packageSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    approvalStatus: {
+      type: String,
+      enum: ['pending', 'approved', 'rejected'],
+      default: 'approved',
+    },
   },
   {
     timestamps: true,
@@ -160,6 +165,7 @@ packageSchema.index({ destination: 1 });
 packageSchema.index({ primaryDestination: 1 });
 packageSchema.index({ type: 1 });
 packageSchema.index({ isActive: 1 });
+packageSchema.index({ approvalStatus: 1 });
 packageSchema.index({ price: 1 });
 
 module.exports = mongoose.model('Package', packageSchema);

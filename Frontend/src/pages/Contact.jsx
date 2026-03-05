@@ -83,7 +83,7 @@ const Contact = () => {
           setPackages(data.packages);
         }
       } catch {
-        // Silently fail — dropdown will be empty. Ignore packages fetch error.
+        // Silently fail - dropdown will be empty. Ignore packages fetch error.
       }
     };
     
@@ -350,13 +350,13 @@ const Contact = () => {
                       />
                       <Marker position={[20.296059, 85.867256]} icon={redIcon}>
                         <Popup>
-                          Bharat Darshan Travels <br /> Esplanade One Mall, Bhubaneswar.
+                          Jagannath Darshan Yatra Travels <br /> Esplanade One Mall, Bhubaneswar.
                         </Popup>
                       </Marker>
                     </MapContainer>
                   </div>
                   <div className="p-6">
-                    <h3 className="font-semibold text-foreground mb-2">Bharat Darshan Travels</h3>
+                    <h3 className="font-semibold text-foreground mb-2">Jagannath Darshan Yatra Travels</h3>
                     <p className="text-muted-foreground mb-4">
                       Office No: 307, 3rd Floor, <br />
                       Esplanade One Mall, Rasulgarh, <br />

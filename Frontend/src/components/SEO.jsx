@@ -14,7 +14,7 @@ import { Helmet } from 'react-helmet-async';
  * @param {string} [props.image] - OG Image URL
  * @param {string} [props.canonical] - Canonical link URL
  */
-const SEO = ({ title, description, keywords, name = "Bharat Darshan", type = "website", image, canonical }) => {
+const SEO = ({ title, description, keywords, name = "Jagannath Darshan Yatra", type = "website", image, canonical }) => {
   const siteTitle = `${title} | ${name}`;
 
   return (

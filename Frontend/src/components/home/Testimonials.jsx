@@ -17,7 +17,7 @@ const testimonials = [
     location: "Mumbai",
     avatar: "PP",
     rating: 5,
-    text: "Chilika Lake boat ride at sunrise was magical! The dolphins, the birds, and the peaceful atmosphere. Bharat Darshan made it perfect.",
+    text: "Chilika Lake boat ride at sunrise was magical! The dolphins, the birds, and the peaceful atmosphere. Jagannath Darshan Yatra made it perfect.",
     package: "Odisha Heritage Tour",
   },
   {

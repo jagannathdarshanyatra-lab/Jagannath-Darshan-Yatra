@@ -41,6 +41,11 @@ const hotelSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    approvalStatus: {
+      type: String,
+      enum: ['pending', 'approved', 'rejected'],
+      default: 'approved',
+    },
     otaApiLink: {
       type: String,
       trim: true,

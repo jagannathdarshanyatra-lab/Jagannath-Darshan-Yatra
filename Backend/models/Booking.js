@@ -46,6 +46,16 @@ const bookingSchema = new mongoose.Schema(
       required: true,
       default: 1,
     },
+    totalTravelers: {
+      type: Number,
+      default: null,
+    },
+    travellerDetails: [{
+      name: { type: String },
+      gender: { type: String, enum: ['Male', 'Female', 'Other'] },
+      age: { type: Number },
+      isChild: { type: Boolean, default: false },
+    }],
     bookingDate: {
         type: Date,
         required: true,

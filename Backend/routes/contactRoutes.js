@@ -9,7 +9,7 @@ const {
 } = require('../controllers/contactController');
 const { protectAdmin } = require('../middleware/adminAuthMiddleware');
 
-// Public route — user contact form submission
+// Public route - user contact form submission
 router.post('/', submitContactForm);
 
 // Admin-protected routes

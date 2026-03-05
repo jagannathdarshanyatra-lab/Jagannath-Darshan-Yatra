@@ -138,7 +138,7 @@ const HotelDetailsModal = ({
               <div className="p-4 rounded-2xl bg-green-50 border border-green-100 flex items-start gap-3">
                 <ShieldCheck className="w-6 h-6 text-green-600 shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-bold text-green-800">Verified by Bharat Darshan</p>
+                  <p className="text-sm font-bold text-green-800">Verified by Jagannath Darshan Yatra</p>
                   <p className="text-xs text-green-700 mt-0.5">This hotel meets our quality standards for cleanliness, safety, and service excellence.</p>
                 </div>
               </div>

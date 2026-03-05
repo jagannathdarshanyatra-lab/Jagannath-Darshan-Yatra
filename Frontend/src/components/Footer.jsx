@@ -1,6 +1,6 @@
 ﻿import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
-import Logo from "@/assets/White_Logo_Bharat_Darshan.webp";
+
 
 const Footer = () => {
   return (
@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
-              <img src={Logo} alt="Bharat Darshan Logo" className="h-16 w-auto" />
+              <span className="font-serif text-xl md:text-2xl font-bold text-primary-foreground">Jagannath Darshan Yatra</span>
             </Link>
             <p className="text-primary-foreground/80 leading-relaxed">
               Your trusted travel partner for authentic Odisha experiences. From sacred temples to pristine beaches, we craft unforgettable journeys.
@@ -97,7 +97,7 @@ const Footer = () => {
       <div className="border-t border-primary-foreground/20">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/60">
-            <p>© 2026 Bharat Darshan. All rights reserved.</p>
+            <p>© 2026 Jagannath Darshan Yatra. All rights reserved.</p>
             <div className="flex gap-6">
               <Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
               <Link to="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>

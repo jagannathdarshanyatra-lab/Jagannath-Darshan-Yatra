@@ -3,7 +3,6 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaHotel, FaMapMarkerAlt, FaStar, FaCheck, FaWifi, FaSwimmingPool, FaUtensils, FaSpa } from 'react-icons/fa';
 import { sonnerToast as toast } from '@/components/ui/feedback';
-import BookingModal from '@/components/BookingModal';
 import HotelDetailsModal from '@/components/HotelDetailsModal';
 import { fetchPackageById } from '@/services/packageService';
 
@@ -19,7 +18,6 @@ const HotelSelection = () => {
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [viewingHotel, setViewingHotel] = useState(null);
   const [submitting, setSubmitting] = useState(false);
-  const [showBookingModal, setShowBookingModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const user = JSON.parse(localStorage.getItem('user') || 'null');
   const token = localStorage.getItem('token');
@@ -107,8 +105,14 @@ const HotelSelection = () => {
     }
     
     if (packageId) {
-      // New flow: open booking form
-      setShowBookingModal(true);
+      // New flow: navigate to booking form page
+      navigate('/booking-form', {
+        state: {
+          pkg: packageDetails,
+          travelers: initialTravelers,
+          selectedHotel: selectedHotel
+        }
+      });
       return;
     }
 
@@ -440,18 +444,6 @@ const HotelSelection = () => {
         packageType={booking?.packageName || packageDetails?.name}
       />
 
-      {/* Booking Modal */}
-      {packageDetails && (
-        <BookingModal
-          isOpen={showBookingModal}
-          onClose={() => setShowBookingModal(false)}
-          pkg={packageDetails}
-          user={user}
-          token={token}
-          initialTravelers={initialTravelers}
-          selectedHotel={selectedHotel}
-        />
-      )}
     </div>
   );
 };

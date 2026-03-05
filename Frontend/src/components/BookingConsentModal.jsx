@@ -153,7 +153,7 @@ const BookingConsentModal = ({ isOpen, onClose, onAccept, packageName }) => {
               <CheckCircle2 className="w-5 h-5 ml-2" />
             </Button>
             <p className="text-center text-[10px] text-gray-400 mt-3 uppercase tracking-widest font-bold">
-              Secure Booking Experience by Bharat Darshan
+              Secure Booking Experience by Jagannath Darshan Yatra
             </p>
           </div>
         </motion.div>

@@ -1,5 +1,5 @@
 ================================================================================
-              BHARAT DARSHAN — OTA INTEGRATION OVERVIEW
+              BHARAT DARSHAN - OTA INTEGRATION OVERVIEW
                     (Bookingjini Integration)
                     Last Updated: 27 Feb 2026
 ================================================================================
@@ -8,7 +8,7 @@
 1. WHAT IS OTA?
 ================================================================================
 OTA = Online Travel Agency (like MakeMyTrip, Goibibo, Booking.com).
-Our OTA partner is BOOKINGJINI. They act as a middleman — customers book 
+Our OTA partner is BOOKINGJINI. They act as a middleman - customers book 
 tours/hotels through Bookingjini's platform, and Bookingjini sends that 
 booking data to our system via a "webhook" (an API call).
 
@@ -26,7 +26,7 @@ ROOT CAUSE:
   There was no code to accept and save incoming bookings.
 
 
-3. WHAT WE'VE DONE (OUR SIDE) — COMPLETED ✅
+3. WHAT WE'VE DONE (OUR SIDE) - COMPLETED ✅
 ================================================================================
 
 A) HOTEL FETCHING (was already built before):
@@ -36,7 +36,7 @@ A) HOTEL FETCHING (was already built before):
    - otaRequestMiddleware.js → Rate limiting & request validation
    - hotelController.js     → Merges local + OTA hotels for display
 
-B) BOOKING WEBHOOK (newly built — fixes the email issue):
+B) BOOKING WEBHOOK (newly built - fixes the email issue):
    - otaWebhookAuth.js      → Verifies incoming requests are from Bookingjini
    - otaWebhookController.js → Receives booking data, saves to database
    - otaWebhookRoutes.js    → 3 API endpoints (see below)

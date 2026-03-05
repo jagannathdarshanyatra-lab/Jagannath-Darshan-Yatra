@@ -4,7 +4,7 @@ import { Menu, X, Phone, MapPin, User, LogOut, CalendarDays } from "lucide-react
 import { Button } from "@/components/ui/forms";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import Logo from "@/assets/Logo_Bharat_Darshan.webp";
+
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -77,7 +77,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2">
-              <img src={Logo} alt="Bharat Darshan Logo" className="h-16 w-auto" />
+              <span className="font-serif text-xl md:text-2xl font-bold text-primary">Jagannath Darshan Yatra</span>
             </Link>
 
             {/* Desktop Nav */}

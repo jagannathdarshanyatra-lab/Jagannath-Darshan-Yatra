@@ -13,7 +13,7 @@ const Index = () => {
     <div className="min-h-screen">
       <SEO 
         title="Best Travel Agency for Puri & Odisha" 
-        description="Experience the best of Puri and Odisha with Bharat Darshan. We offer curated Jagannath Puri tours, beach packages, and heritage experiences." 
+        description="Experience the best of Puri and Odisha with Jagannath Darshan Yatra. We offer curated Jagannath Puri tours, beach packages, and heritage experiences." 
         keywords="Puri travelling, Jagannath Puri tour, Odisha travel agency, best tour packages India, Puri beach tour"
       />
       <Navbar />

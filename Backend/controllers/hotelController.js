@@ -7,7 +7,7 @@ const otaProvider = require('../utils/otaProviders/otaProvider');
 const getHotels = async (req, res) => {
   try {
     const { destination, packageType } = req.query;
-    let query = { isActive: true };
+    let query = { isActive: true, approvalStatus: 'approved' };
 
     if (destination) {
       query.destination = { $regex: destination, $options: 'i' };
@@ -91,6 +91,7 @@ const createHotel = async (req, res) => {
       description,
       rating,
       otaApiLink,
+      approvalStatus: req.admin && req.admin.role === 'superadmin' ? 'approved' : 'pending',
     });
 
     const createdHotel = await hotel.save();
@@ -188,10 +189,118 @@ const deleteHotel = async (req, res) => {
   }
 };
 
+// @desc    Get all hotels for admin (including inactive, all approval statuses)
+// @route   GET /api/hotels/admin/all
+// @access  Admin (Protected)
+const getAllHotelsAdmin = async (req, res) => {
+  try {
+    const hotels = await Hotel.find().sort({ createdAt: -1 });
+    res.json({
+      success: true,
+      count: hotels.length,
+      hotels,
+    });
+  } catch (error) {
+    console.error('getAllHotelsAdmin Error:', error);
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Error fetching hotels',
+    });
+  }
+};
+
+// @desc    Get pending hotels for SuperAdmin approval
+// @route   GET /api/hotels/admin/pending
+// @access  Private (SuperAdmin)
+const getPendingHotels = async (req, res) => {
+  try {
+    const hotels = await Hotel.find({ approvalStatus: 'pending' })
+      .sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      count: hotels.length,
+      hotels,
+    });
+  } catch (error) {
+    console.error('Error fetching pending hotels:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch pending hotels',
+    });
+  }
+};
+
+// @desc    Approve a hotel
+// @route   PATCH /api/hotels/:id/approve
+// @access  Private (SuperAdmin)
+const approveHotel = async (req, res) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id);
+
+    if (!hotel) {
+      return res.status(404).json({
+        success: false,
+        error: 'Hotel not found',
+      });
+    }
+
+    hotel.approvalStatus = 'approved';
+    await hotel.save();
+
+    res.json({
+      success: true,
+      message: 'Hotel approved successfully',
+      hotel,
+    });
+  } catch (error) {
+    console.error('Error approving hotel:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to approve hotel',
+    });
+  }
+};
+
+// @desc    Reject a hotel
+// @route   PATCH /api/hotels/:id/reject
+// @access  Private (SuperAdmin)
+const rejectHotel = async (req, res) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id);
+
+    if (!hotel) {
+      return res.status(404).json({
+        success: false,
+        error: 'Hotel not found',
+      });
+    }
+
+    hotel.approvalStatus = 'rejected';
+    await hotel.save();
+
+    res.json({
+      success: true,
+      message: 'Hotel rejected',
+      hotel,
+    });
+  } catch (error) {
+    console.error('Error rejecting hotel:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to reject hotel',
+    });
+  }
+};
+
 module.exports = {
   getHotels,
   getHotelById,
   createHotel,
   updateHotel,
   deleteHotel,
+  getAllHotelsAdmin,
+  getPendingHotels,
+  approveHotel,
+  rejectHotel,
 };

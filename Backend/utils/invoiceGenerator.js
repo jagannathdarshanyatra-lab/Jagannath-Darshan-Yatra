@@ -15,7 +15,7 @@ const WHITE = [255, 255, 255];
 const BORDER = [230, 210, 190];
 
 const fmt = (num) =>
-  num != null ? `Rs. ${Number(num).toLocaleString("en-IN")}` : "—";
+  num != null ? `Rs. ${Number(num).toLocaleString("en-IN")}` : "-";
 
 const fmtDate = (d) =>
   d
@@ -25,7 +25,7 @@ const fmtDate = (d) =>
         month: "short",
         day: "numeric",
       })
-    : "—";
+    : "-";
 
 const getBookingId = (booking) => {
   if (booking.bookingId) return booking.bookingId;
@@ -85,7 +85,7 @@ const generateInvoicePdf = async (booking) => {
     doc.text(label, margin + 4, y);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(...DARK);
-    doc.text(String(value || "—"), margin + 50, y);
+    doc.text(String(value || "-"), margin + 50, y);
     y += 7;
   };
 
@@ -107,7 +107,7 @@ const generateInvoicePdf = async (booking) => {
     doc.text("Bharat Darshan", margin + 6, y + 20);
   }
 
-  // Right side — INVOICE title + company location
+  // Right side - INVOICE title + company location
   doc.setFont("helvetica", "bold");
   doc.setFontSize(22);
   doc.setTextColor(...PRIMARY);
@@ -173,12 +173,12 @@ const generateInvoicePdf = async (booking) => {
 
     for (let i = 0; i < hotels.length; i++) {
         const hotel = hotels[i];
-        let hDetails = { name: hotel.hotelName, destination: hotel.city, location: "—", amenities: [] };
+        let hDetails = { name: hotel.hotelName, destination: hotel.city, location: "-", amenities: [] };
         
         try {
             const fullHotel = await Hotel.findById(hotel.hotelId);
             if (fullHotel) {
-                hDetails.location = fullHotel.location || "—";
+                hDetails.location = fullHotel.location || "-";
                 hDetails.amenities = fullHotel.amenities || [];
             }
         } catch (e) {}
@@ -200,7 +200,7 @@ const generateInvoicePdf = async (booking) => {
         doc.text("Amenities:", margin + 4, y);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(...DARK);
-        const amenitiesText = hDetails.amenities.length > 0 ? hDetails.amenities.join(" • ") : "—";
+        const amenitiesText = hDetails.amenities.length > 0 ? hDetails.amenities.join(" • ") : "-";
         const maxAmenityW = contentW - 54;
         const amenityLines = doc.splitTextToSize(amenitiesText, maxAmenityW);
         doc.text(amenityLines, margin + 50, y);

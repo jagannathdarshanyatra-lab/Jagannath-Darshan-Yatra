@@ -130,7 +130,7 @@ const DownloadInvoice = () => {
       </div>
       
       <p className="mt-6 text-slate-400 text-xs text-center max-w-xs">
-        &copy; 2026 Bharat Darshan. If you have any trouble downloading, please contact our support team.
+        &copy; 2026 Jagannath Darshan Yatra. If you have any trouble downloading, please contact our support team.
       </p>
     </div>
   );

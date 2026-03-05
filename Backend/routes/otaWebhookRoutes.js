@@ -7,13 +7,13 @@ const {
 } = require('../controllers/otaWebhookController');
 const { verifyOtaWebhook } = require('../middleware/otaWebhookAuth');
 
-// Health check — no auth required (for OTA provider to test connectivity)
+// Health check - no auth required (for OTA provider to test connectivity)
 router.get('/health', handleWebhookHealth);
 
-// Booking confirmation — protected by OTA webhook auth
+// Booking confirmation - protected by OTA webhook auth
 router.post('/booking', verifyOtaWebhook, handleBookingConfirmation);
 
-// Cancellation notification — protected by OTA webhook auth
+// Cancellation notification - protected by OTA webhook auth
 router.post('/cancellation', verifyOtaWebhook, handleBookingCancellation);
 
 module.exports = router;
