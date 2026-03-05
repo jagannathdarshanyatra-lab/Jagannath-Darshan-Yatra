@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, EyeOff, Lock, Mail, ArrowRight, Shield, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/Logo_Bharat_Darshan.webp';
+import logo from '../assets/Jagannath_Darshan_Logo.png';
 import adminAuthService from '../services/adminAuthService';
 import { toast } from 'sonner';
 
@@ -87,7 +87,7 @@ export default function AuthPage() {
             transition={{ duration: 0.5 }}
             src={logo} 
             alt="Jagannath Darshan Yatra" 
-            className="h-24 mx-auto mb-4 drop-shadow-lg"
+            className="h-28 mx-auto mb-4 drop-shadow-lg"
           />
           <motion.h1 
             initial={{ opacity: 0, y: -20 }}
