@@ -86,7 +86,7 @@ export default function AuthPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             src={logo} 
-            alt="Bharat Darshan" 
+            alt="Jagannath Darshan Yatra" 
             className="h-24 mx-auto mb-4 drop-shadow-lg"
           />
           <motion.h1 
