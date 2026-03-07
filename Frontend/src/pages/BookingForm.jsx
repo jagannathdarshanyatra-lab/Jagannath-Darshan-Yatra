@@ -8,6 +8,7 @@ import { sonnerToast as toast } from '@/components/ui/feedback';
 import { createBooking, createPaymentOrder, verifyPayment, getRazorpayKey } from '@/services/packageService';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import GuestRestrictionModal from '@/components/GuestRestrictionModal';
 
 const BookingForm = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const BookingForm = () => {
   const [contactPhone, setContactPhone] = useState('');
   const [specialRequests, setSpecialRequests] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showRestrictionModal, setShowRestrictionModal] = useState(false);
 
   // Traveller details: array of { name, gender, age }
   const [travellerDetails, setTravellerDetails] = useState(
@@ -68,13 +70,12 @@ const BookingForm = () => {
 
   const childCount = travelers - adultCount;
 
-  // Pricing uses adultCount instead of raw travelers
+  // No more extra traveler fee
   const calculateTotal = (basePrice) => {
     if (!basePrice) return 0;
-    const extraTravelers = Math.max(0, adultCount - maxIncludedTravelers);
-    return Math.round(basePrice + (extraTravelers * basePrice * 0.3));
+    return basePrice;
   };
-
+  
   const totalPrice = calculateTotal(numericPrice);
   const totalOriginalPrice = calculateTotal(numericOriginalPrice);
   const savings = (totalOriginalPrice > totalPrice) ? (totalOriginalPrice - totalPrice) : 0;
@@ -230,7 +231,7 @@ const BookingForm = () => {
     <div className="min-h-screen bg-[#FAF9F6]">
       <Navbar />
 
-      <main className="pt-24 md:pt-32 pb-8">
+      <main className="pt-20 md:pt-32 pb-8">
         {/* Breadcrumb */}
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center gap-2 text-sm text-gray-500 flex-wrap">
@@ -256,100 +257,113 @@ const BookingForm = () => {
         </div>
 
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-            {/* Left Column: Package Info & Trust */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
-              className="space-y-6"
-            >
-              {/* Package Summary */}
-              <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex gap-4">
-                <img
-                  src={pkg.image}
-                  alt={pkg.name}
-                  className="w-24 h-24 rounded-xl object-cover"
-                />
-                <div className="flex-1">
-                  <span className={`inline-block px-2 py-0.5 rounded text-xs font-bold ${
-                    pkg.type === 'Elite' ? 'bg-gray-900 text-amber-400' :
-                    pkg.type === 'Pro' ? 'bg-orange-100 text-orange-600' :
-                    'bg-green-100 text-green-600'
-                  }`}>
-                    {pkg.type} Tier
-                  </span>
-                  <h3 className="font-serif text-lg font-bold mt-1 text-gray-900">{pkg.name}</h3>
-                  <div className="flex items-center gap-2 text-sm text-gray-500 mt-1">
-                    <Calendar className="w-3.5 h-3.5" />
-                    {pkg.duration}
+          <div className="flex flex-col lg:grid lg:grid-cols-2 lg:items-start gap-6 lg:gap-12">
+            
+            {/* Left Column Wrapper: Groups Summary and Trust Info for Desktop */}
+            <div className="contents lg:flex lg:flex-col lg:gap-6">
+              
+              {/* Top Info (Always at the top) */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+                className="space-y-6 order-1"
+              >
+                {/* Package Summary */}
+                <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 flex gap-3 sm:gap-4">
+                  <img
+                    src={pkg.image}
+                    alt={pkg.name}
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover"
+                  />
+                  <div className="flex-1">
+                    <span className={`inline-block px-2 py-0.5 rounded text-[10px] sm:text-xs font-bold ${
+                      pkg.type === 'Elite' ? 'bg-gray-900 text-amber-400' :
+                      pkg.type === 'Pro' ? 'bg-orange-100 text-orange-600' :
+                      'bg-green-100 text-green-600'
+                    }`}>
+                      {pkg.type} Tier
+                    </span>
+                    <h3 className="font-serif text-base sm:text-lg font-bold mt-1 text-gray-900 leading-tight">{pkg.name}</h3>
+                    <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 mt-1">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {pkg.duration}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Selected Hotel */}
-              {selectedHotel && (
-                <div className="bg-green-50 rounded-2xl p-5 border border-green-100 flex gap-4">
-                  <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                    <FaHotel className="text-green-600 text-xl" />
+                {/* Selected Hotel */}
+                {selectedHotel && (
+                  <div className="bg-green-50 rounded-2xl p-5 border border-green-100 flex gap-4">
+                    <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                      <FaHotel className="text-green-600 text-xl" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-green-600 font-bold uppercase tracking-widest mb-1">Accommodation Confirmed</p>
+                      <h4 className="font-bold text-gray-900">{selectedHotel.name}</h4>
+                      <p className="text-sm text-gray-500">{selectedHotel.destination}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-xs text-green-600 font-bold uppercase tracking-widest mb-1">Accommodation Confirmed</p>
-                    <h4 className="font-bold text-gray-900">{selectedHotel.name}</h4>
-                    <p className="text-sm text-gray-500">{selectedHotel.destination}</p>
-                  </div>
-                </div>
-              )}
+                )}
+              </motion.div>
 
-              {/* Package Inclusions */}
-              {pkg.included && pkg.included.length > 0 && (
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                  <h4 className="font-serif text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-orange-600" />
-                    Package Inclusions
-                  </h4>
-                  <ul className="grid grid-cols-1 gap-3">
-                    {pkg.included.slice(0, 6).map((item, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm text-gray-600">
-                        <Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                        {item}
-                      </li>
-                    ))}
+              {/* Trust Info (Stacks BELOW Action on mobile, but stays with summary on desktop) */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="space-y-6 order-3 lg:order-2"
+              >
+                {/* Package Inclusions */}
+                {pkg.included && pkg.included.length > 0 && (
+                  <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <h4 className="font-serif text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                      <Shield className="w-5 h-5 text-orange-600" />
+                      Package Inclusions
+                    </h4>
+                    <ul className="grid grid-cols-1 gap-3">
+                      {pkg.included.slice(0, 6).map((item, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm text-gray-600">
+                          <Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Why Book with Us */}
+                <div className="bg-orange-600 text-white rounded-2xl p-6 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full translate-x-8 -translate-y-8 blur-2xl" />
+                  <h4 className="font-serif text-lg font-bold mb-4 relative z-10">Why book with us?</h4>
+                  <ul className="space-y-3 relative z-10">
+                    <li className="flex items-center gap-3 text-sm text-orange-50">
+                      <div className="w-1.5 h-1.5 rounded-full bg-orange-300" />
+                      Instant Booking Confirmation
+                    </li>
+                    <li className="flex items-center gap-3 text-sm text-orange-50">
+                      <div className="w-1.5 h-1.5 rounded-full bg-orange-300" />
+                      Verified Quality Accommodations
+                    </li>
+                    <li className="flex items-center gap-3 text-sm text-orange-50">
+                      <div className="w-1.5 h-1.5 rounded-full bg-orange-300" />
+                      24/7 On-Trip Support
+                    </li>
+                    <li className="flex items-center gap-3 text-sm text-orange-50">
+                      <div className="w-1.5 h-1.5 rounded-full bg-orange-300" />
+                      Transparent Dynamic Pricing
+                    </li>
                   </ul>
                 </div>
-              )}
+              </motion.div>
+            </div>
 
-              {/* Why Book with Us */}
-              <div className="bg-orange-600 text-white rounded-2xl p-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full translate-x-8 -translate-y-8 blur-2xl" />
-                <h4 className="font-serif text-lg font-bold mb-4 relative z-10">Why book with us?</h4>
-                <ul className="space-y-3 relative z-10">
-                  <li className="flex items-center gap-3 text-sm text-orange-50">
-                    <div className="w-1.5 h-1.5 rounded-full bg-orange-300" />
-                    Instant Booking Confirmation
-                  </li>
-                  <li className="flex items-center gap-3 text-sm text-orange-50">
-                    <div className="w-1.5 h-1.5 rounded-full bg-orange-300" />
-                    Verified Quality Accommodations
-                  </li>
-                  <li className="flex items-center gap-3 text-sm text-orange-50">
-                    <div className="w-1.5 h-1.5 rounded-full bg-orange-300" />
-                    24/7 On-Trip Support
-                  </li>
-                  <li className="flex items-center gap-3 text-sm text-orange-50">
-                    <div className="w-1.5 h-1.5 rounded-full bg-orange-300" />
-                    Transparent Dynamic Pricing
-                  </li>
-                </ul>
-              </div>
-            </motion.div>
-
-            {/* Right Column: Form */}
+            {/* Right Column: Form (Action - High priority on mobile) */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
-              className="space-y-6"
+              className="space-y-6 order-2"
             >
               {/* Trip Date */}
               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-5">
@@ -385,7 +399,13 @@ const BookingForm = () => {
                     </button>
                     <span className="text-2xl font-bold w-12 text-center">{travelers}</span>
                     <button
-                      onClick={() => setTravelers(travelers + 1)}
+                      onClick={() => {
+                        if (travelers >= maxIncludedTravelers) {
+                          setShowRestrictionModal(true);
+                        } else {
+                          setTravelers(travelers + 1);
+                        }
+                      }}
                       className="w-12 h-12 rounded-xl bg-gray-100 hover:bg-orange-100 hover:text-orange-600 transition-colors font-bold text-xl"
                     >
                       +
@@ -449,7 +469,7 @@ const BookingForm = () => {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.05 }}
-                        className={`rounded-xl border p-4 space-y-3 transition-colors ${
+                        className={`rounded-xl border p-3 sm:p-4 space-y-3 transition-colors ${
                           isChild
                             ? 'border-blue-200 bg-blue-50/50'
                             : 'border-gray-200 bg-gray-50/30'
@@ -593,7 +613,7 @@ const BookingForm = () => {
                 <Button
                   onClick={handleSubmit}
                   disabled={loading}
-                  className="w-full h-16 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-700 hover:to-amber-600 text-white rounded-2xl text-xl font-bold shadow-xl shadow-orange-100 transition-all duration-300"
+                  className="w-full h-14 sm:h-16 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-700 hover:to-amber-600 text-white rounded-2xl text-lg sm:text-xl font-bold shadow-xl shadow-orange-100 transition-all duration-300"
                 >
                   {loading ? (
                     <>
@@ -614,6 +634,13 @@ const BookingForm = () => {
       </main>
 
       <Footer />
+      
+      <GuestRestrictionModal
+        isOpen={showRestrictionModal}
+        onClose={() => setShowRestrictionModal(false)}
+        maxGuests={maxIncludedTravelers}
+        packageTier={`${pkg.type} Tier`}
+      />
     </div>
   );
 };

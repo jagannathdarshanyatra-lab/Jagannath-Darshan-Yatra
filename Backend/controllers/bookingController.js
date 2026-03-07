@@ -454,7 +454,7 @@ const downloadInvoice = async (req, res) => {
     const pdfBuffer = await generateInvoicePdf(booking);
     
     // Set response headers for download
-    const filename = `Bharat_Darshan_Invoice_${getBookingId(booking)}.pdf`;
+    const filename = `Jagannath_Darshan_Invoice_${getBookingId(booking)}.pdf`;
     
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);

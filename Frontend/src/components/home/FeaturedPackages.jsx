@@ -20,11 +20,13 @@ const FeaturedPackages = () => {
           ["Puri", "Bhubaneswar"].includes(p.primaryDestination)
         );
         const elitePkg = relevantPackages.find(p => p.type === "Elite");
+        const standardPkg = relevantPackages.find(p => p.type === "Standard");
         const proPkg = relevantPackages.find(p => p.type === "Pro");
         const premiumPkg = relevantPackages.find(p => p.type === "Premium");
-        const sortedPackages = [elitePkg, proPkg, premiumPkg].filter(Boolean);
-          if (sortedPackages.length === 0 && data.length > 0) {
-          setPackages(data.slice(0, 3));
+        const sortedPackages = [elitePkg, standardPkg, proPkg, premiumPkg].filter(Boolean);
+        
+        if (sortedPackages.length === 0 && data.length > 0) {
+          setPackages(data.slice(0, 4)); // Increased slice to handle more tiers
         } else {
           setPackages(sortedPackages);
         }
@@ -110,6 +112,7 @@ const FeaturedPackages = () => {
                      <div className="absolute top-4 left-4">
                         <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold shadow-md backdrop-blur-md ${
                         isElite ? "bg-amber-500/90 text-white" : 
+                        pkg.type === "Standard" ? "bg-indigo-500/90 text-white" :
                         isPro ? "bg-blue-500/90 text-white" : 
                         "bg-emerald-500/90 text-white"
                         }`}>

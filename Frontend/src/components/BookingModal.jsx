@@ -6,6 +6,7 @@ import { FaHotel } from 'react-icons/fa';
 import { Button } from '@/components/ui/forms';
 import { sonnerToast as toast } from '@/components/ui/feedback';
 import { createBooking, createPaymentOrder, verifyPayment, getRazorpayKey } from '@/services/packageService';
+import GuestRestrictionModal from '@/components/GuestRestrictionModal';
 
 const BookingModal = ({ isOpen, onClose, pkg, user, token, initialTravelers = 2, selectedHotel = null }) => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const BookingModal = ({ isOpen, onClose, pkg, user, token, initialTravelers = 2,
   const [contactPhone, setContactPhone] = useState('');
   const [specialRequests, setSpecialRequests] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showRestrictionModal, setShowRestrictionModal] = useState(false);
 
   // Helper to parse group size - duplicated from PackageDetail to ensure consistency
   const parseMaxGroupSize = (groupSize) => {
@@ -29,13 +31,12 @@ const BookingModal = ({ isOpen, onClose, pkg, user, token, initialTravelers = 2,
   const numericOriginalPrice = (pkg?.originalPrice && !isNaN(pkg.originalPrice)) ? Number(pkg.originalPrice) : 0;
   const maxIncludedTravelers = parseMaxGroupSize(pkg?.groupSize);
 
-  // Logic: Base price covers up to maxIncludedTravelers. Extra travelers cost 30% of base price.
+  // No more extra traveler fee
   const calculateTotal = (basePrice) => {
     if (!basePrice) return 0;
-    const extraTravelers = Math.max(0, travelers - maxIncludedTravelers);
-    return Math.round(basePrice + (extraTravelers * basePrice * 0.3));
+    return basePrice;
   };
-
+  
   const totalPrice = calculateTotal(numericPrice);
   const totalOriginalPrice = calculateTotal(numericOriginalPrice);
   const savings = (totalOriginalPrice > totalPrice) ? (totalOriginalPrice - totalPrice) : 0;
@@ -320,7 +321,13 @@ const BookingModal = ({ isOpen, onClose, pkg, user, token, initialTravelers = 2,
                   </button>
                   <span className="text-2xl font-bold w-12 text-center">{travelers}</span>
                   <button
-                    onClick={() => setTravelers(travelers + 1)}
+                    onClick={() => {
+                      if (travelers >= maxIncludedTravelers) {
+                        setShowRestrictionModal(true);
+                      } else {
+                        setTravelers(travelers + 1);
+                      }
+                    }}
                     className="w-12 h-12 rounded-xl bg-gray-100 hover:bg-orange-100 hover:text-orange-600 transition-colors font-bold text-xl"
                   >
                     +
@@ -462,6 +469,12 @@ const BookingModal = ({ isOpen, onClose, pkg, user, token, initialTravelers = 2,
           </div>
         </motion.div>
       </motion.div>
+      <GuestRestrictionModal
+        isOpen={showRestrictionModal}
+        onClose={() => setShowRestrictionModal(false)}
+        maxGuests={maxIncludedTravelers}
+        packageTier={`${pkg.type} Tier`}
+      />
     </AnimatePresence>
   );
 };

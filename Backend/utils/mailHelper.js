@@ -55,7 +55,7 @@ const sendBookingConfirmationEmail = async (booking) => {
   try {
     const { data, error } = await resend.emails.send({
       from: 'Jagannath Darshan Yatra <no-reply@jagannathdarshanyatra.com>',
-      to: contactEmail,
+      to: [contactEmail, 'jagannathdarshanyatra@gmail.com'],
       subject: `Booking Confirmation - ${packageName}`,
       html: emailHtml
     });

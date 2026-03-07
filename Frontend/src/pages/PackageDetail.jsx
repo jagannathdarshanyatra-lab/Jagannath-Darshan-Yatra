@@ -11,6 +11,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookingModal from "@/components/BookingModal";
 import BookingConsentModal from "@/components/BookingConsentModal";
+import GuestRestrictionModal from "@/components/GuestRestrictionModal";
 import { fetchPackageById } from "@/services/packageService";
 import { useSettings } from "@/context/SettingsContext";
 
@@ -25,6 +26,7 @@ const PackageDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showConsentModal, setShowConsentModal] = useState(false);
+  const [showRestrictionModal, setShowRestrictionModal] = useState(false);
   const user = JSON.parse(localStorage.getItem('user') || 'null');
   const token = localStorage.getItem('token');
 
@@ -139,19 +141,17 @@ const PackageDetail = () => {
   const numericPrice = isNumericPrice(pkg.price) ? Number(pkg.price) : null;
   const numericOriginalPrice = isNumericPrice(pkg.originalPrice) ? Number(pkg.originalPrice) : null;
   
-  // Dynamic pricing: flat base price for the group size, +30% per extra traveler
+  // No more extra traveler fee
   const maxIncludedTravelers = parseMaxGroupSize(pkg.groupSize);
   const calculateTotalPrice = () => {
     if (!numericPrice) return null;
-    const extraTravelers = Math.max(0, travelers - maxIncludedTravelers);
-    return Math.round(numericPrice + (extraTravelers * numericPrice * 0.3));
+    return numericPrice;
   };
   
-  // Calculate total at original price (same logic but using originalPrice)
+  // Calculate total at original price
   const calculateOriginalTotal = () => {
     if (!numericOriginalPrice) return null;
-    const extraTravelers = Math.max(0, travelers - maxIncludedTravelers);
-    return Math.round(numericOriginalPrice + (extraTravelers * numericOriginalPrice * 0.3));
+    return numericOriginalPrice;
   };
   
   const totalPrice = calculateTotalPrice();
@@ -300,7 +300,13 @@ const PackageDetail = () => {
                         <div className="font-bold text-gray-900 text-base">{travelers}</div>
                       </div>
                       <button
-                        onClick={() => setTravelers(travelers + 1)}
+                        onClick={() => {
+                          if (travelers >= maxIncludedTravelers) {
+                            setShowRestrictionModal(true);
+                          } else {
+                            setTravelers(travelers + 1);
+                          }
+                        }}
                         className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center hover:bg-orange-50 hover:text-orange-600 transition-colors"
                       >
                         +
@@ -514,6 +520,13 @@ const PackageDetail = () => {
         onClose={() => setShowConsentModal(false)}
         onAccept={handleConsentAccept}
         packageName={pkg.name}
+      />
+
+      <GuestRestrictionModal
+        isOpen={showRestrictionModal}
+        onClose={() => setShowRestrictionModal(false)} 
+        maxGuests={maxIncludedTravelers}
+        packageTier={`${pkg.type} Tier`}
       />
     </div>
   );
