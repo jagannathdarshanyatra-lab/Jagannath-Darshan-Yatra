@@ -147,7 +147,7 @@ const BookingConsentModal = ({ isOpen, onClose, onAccept, packageName }) => {
             <Button
               onClick={onAccept}
               disabled={!agreedToDate || !agreedToRefund}
-              className="w-full h-12 sm:h-14 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-700 hover:to-amber-600 text-white rounded-xl text-sm sm:text-base md:text-lg font-bold shadow-lg shadow-orange-100 disabled:opacity-50 disabled:shadow-none transition-all px-4"
+              className="w-full h-8 sm:h-10 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-700 hover:to-amber-600 text-white rounded-xl text-sm sm:text-base md:text-lg font-bold shadow-lg shadow-orange-100 disabled:opacity-50 disabled:shadow-none transition-all px-4"
             >
               Accept & Continue to Hotel Selection
               <CheckCircle2 className="w-5 h-5 ml-2" />
