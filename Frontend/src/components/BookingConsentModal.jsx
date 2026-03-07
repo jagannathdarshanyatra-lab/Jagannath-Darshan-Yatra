@@ -147,10 +147,10 @@ const BookingConsentModal = ({ isOpen, onClose, onAccept, packageName }) => {
             <Button
               onClick={onAccept}
               disabled={!agreedToDate || !agreedToRefund}
-              className="w-full h-8 sm:h-10 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-700 hover:to-amber-600 text-white rounded-xl text-sm sm:text-base md:text-lg font-bold shadow-lg shadow-orange-100 disabled:opacity-50 disabled:shadow-none transition-all px-4"
+              className="w-full h-11 sm:h-14 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-700 hover:to-amber-600 text-white rounded-xl text-[11px] xs:text-xs sm:text-base md:text-lg font-bold shadow-lg shadow-orange-100 disabled:opacity-50 disabled:shadow-none transition-all px-2 sm:px-4"
             >
               Accept & Continue to Hotel Selection
-              <CheckCircle2 className="w-5 h-5 ml-2" />
+              <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 ml-1 sm:ml-2" />
             </Button>
             <p className="text-center text-[10px] text-gray-400 mt-3 uppercase tracking-widest font-bold">
               Secure Booking Experience by Jagannath Darshan Yatra

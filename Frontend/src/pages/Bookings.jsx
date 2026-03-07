@@ -191,16 +191,16 @@ const Bookings = () => {
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-between pt-4 border-t border-border mt-auto">
-                            <span className="text-sm text-muted-foreground">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pt-4 border-t border-border mt-auto gap-4">
+                            <span className="text-[10px] sm:text-sm text-muted-foreground">
                                 Booked on {new Date(booking.createdAt).toLocaleDateString()}
                             </span>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
                               {['confirmed', 'completed'].includes(booking.status) && (
                                 <Button 
                                   variant="outline" 
                                   size="sm" 
-                                  className="gap-1.5 text-primary border-primary/30 hover:bg-primary hover:text-white"
+                                  className="gap-1 px-2 h-8 sm:h-9 text-[10px] sm:text-sm text-primary border-primary/30 hover:bg-primary hover:text-white shrink-0"
                                   onClick={async (e) => {
                                     e.preventDefault();
                                     try {
@@ -211,14 +211,14 @@ const Bookings = () => {
                                     }
                                   }}
                                 >
-                                  <Download className="w-3.5 h-3.5" />
+                                  <Download className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                                   Invoice
                                 </Button>
                               )}
-                              <Link to={`/bookings/${booking._id}`}>
-                                  <Button variant="outline" size="sm" className="group/btn">
+                              <Link to={`/bookings/${booking._id}`} className="shrink-0">
+                                  <Button variant="outline" size="sm" className="group/btn h-8 sm:h-9 px-2 sm:px-4 text-[10px] sm:text-sm">
                                       View Details
-                                      <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 group-hover/btn:translate-x-1 transition-transform" />
                                   </Button>
                               </Link>
                             </div>
