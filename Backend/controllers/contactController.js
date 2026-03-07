@@ -16,7 +16,7 @@ const sendEmailNotification = async (contactData) => {
   const emailHtml = `
     <div style="font-family: Arial, sans-serif; color: #334155;">
       <h2 style="color: #f97316;">New Contact Inquiry</h2>
-      <p>A new inquiry has been received from the Bharat Darshan website.</p>
+      <p>A new inquiry has been received from the Jagannath Darshan Yatra website.</p>
       
       <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 6px; margin: 20px 0;">
         <p style="margin: 5px 0;"><strong>Name:</strong> ${name}</p>
@@ -39,8 +39,8 @@ const sendEmailNotification = async (contactData) => {
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Bharat Darshan Inquiries <no-reply@bharat-darshan.com>',
-      to: 'bharatdarshan.hq@gmail.com',
+      from: 'Jagannath Darshan Yatra Inquiries <no-reply@jagannathdarshanyatra.com>',
+      to: 'jagannathdarshanyatra@gmail.com',
       subject: `New Contact Inquiry from ${name}`,
       html: emailHtml,
       reply_to: email // So you can reply directly to the customer

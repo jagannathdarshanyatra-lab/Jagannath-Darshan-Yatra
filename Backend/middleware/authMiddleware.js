@@ -21,7 +21,7 @@ const protect = async (req, res, next) => {
         req.user = {
           _id: 'admin',
           name: 'Admin User',
-          email: process.env.ADMIN_EMAIL || 'admin@bharatdarshan.com',
+          email: process.env.ADMIN_EMAIL || 'admin@jagannathdarshanyatra.com',
           role: 'admin',
         };
         return next();

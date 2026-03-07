@@ -66,8 +66,8 @@ const experiences = [
 ];
 
 const stats = [
-  { number: "5000+", label: "Happy Travelers" },
-  { number: "50+", label: "Tour Packages" },
+  { number: "3000+", label: "Happy Travelers" },
+  { number: "10+", label: "Tour Packages" },
   { number: "10+", label: "Years Experience" },
   { number: "100%", label: "Satisfaction Rate" },
 ];

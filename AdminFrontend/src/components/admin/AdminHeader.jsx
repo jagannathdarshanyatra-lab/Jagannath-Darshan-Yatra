@@ -19,8 +19,12 @@ export function AdminHeader() {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [adminUser, setAdminUser] = useState(adminAuthService.getAdminUser());
 
   useEffect(() => {
+    // Refresh admin user data from localStorage on mount
+    const user = adminAuthService.getAdminUser();
+    if (user) setAdminUser(user);
     const fetchNotifications = async () => {
       try {
         const data = await dashboardService.getNotifications();
@@ -131,12 +135,20 @@ export function AdminHeader() {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="flex items-center gap-3 px-2">
               <Avatar className="h-8 w-8">
-                <AvatarImage src="/placeholder.svg" alt="Admin" />
-                <AvatarFallback className="bg-primary text-primary-foreground text-sm">AD</AvatarFallback>
+                <AvatarFallback className="bg-primary text-primary-foreground text-sm">
+                  {adminUser?.name?.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() || 'AD'}
+                </AvatarFallback>
               </Avatar>
               <div className="hidden md:block text-left">
-                <p className="text-sm font-medium">Admin User</p>
-                <p className="text-xs text-muted-foreground">admin@jagannathdarshanyatra.com</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-semibold">{adminUser?.name || 'Admin User'}</p>
+                  {adminUser?.role === 'superadmin' && (
+                    <Badge variant="outline" className="text-[10px] py-0 h-4 bg-amber-500/10 text-amber-600 border-amber-500/20">
+                      Super
+                    </Badge>
+                  )}
+                </div>
+                <p className="text-xs text-muted-foreground">{adminUser?.email || 'admin@jagannathdarshanyatra.com'}</p>
               </div>
             </Button>
           </DropdownMenuTrigger>

@@ -11,8 +11,8 @@ const app = express();
 app.use(
   cors({
     origin: process.env.FRONTEND_URL 
-      ? [process.env.FRONTEND_URL, 'https://jagannath-darshan-yatra.vercel.app', 'https://jagannath-darshan-yatra-admin1.vercel.app', 'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:3000', 'http://localhost:8081']
-      : ['https://jagannath-darshan-yatra.vercel.app', 'https://jagannath-darshan-yatra-admin1.vercel.app', 'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:3000', 'http://localhost:8081'],
+      ? [process.env.FRONTEND_URL, 'https://jagannathdarshanyatra.com', 'https://www.jagannathdarshanyatra.com', 'https://jagannath-darshan-yatra.vercel.app', 'https://jagannath-darshan-yatra-admin1.vercel.app', 'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:3000', 'http://localhost:8081']
+      : ['https://jagannathdarshanyatra.com', 'https://www.jagannathdarshanyatra.com', 'https://jagannath-darshan-yatra.vercel.app', 'https://jagannath-darshan-yatra-admin1.vercel.app', 'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:3000', 'http://localhost:8081'],
     credentials: true,
   })
 );

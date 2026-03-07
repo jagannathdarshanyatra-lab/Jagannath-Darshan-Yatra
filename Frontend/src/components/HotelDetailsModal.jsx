@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, MapPin, Star, Check, Wifi, Coffee, Wind, Tv, ShieldCheck } from 'lucide-react';
+import { X, MapPin, Star, Check, Wifi, Coffee, Wind, Tv, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
 import { FaHotel, FaSwimmingPool, FaUtensils, FaSpa } from 'react-icons/fa';
 
 const HotelDetailsModal = ({ 
@@ -12,9 +12,26 @@ const HotelDetailsModal = ({
   onDeselect,
   packageType 
 }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [hotel?._id, hotel?.id, isOpen]);
+
   if (!hotel) return null;
 
+  const images = hotel.images || [];
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
   const amenityIcons = {
+// ... existing icons ...
     'Wifi': <Wifi className="w-4 h-4" />,
     'Free Wifi': <Wifi className="w-4 h-4" />,
     'Swimming Pool': <FaSwimmingPool className="w-4 h-4" />,
@@ -49,31 +66,52 @@ const HotelDetailsModal = ({
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header / Image Area */}
-            <div className="relative h-64 sm:h-80 shrink-0">
-              {hotel.images && hotel.images[0] ? (
-                <img 
-                  src={hotel.images[0]} 
-                  alt={hotel.name} 
+            <div className="relative h-64 sm:h-80 shrink-0 bg-gray-100">
+              <AnimatePresence mode="wait">
+                <motion.img 
+                  key={activeIndex}
+                  src={images[activeIndex] || '/placeholder.svg'} 
+                  alt={`${hotel.name} - image ${activeIndex + 1}`} 
+                  initial={{ opacity: 0.5 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0.5 }}
+                  transition={{ duration: 0.3 }}
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.src = 'https://placehold.co/800x600/f97316/white?text=No+Image';
+                  }}
                 />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-br from-orange-100 to-amber-100 flex flex-col items-center justify-center text-orange-300">
-                  <FaHotel size={64} />
-                  <span className="mt-2 text-lg font-medium">No Image Available</span>
-                </div>
+              </AnimatePresence>
+
+              {/* Navigation Arrows */}
+              {images.length > 1 && (
+                <>
+                  <button 
+                    onClick={handlePrev}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/20 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/40 transition-all z-10"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+                  <button 
+                    onClick={handleNext}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/20 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/40 transition-all z-10"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
+                </>
               )}
               
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center hover:bg-white/40 transition-colors z-10"
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/20 backdrop-blur-md text-white flex items-center justify-center hover:bg-black/40 transition-colors z-20"
               >
                 <X className="w-6 h-6" />
               </button>
 
               {/* Package Tier Badge */}
               {packageType && (
-                <div className="absolute top-4 left-4">
+                <div className="absolute top-4 left-4 z-20">
                   <span className={`px-4 py-1.5 rounded-full text-xs font-bold text-white shadow-lg uppercase tracking-wider ${
                     packageType.toLowerCase().includes('pro') ? 'bg-red-600' :
                     packageType.toLowerCase().includes('premium') ? 'bg-amber-500' :
@@ -87,7 +125,7 @@ const HotelDetailsModal = ({
               )}
 
               {/* Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
               
               {/* Hotel basic info on image */}
               <div className="absolute bottom-6 left-6 right-6">
@@ -109,6 +147,27 @@ const HotelDetailsModal = ({
 
             {/* Content Area */}
             <div className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-8">
+              {/* Thumbnails Gallery */}
+              {images.length > 1 && (
+                <div className="flex gap-3 overflow-x-auto pb-2 -mt-2 no-scrollbar">
+                  {images.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveIndex(idx)}
+                      className={`relative flex-shrink-0 w-20 h-16 rounded-xl overflow-hidden border-2 transition-all duration-200 ${
+                        activeIndex === idx 
+                          ? 'border-orange-500 scale-105 shadow-md' 
+                          : 'border-transparent opacity-60 hover:opacity-100'
+                      }`}
+                    >
+                      <img src={img} alt="" className="w-full h-full object-cover" />
+                      {activeIndex === idx && (
+                        <div className="absolute inset-0 bg-orange-500/10" />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
               {/* Description */}
               <section>
                 <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">

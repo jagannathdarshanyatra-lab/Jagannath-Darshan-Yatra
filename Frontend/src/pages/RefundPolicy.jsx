@@ -108,7 +108,7 @@ const RefundPolicy = () => {
 
                <section className="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-center">
                 <p className="font-medium">
-                  To request a cancellation or check your refund status, please email us at <a href="mailto:bharatdarshan.hq@gmail.com" className="text-orange-600 hover:underline">bharatdarshan.hq@gmail.com</a> with your Booking ID.
+                  To request a cancellation or check your refund status, please email us at <a href="mailto:jagannathdarshanyatra@gmail.com" className="text-orange-600 hover:underline">jagannathdarshanyatra@gmail.com</a> with your Booking ID.
                 </p>
               </section>
 

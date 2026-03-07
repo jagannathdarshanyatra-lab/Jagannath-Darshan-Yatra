@@ -90,7 +90,7 @@ const TermsOfService = () => {
 
                <section className="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-center">
                 <p className="font-medium">
-                  For any questions regarding these Terms of Service, please contact us at <a href="mailto:bharatdarshan.hq@gmail.com" className="text-orange-600 hover:underline">bharatdarshan.hq@gmail.com</a>
+                  For any questions regarding these Terms of Service, please contact us at <a href="mailto:jagannathdarshanyatra@gmail.com" className="text-orange-600 hover:underline">jagannathdarshanyatra@gmail.com</a>
                 </p>
               </section>
 

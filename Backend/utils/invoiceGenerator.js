@@ -61,7 +61,7 @@ const generateInvoicePdf = async (booking) => {
     doc.setFontSize(6.5);
     doc.setTextColor(...WHITE);
     doc.text(
-      `© 2026 Bharat Darshan. All rights reserved. | www.bharat-darshan.com`,
+      `© 2026 Jagannath Darshan Yatra. All rights reserved. | www.jagannathdarshanyatra.com`,
       pageW / 2,
       pageH - 3,
       { align: "center" }
@@ -104,7 +104,7 @@ const generateInvoicePdf = async (booking) => {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
     doc.setTextColor(...PRIMARY);
-    doc.text("Bharat Darshan", margin + 6, y + 20);
+    doc.text("Jagannath Darshan Yatra", margin + 6, y + 20);
   }
 
   // Right side - INVOICE title + company location
@@ -125,7 +125,7 @@ const generateInvoicePdf = async (booking) => {
     pageW - margin - 4, y + 23.5, { align: "right" }
   );
   doc.text(
-    "Phone: +91 95560 06338 | bharatdarshan.hq@gmail.com",
+    "Phone: +91 95560 06338 | jagannathdarshanyatra@gmail.com",
     pageW - margin - 4, y + 28, { align: "right" }
   );
 
@@ -238,7 +238,7 @@ const generateInvoicePdf = async (booking) => {
   doc.setFont("helvetica", "bold");
   doc.setFontSize(14);
   doc.setTextColor(...PRIMARY);
-  doc.text("Bharat Darshan", margin + 18, y + 10);
+  doc.text("Jagannath Darshan Yatra", margin + 18, y + 10);
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
@@ -373,7 +373,7 @@ const generateInvoicePdf = async (booking) => {
   const footerY = pageH - 48;
   doc.setDrawColor(...PRIMARY); doc.setLineWidth(0.8); doc.line(margin, footerY, pageW - margin, footerY);
   doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(...PRIMARY);
-  doc.text("Bharat Darshan", margin + 4, footerY + 9);
+  doc.text("Jagannath Darshan Yatra", margin + 4, footerY + 9);
   doc.setFontSize(8); doc.setTextColor(...MUTED); doc.text("Your Trusted Travel Partner", margin + 4, footerY + 14);
   doc.setFontSize(10); doc.setTextColor(...DARK); doc.text("Booking Via Jungle Resort Pvt. Ltd.", margin + 4, footerY + 22);
   doc.setDrawColor(...DARK); doc.setLineWidth(0.3); doc.line(pageW - margin - 60, footerY + 25, pageW - margin - 4, footerY + 25);

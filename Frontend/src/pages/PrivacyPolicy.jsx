@@ -111,10 +111,10 @@ const PrivacyPolicy = () => {
               <section>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Your Rights</h3>
                 <p>
-                  By submitting your information to us, you consent to the use of that information as set out in this Privacy Policy. You may request at any time that we provide you with the personal information we hold about you. You may also choose to add, modify or delete information about you stored with us. Provision of such information will be subject to proving your identity and full address with a utility bill and acceptable photo ID. For any such requests, please reach out to us on <a href="mailto:bharatdarshan.hq@gmail.com" className="text-orange-600 hover:underline">bharatdarshan.hq@gmail.com</a>.
+                  By submitting your information to us, you consent to the use of that information as set out in this Privacy Policy. You may request at any time that we provide you with the personal information we hold about you. You may also choose to add, modify or delete information about you stored with us. Provision of such information will be subject to proving your identity and full address with a utility bill and acceptable photo ID. For any such requests, please reach out to us on <a href="mailto:jagannathdarshanyatra@gmail.com" className="text-orange-600 hover:underline">jagannathdarshanyatra@gmail.com</a>.
                 </p>
                 <p className="mt-4">
-                  You also have the right to lodge a complaint with an EU supervisory authority in case of discrepancies, however, we do hope you would give us chance to rectify it first by reaching out to us on <a href="mailto:bharatdarshan.hq@gmail.com" className="text-orange-600 hover:underline">bharatdarshan.hq@gmail.com</a>.
+                  You also have the right to lodge a complaint with an EU supervisory authority in case of discrepancies, however, we do hope you would give us chance to rectify it first by reaching out to us on <a href="mailto:jagannathdarshanyatra@gmail.com" className="text-orange-600 hover:underline">jagannathdarshanyatra@gmail.com</a>.
                 </p>
               </section>
 
@@ -148,7 +148,7 @@ const PrivacyPolicy = () => {
                 </div>
 
                 <p>
-                  If you seek to exercise the foregoing rights to access or delete Personal Data which constitutes 'Personal information' as defined in CCPA, please contact us at <a href="mailto:bharatdarshan.hq@gmail.com" className="text-orange-600 hover:underline">bharatdarshan.hq@gmail.com</a>. We respond to all requests we receive from you wishing to exercise your data protection rights within a reasonable timeframe in accordance with applicable data protection laws. By writing to us, you agree to receive communication from us seeking information from you in order to verify you to be the consumer from whom we have collected the Personal Data from and such other information as reasonably required to enable us to honour your request.
+                  If you seek to exercise the foregoing rights to access or delete Personal Data which constitutes 'Personal information' as defined in CCPA, please contact us at <a href="mailto:jagannathdarshanyatra@gmail.com" className="text-orange-600 hover:underline">jagannathdarshanyatra@gmail.com</a>. We respond to all requests we receive from you wishing to exercise your data protection rights within a reasonable timeframe in accordance with applicable data protection laws. By writing to us, you agree to receive communication from us seeking information from you in order to verify you to be the consumer from whom we have collected the Personal Data from and such other information as reasonably required to enable us to honour your request.
                 </p>
                 <p className="mt-4">
                   The list of categories of Personal Data collected and disclosed about consumers are enlisted under the head 'Use of Your Information'. Separately, Jagannath Darshan Yatra does not sell your Personal Data.

@@ -22,7 +22,7 @@ const sendBookingConfirmationEmail = async (booking) => {
       </div>
       <div style="padding: 20px; color: #334155;">
         <p>Dear <strong>${contactName}</strong>,</p>
-        <p>Thank you for booking with <strong>Bharat Darshan</strong>. Your payment has been successfully processed and your trip is confirmed!</p>
+        <p>Thank you for booking with <strong>Jagannath Darshan Yatra</strong>. Your payment has been successfully processed and your trip is confirmed!</p>
         
         <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 6px; margin: 20px 0;">
           <h3 style="margin-top: 0; color: #f97316;">Booking Summary</h3>
@@ -43,10 +43,10 @@ const sendBookingConfirmationEmail = async (booking) => {
         
         <p>We're excited to have you on board! If you have any questions, feel free to contact us.</p>
         
-        <p style="margin-top: 30px;">Best Regards,<br><strong>The Bharat Darshan Team</strong></p>
+        <p style="margin-top: 30px;">Best Regards,<br><strong>The Jagannath Darshan Yatra Team</strong></p>
       </div>
       <div style="background-color: #f1f5f9; padding: 15px; text-align: center; font-size: 12px; color: #64748b;">
-        <p style="margin: 0;">&copy; 2026 Bharat Darshan. All rights reserved.</p>
+        <p style="margin: 0;">&copy; 2026 Jagannath Darshan Yatra. All rights reserved.</p>
         <p style="margin: 5px 0;">Office No: 307, 3rd Floor, Esplanade One Mall, Rasulgarh, Bhubaneswar, Odisha 751010</p>
       </div>
     </div>
@@ -54,7 +54,7 @@ const sendBookingConfirmationEmail = async (booking) => {
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Bharat Darshan <no-reply@bharat-darshan.com>',
+      from: 'Jagannath Darshan Yatra <no-reply@jagannathdarshanyatra.com>',
       to: contactEmail,
       subject: `Booking Confirmation - ${packageName}`,
       html: emailHtml

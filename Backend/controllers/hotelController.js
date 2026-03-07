@@ -10,18 +10,24 @@ const getHotels = async (req, res) => {
     let query = { isActive: true, approvalStatus: 'approved' };
 
     if (destination) {
-      query.destination = { $regex: destination, $options: 'i' };
+      // Search in both destination and location fields for maximum flexibility
+      // This handles cases where a hotel is tagged with a city name in location but state name in destination
+      query.$or = [
+        { destination: { $regex: destination, $options: 'i' } },
+        { location: { $regex: destination, $options: 'i' } }
+      ];
     }
 
     if (packageType) {
-      query.packageType = packageType;
+      // Direct regex match for array fields in Mongoose finds any element in the array that matches
+      // This is more robust than $in with nested regexes
+      query.packageType = new RegExp(`^${packageType}$`, 'i');
     }
 
     // 1. Fetch from Local DB
     const localHotels = await Hotel.find(query).sort({ createdAt: -1 });
 
     // 2. Fetch from OTA API
-    // Rejection Fix: Abstraction layers isolate provider-specific logic
     let otaHotels = [];
     if (process.env.OTA_CLIENT_ID) {
       otaHotels = await otaProvider.getHotels({ destination, packageType });

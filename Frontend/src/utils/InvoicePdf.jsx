@@ -1,5 +1,4 @@
 import { jsPDF } from "jspdf";
-import LogoPng from "@/assets/Logo_Bharat_Darshan.png";
 
 // ── Color constants (matching the Mango/Orange website theme) ──
 const PRIMARY = [249, 115, 22];       // hsl(24, 95%, 53%) → rgb
@@ -64,13 +63,9 @@ export async function generateInvoicePdf(booking) {
   const contentW = pageW - margin * 2;
   let y = margin;
 
-  // Pre-load logo once
-  let logoData = null;
-  try {
-    logoData = await loadImageAsBase64(LogoPng);
-  } catch {
-    // logo loading failed, we'll use text fallback
-  }
+  // ────────────────────────────────────────
+  //  SHARED HELPERS
+  // ────────────────────────────────────────
 
   // ────────────────────────────────────────
   //  SHARED HELPERS
@@ -116,15 +111,11 @@ export async function generateInvoicePdf(booking) {
   doc.setFillColor(...ACCENT_BG);
   doc.roundedRect(margin, y, contentW, 42, 3, 3, "F");
 
-  // Logo (left)
-  if (logoData) {
-    doc.addImage(logoData, "PNG", margin + 4, y + 4, 34, 34);
-  } else {
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
-    doc.setTextColor(...PRIMARY);
-    doc.text("Jagannath Darshan Yatra", margin + 6, y + 22);
-  }
+  // Brand Text (left)
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.setTextColor(...PRIMARY);
+  doc.text("Jagannath Darshan Yatra", margin + 6, y + 22);
 
   // Right side - INVOICE title + company location
   doc.setFont("helvetica", "bold");
@@ -144,7 +135,7 @@ export async function generateInvoicePdf(booking) {
     pageW - margin - 4, y + 23.5, { align: "right" }
   );
   doc.text(
-    "Phone: +91 95560 06338 | bharatdarshan.hq@gmail.com",
+    "Phone: +91 95560 06338 | jagannathdarshanyatra@gmail.com",
     pageW - margin - 4, y + 28, { align: "right" }
   );
 
@@ -398,19 +389,15 @@ export async function generateInvoicePdf(booking) {
   doc.setFillColor(...ACCENT_BG);
   doc.roundedRect(margin, y, contentW, 16, 3, 3, "F");
 
-  if (logoData) {
-    doc.addImage(logoData, "PNG", margin + 3, y + 1.5, 13, 13);
-  }
-
   doc.setFont("helvetica", "bold");
   doc.setFontSize(12);
   doc.setTextColor(...PRIMARY);
-  doc.text("Bharat Darshan", margin + 19, y + 7);
+  doc.text("Jagannath Darshan Yatra", margin + 4, y + 7);
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
   doc.setTextColor(...MUTED);
-  doc.text("Your Trusted Travel Partner", margin + 19, y + 12);
+  doc.text("Your Trusted Travel Partner", margin + 4, y + 12);
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
@@ -649,7 +636,7 @@ export async function generateInvoicePdf(booking) {
   doc.setFont("helvetica", "bold");
   doc.setFontSize(12);
   doc.setTextColor(...PRIMARY);
-  doc.text("Bharat Darshan", margin + 4, footerY + 9);
+  doc.text("Jagannath Darshan Yatra", margin + 4, footerY + 9);
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
@@ -677,6 +664,6 @@ export async function generateInvoicePdf(booking) {
   drawPageFooterBar();
 
   // ── Save ─────────────────────────────────
-  const fileName = `Bharat_Darshan_Invoice_${getBookingId(booking)}.pdf`;
+  const fileName = `Jagannath_Darshan_Invoice_${getBookingId(booking)}.pdf`;
   doc.save(fileName);
 }

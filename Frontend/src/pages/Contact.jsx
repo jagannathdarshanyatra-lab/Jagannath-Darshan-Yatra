@@ -152,7 +152,7 @@ const Contact = () => {
               {[
                 { icon: Phone, title: "Call Us", info: "+91 95560 06338", action: "tel:+919556006338" },
                 { icon: MessageCircle, title: "WhatsApp", info: "+91 95560 06338", action: "https://wa.me/919556006338" },
-                { icon: Mail, title: "Email", info: "bharatdarshan.hq@gmail.com", action: "mailto:bharatdarshan.hq@gmail.com" },
+                { icon: Mail, title: "Email", info: "jagannathdarshanyatra@gmail.com", action: "mailto:jagannathdarshanyatra@gmail.com" },
                 { icon: Clock, title: "Hours", info: "24/7 Support", action: null },
               ].map((item, index) => {
                 const Card = item.action ? motion.a : motion.div;

@@ -85,8 +85,8 @@ const HeroSection = () => {
             className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
           >
             {[
-              { number: "5000+", label: "Happy Travelers" },
-              { number: "50+", label: "Tour Packages" },
+              { number: "3000+", label: "Happy Travelers" },
+              { number: "10+", label: "Tour Packages" },
               { number: "100%", label: "Satisfaction" },
               { number: "24/7", label: "Support" },
             ].map((stat, index) => (

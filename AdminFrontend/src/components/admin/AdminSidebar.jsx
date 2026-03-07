@@ -18,7 +18,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Primitives';
 import adminAuthService from '@/services/adminAuthService';
 
-import logo from '../../assets/Jagannath_Darshan_Logo.png';
+
 
 const navItems = [
   { path: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -70,7 +70,9 @@ export function AdminSidebar({ isCollapsed, onToggle }) {
           animate={{ opacity: isCollapsed ? 0 : 1, width: isCollapsed ? 0 : 'auto' }}
           className="flex items-center gap-3 overflow-hidden"
         >
-          <img src={logo} alt="Jagannath Darshan Yatra" className="h-16 w-auto" />
+          <span className="text-base font-extrabold text-sidebar-foreground border-b-2 border-primary pb-0.5 tracking-tight uppercase">
+            Jagannath Darshan Yatra
+          </span>
         </motion.div>
         
         <Button
@@ -92,7 +94,7 @@ export function AdminSidebar({ isCollapsed, onToggle }) {
               ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
               : "bg-blue-500/20 text-blue-300 border border-blue-500/30"
           )}>
-            {isSuperAdmin ? 'Super Admin' : '👤 Admin'}
+            {isSuperAdmin ? 'Super Admin' : 'Admin'}
           </div>
         </div>
       )}
