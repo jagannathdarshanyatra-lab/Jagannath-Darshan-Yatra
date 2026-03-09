@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/forms";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 
+import logo from "@/assets/Logo_Jagannath_Darshan_Yatra.webp";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -74,10 +75,18 @@ const Navbar = () => {
       {/* Main navbar */}
       <nav className="bg-card/95 backdrop-blur-md shadow-soft">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between h-20 md:h-28">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2">
-              <span className="font-serif text-xl md:text-2xl font-bold text-primary">Jagannath Darshan Yatra</span>
+            <Link to="/" className="flex items-center gap-3">
+              <img src={logo} alt="Jagannath Darshan Yatra" className="h-16 md:h-24 w-auto object-contain" />
+              <div className="flex flex-col leading-tight">
+                <span className="font-serif text-lg md:text-xl font-bold text-black tracking-[0.2em] uppercase">
+                  Jagannath
+                </span>
+                <span className="font-serif text-base md:text-lg font-bold text-black tracking-widest uppercase">
+                  Darshan Yatra
+                </span>
+              </div>
             </Link>
 
             {/* Desktop Nav */}

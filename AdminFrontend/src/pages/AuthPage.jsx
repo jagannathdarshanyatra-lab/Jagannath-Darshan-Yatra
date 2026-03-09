@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, EyeOff, Lock, Mail, ArrowRight, Shield, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/Jagannath_Darshan_Logo.png';
+import logo from '../assets/Logo_Jagannath_Darshan_Yatra.webp';
 import adminAuthService from '../services/adminAuthService';
 import { toast } from 'sonner';
 

@@ -39,6 +39,8 @@ const bottomNavItems = [
   { path: '/settings', label: 'Settings', icon: Settings },
 ];
 
+import logo from '@/assets/Logo_Jagannath_Darshan_Yatra.webp';
+
 export function AdminSidebar({ isCollapsed, onToggle }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -70,9 +72,15 @@ export function AdminSidebar({ isCollapsed, onToggle }) {
           animate={{ opacity: isCollapsed ? 0 : 1, width: isCollapsed ? 0 : 'auto' }}
           className="flex items-center gap-3 overflow-hidden"
         >
-          <span className="text-base font-extrabold text-sidebar-foreground border-b-2 border-primary pb-0.5 tracking-tight uppercase">
-            Jagannath Darshan Yatra
-          </span>
+          <img src={logo} alt="Logo" className="h-10 w-auto object-contain" />
+          <div className="flex flex-col leading-none">
+            <span className="text-[10px] md:text-xs font-extrabold text-black tracking-wider uppercase">
+              Jagannath
+            </span>
+            <span className="text-[8px] md:text-[10px] font-extrabold text-black border-b border-primary pb-0.5 tracking-tighter uppercase">
+              Darshan Yatra
+            </span>
+          </div>
         </motion.div>
         
         <Button

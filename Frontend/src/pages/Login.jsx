@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
 
+import logo from "@/assets/Logo_Jagannath_Darshan_Yatra.webp";
 
 // API base URL - change for production
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -103,8 +104,16 @@ const Login = () => {
             {/* Left Side - Image/Decoration */}
             <div className="md:w-1/2 bg-hero-gradient p-12 text-primary-foreground flex flex-col justify-between relative overflow-hidden">
               <div className="relative z-10">
-                <Link to="/" className="inline-block mb-8">
-                  <span className="font-serif text-2xl md:text-3xl font-bold text-primary-foreground">Jagannath Darshan Yatra</span>
+                <Link to="/" className="flex items-center gap-4 mb-8">
+                  <img src={logo} alt="Jagannath Darshan Yatra" className="h-16 md:h-22 w-auto object-contain" />
+                  <div className="flex flex-col leading-tight">
+                    <span className="font-serif text-xl md:text-2xl font-bold text-black tracking-[0.2em] uppercase">
+                      Jagannath
+                    </span>
+                    <span className="font-serif text-lg md:text-xl font-bold text-black tracking-widest uppercase">
+                      Darshan Yatra
+                    </span>
+                  </div>
                 </Link>
                 <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
                   {isForgotPassword ? "Reset Password" : isLogin ? "Welcome Back!" : "Join Our Community"}

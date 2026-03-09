@@ -1,6 +1,6 @@
 ﻿import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
-
+import logo from '../assets/Logo_Jagannath_Darshan_Yatra.webp';
 
 const Footer = () => {
   return (
@@ -10,8 +10,16 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-2">
-              <span className="font-serif text-xl md:text-2xl font-bold text-primary-foreground">Jagannath Darshan Yatra</span>
+            <Link to="/" className="flex items-center gap-3">
+              <img src={logo} alt="Jagannath Darshan Yatra" className="h-16 md:h-24 w-auto object-contain" />
+              <div className="flex flex-col leading-tight">
+                <span className="font-serif text-lg md:text-xl font-bold text-white tracking-[0.2em] uppercase">
+                  Jagannath
+                </span>
+                <span className="font-serif text-base md:text-lg font-bold text-white tracking-widest uppercase">
+                  Darshan Yatra
+                </span>
+              </div>
             </Link>
             <p className="text-primary-foreground/80 leading-relaxed">
               Your trusted travel partner for authentic Odisha experiences. From sacred temples to pristine beaches, we craft unforgettable journeys.

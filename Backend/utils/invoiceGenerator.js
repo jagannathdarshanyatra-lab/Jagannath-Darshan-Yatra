@@ -44,10 +44,10 @@ const generateInvoicePdf = async (booking) => {
   // Pre-load logo from local assets
   let logoData = null;
   try {
-    const logoPath = path.join(__dirname, '../assets/Logo_Bharat_Darshan.png');
+    const logoPath = path.join(__dirname, '../assets/Logo_Jagannath_Darshan_Yatra.webp');
     if (fs.existsSync(logoPath)) {
         const logoBuffer = fs.readFileSync(logoPath);
-        logoData = `data:image/png;base64,${logoBuffer.toString('base64')}`;
+        logoData = `data:image/webp;base64,${logoBuffer.toString('base64')}`;
     }
   } catch (err) {
     console.error('Logo loading error:', err);
@@ -99,7 +99,7 @@ const generateInvoicePdf = async (booking) => {
 
   // Logo handling
   if (logoData) {
-    doc.addImage(logoData, "PNG", margin + 4, y + 4, 34, 34);
+    doc.addImage(logoData, "WEBP", margin + 4, y + 4, 34, 34);
   } else {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
@@ -233,7 +233,7 @@ const generateInvoicePdf = async (booking) => {
   // ── Mini header on page 2 ──
   doc.setFillColor(...ACCENT_BG);
   doc.roundedRect(margin, y, contentW, 16, 3, 3, "F");
-  if (logoData) doc.addImage(logoData, "PNG", margin + 3, y + 1.5, 13, 13);
+  if (logoData) doc.addImage(logoData, "WEBP", margin + 3, y + 1.5, 13, 13);
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(14);
