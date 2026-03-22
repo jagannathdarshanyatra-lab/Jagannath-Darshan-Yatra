@@ -8,6 +8,8 @@ import { Loader2 } from "lucide-react";
 
 import ScrollToTop from "@/components/ScrollToTop";
 import { useSettings, SettingsProvider } from "./context/SettingsContext";
+import IntroAnimation from "./components/common/IntroAnimation";
+import { useState } from "react";
 
 // Lazy-loaded pages — each becomes a separate chunk for faster initial load
 const Index = lazy(() => import("./pages/Index"));
@@ -82,21 +84,26 @@ const AppRoutes = () => {
   );
 };
 
-const App = () => (
-  <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner position="top-center" />
-        <SettingsProvider>
-          <BrowserRouter>
-            <ScrollToTop />
-            <AppRoutes />
-          </BrowserRouter>
-        </SettingsProvider>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </HelmetProvider>
-);
+const App = () => {
+  const [showIntro, setShowIntro] = useState(true);
+
+  return (
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
+          <Toaster />
+          <Sonner position="top-center" />
+          <SettingsProvider>
+            <BrowserRouter>
+              <ScrollToTop />
+              <AppRoutes />
+            </BrowserRouter>
+          </SettingsProvider>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
+  );
+};
 
 export default App;
