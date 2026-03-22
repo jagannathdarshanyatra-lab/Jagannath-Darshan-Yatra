@@ -60,9 +60,10 @@ const HotelSelection = () => {
           `${import.meta.env.VITE_API_URL}/api/hotels?destination=${destination}&packageType=${packageType}&isActive=true`
         );
         const hotelsData = await hotelsRes.json();
+        const hotelsArray = hotelsData.hotels || [];
         
         // If no hotels found, depending on flow
-        if (!hotelsData || hotelsData.length === 0) {
+        if (hotelsArray.length === 0) {
           if (bookingId) {
             toast.info('No hotel options available for this package. Proceeding to confirmation.');
             navigate(`/booking-success?id=${bookingId}`);
@@ -73,7 +74,7 @@ const HotelSelection = () => {
           return;
         }
 
-        setHotels(hotelsData);
+        setHotels(hotelsArray);
         
       } catch (err) {
         console.error(err);

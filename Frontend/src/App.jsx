@@ -1,75 +1,84 @@
-﻿import { Toaster, SonnerToaster as Sonner } from "@/components/ui/feedback";
+import { lazy, Suspense } from "react";
+import { Toaster, SonnerToaster as Sonner } from "@/components/ui/feedback";
 import { TooltipProvider } from "@/components/ui/overlay";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import Index from "./pages/Index";
-import Destinations from "./pages/Destinations";
-import Packages from "./pages/Packages";
-import PackageDetail from "./pages/PackageDetail";
-import Experiences from "./pages/Experiences";
-import Contact from "./pages/Contact";
-import Login from "./pages/Login";
-import NotFound from "./pages/NotFound";
-import Profile from "./pages/Profile";
-import Bookings from "./pages/Bookings";
-import BookingDetail from "./pages/BookingDetail";
-import HotelSelection from './pages/HotelSelection';
-import BookingSuccess from "./pages/BookingSuccess";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfService from "./pages/TermsOfService";
-import RefundPolicy from "./pages/RefundPolicy";
-import DownloadInvoice from "./pages/DownloadInvoice";
-import BookingForm from "./pages/BookingForm";
+import { Loader2 } from "lucide-react";
 
 import ScrollToTop from "@/components/ScrollToTop";
+import { useSettings, SettingsProvider } from "./context/SettingsContext";
+
+// Lazy-loaded pages — each becomes a separate chunk for faster initial load
+const Index = lazy(() => import("./pages/Index"));
+const Destinations = lazy(() => import("./pages/Destinations"));
+const Packages = lazy(() => import("./pages/Packages"));
+const PackageDetail = lazy(() => import("./pages/PackageDetail"));
+const Experiences = lazy(() => import("./pages/Experiences"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Login = lazy(() => import("./pages/Login"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const Profile = lazy(() => import("./pages/Profile"));
+const Bookings = lazy(() => import("./pages/Bookings"));
+const BookingDetail = lazy(() => import("./pages/BookingDetail"));
+const HotelSelection = lazy(() => import("./pages/HotelSelection"));
+const BookingSuccess = lazy(() => import("./pages/BookingSuccess"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService"));
+const RefundPolicy = lazy(() => import("./pages/RefundPolicy"));
+const DownloadInvoice = lazy(() => import("./pages/DownloadInvoice"));
+const BookingForm = lazy(() => import("./pages/BookingForm"));
+const Maintenance = lazy(() => import("./pages/Maintenance"));
 
 const queryClient = new QueryClient();
 
-import { useSettings, SettingsProvider } from "./context/SettingsContext";
-import Maintenance from "./pages/Maintenance";
-import { Loader2 } from "lucide-react";
+// Shared loading spinner — same visual as before
+const PageLoader = () => (
+  <div className="h-screen w-screen flex items-center justify-center bg-background">
+    <Loader2 className="h-8 w-8 animate-spin text-primary" />
+  </div>
+);
 
 const AppRoutes = () => {
   const { settings, loading } = useSettings();
 
   if (loading) {
+    return <PageLoader />;
+  }
+
+  if (settings?.website?.maintenance) {
     return (
-      <div className="h-screen w-screen flex items-center justify-center bg-background">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
+      <Suspense fallback={<PageLoader />}>
+        <Maintenance />
+      </Suspense>
     );
   }
 
-  // Allow access to login/admin even in maintenance mode if needed, but for now strict maintenance
-  // You might want to allow a specific query param or route to bypass, but keeping it simple
-  if (settings?.website?.maintenance) {
-    return <Maintenance />;
-  }
-
   return (
-    <Routes>
-      <Route path="/" element={<Index />} />
-      <Route path="/destinations" element={<Destinations />} />
-      <Route path="/package" element={<Navigate to="/packages?state=odisha" replace />} />
-      <Route path="/packages" element={<Packages />} />
-      <Route path="/packages/:id" element={<PackageDetail />} />
-      <Route path="/experiences" element={<Experiences />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/bookings" element={<Bookings />} />
-      <Route path="/bookings/:id" element={<BookingDetail />} />
-      <Route path="/bookings/:bookingId/select-hotels" element={<HotelSelection />} />
-      <Route path="/packages/:packageId/hotels" element={<HotelSelection />} />
-      <Route path="/booking-success" element={<BookingSuccess />} />
-      <Route path="/booking-form" element={<BookingForm />} />
-      <Route path="/privacy" element={<PrivacyPolicy />} />
-      <Route path="/terms" element={<TermsOfService />} />
-      <Route path="/refund" element={<RefundPolicy />} />
-      <Route path="/download-invoice/:bookingId" element={<DownloadInvoice />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <Suspense fallback={<PageLoader />}>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/destinations" element={<Destinations />} />
+        <Route path="/package" element={<Navigate to="/packages?state=odisha" replace />} />
+        <Route path="/packages" element={<Packages />} />
+        <Route path="/packages/:id" element={<PackageDetail />} />
+        <Route path="/experiences" element={<Experiences />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/bookings" element={<Bookings />} />
+        <Route path="/bookings/:id" element={<BookingDetail />} />
+        <Route path="/bookings/:bookingId/select-hotels" element={<HotelSelection />} />
+        <Route path="/packages/:packageId/hotels" element={<HotelSelection />} />
+        <Route path="/booking-success" element={<BookingSuccess />} />
+        <Route path="/booking-form" element={<BookingForm />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsOfService />} />
+        <Route path="/refund" element={<RefundPolicy />} />
+        <Route path="/download-invoice/:bookingId" element={<DownloadInvoice />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   );
 };
 

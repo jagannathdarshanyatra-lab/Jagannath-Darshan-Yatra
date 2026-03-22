@@ -24,10 +24,20 @@ const getHotels = async (req, res) => {
       query.packageType = new RegExp(`^${packageType}$`, 'i');
     }
 
-    // 1. Fetch from Local DB
-    const localHotels = await Hotel.find(query).sort({ createdAt: -1 });
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
 
-    // 2. Fetch from OTA API
+    // 1. Fetch total count from Local DB
+    const totalLocal = await Hotel.countDocuments(query);
+
+    // 2. Fetch from Local DB with pagination
+    const localHotels = await Hotel.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    // 3. Fetch from OTA API (OTA usually has its own pagination, but for now we'll just merge)
     let otaHotels = [];
     if (process.env.OTA_CLIENT_ID) {
       otaHotels = await otaProvider.getHotels({ destination, packageType });
@@ -35,7 +45,17 @@ const getHotels = async (req, res) => {
 
     const allHotels = [...localHotels, ...otaHotels];
     
-    res.json(allHotels);
+    res.json({
+      success: true,
+      count: allHotels.length,
+      pagination: {
+        total: totalLocal + otaHotels.length,
+        pages: Math.ceil((totalLocal + otaHotels.length) / limit),
+        currentPage: page,
+        limit,
+      },
+      hotels: allHotels,
+    });
   } catch (error) {
     console.error('getHotels Error:', error);
     res.status(500).json({ 
@@ -200,10 +220,25 @@ const deleteHotel = async (req, res) => {
 // @access  Admin (Protected)
 const getAllHotelsAdmin = async (req, res) => {
   try {
-    const hotels = await Hotel.find().sort({ createdAt: -1 });
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await Hotel.countDocuments();
+    const hotels = await Hotel.find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
     res.json({
       success: true,
       count: hotels.length,
+      pagination: {
+        total,
+        pages: Math.ceil(total / limit),
+        currentPage: page,
+        limit,
+      },
       hotels,
     });
   } catch (error) {
@@ -220,12 +255,25 @@ const getAllHotelsAdmin = async (req, res) => {
 // @access  Private (SuperAdmin)
 const getPendingHotels = async (req, res) => {
   try {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await Hotel.countDocuments({ approvalStatus: 'pending' });
     const hotels = await Hotel.find({ approvalStatus: 'pending' })
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
 
     res.json({
       success: true,
       count: hotels.length,
+      pagination: {
+        total,
+        pages: Math.ceil(total / limit),
+        currentPage: page,
+        limit,
+      },
       hotels,
     });
   } catch (error) {

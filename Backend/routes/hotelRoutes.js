@@ -29,8 +29,10 @@ const hotelUploadField = upload.fields([
 router.get('/admin/all', protectAdmin, getAllHotelsAdmin);
 router.get('/admin/pending', requireSuperAdmin, getPendingHotels);
 
+const { setCache } = require('../middleware/cacheMiddleware');
+
 // Public routes for fetching (only approved)
-router.get('/', validateOtaRequest, getHotels);
+router.get('/', setCache(3600), validateOtaRequest, getHotels);
 
 // Admin CRUD routes
 router.post('/', protectAdmin, hotelUploadField, createHotel);
@@ -40,6 +42,6 @@ router.patch('/:id/reject', requireSuperAdmin, rejectHotel);
 router.delete('/:id', protectAdmin, deleteHotel);
 
 // Public by ID (must be last)
-router.get('/:id', getHotelById);
+router.get('/:id', setCache(3600), getHotelById);
 
 module.exports = router;

@@ -7,11 +7,25 @@ const Faq = require('../models/Faq');
  */
 exports.getAllFaqs = async (req, res) => {
   try {
-    const faqs = await Faq.find({ isActive: true }).sort({ order: 1 });
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await Faq.countDocuments({ isActive: true });
+    const faqs = await Faq.find({ isActive: true })
+      .sort({ order: 1 })
+      .skip(skip)
+      .limit(limit);
     
     res.status(200).json({
       success: true,
       count: faqs.length,
+      pagination: {
+        total,
+        pages: Math.ceil(total / limit),
+        currentPage: page,
+        limit,
+      },
       faqs
     });
   } catch (err) {
@@ -30,11 +44,22 @@ exports.getAllFaqs = async (req, res) => {
  */
 exports.getAllFaqsAdmin = async (req, res) => {
   try {
-    const faqs = await Faq.find().sort({ order: 1 });
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await Faq.countDocuments();
+    const faqs = await Faq.find().sort({ order: 1 }).skip(skip).limit(limit);
     
     res.status(200).json({
       success: true,
       count: faqs.length,
+      pagination: {
+        total,
+        pages: Math.ceil(total / limit),
+        currentPage: page,
+        limit,
+      },
       faqs
     });
   } catch (err) {

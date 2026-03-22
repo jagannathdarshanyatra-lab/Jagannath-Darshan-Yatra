@@ -13,6 +13,7 @@ const LIGHT_BG = [255, 248, 240];     // warm background
 const ACCENT_BG = [255, 237, 219];    // peach section bg
 const WHITE = [255, 255, 255];
 const BORDER = [230, 210, 190];
+const BLACK = [0, 0, 0];
 
 const fmt = (num) =>
   num != null ? `Rs. ${Number(num).toLocaleString("en-IN")}` : "-";
@@ -97,15 +98,26 @@ const generateInvoicePdf = async (booking) => {
   doc.setFillColor(...ACCENT_BG);
   doc.roundedRect(margin, y, contentW, 42, 3, 3, "F");
 
-  // Logo handling
+  // Brand Section (Logo + Text)
   if (logoData) {
-    doc.addImage(logoData, "WEBP", margin + 4, y + 4, 34, 34);
-  } else {
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(22);
-    doc.setTextColor(...PRIMARY);
-    doc.text("Jagannath Darshan Yatra", margin + 6, y + 20);
+    doc.addImage(logoData, "WEBP", margin + 6, y + 6, 22, 28);
   }
+
+  // Brand Text
+  doc.setFont("times", "bold");
+  doc.setTextColor(...BLACK);
+  
+  // "JAGANNATH"
+  doc.setFontSize(14);
+  doc.setCharSpace(0.8); 
+  doc.text("JAGANNATH", margin + 31, y + 20);
+  
+  // "DARSHAN YATRA"
+  doc.setFontSize(11);
+  doc.setCharSpace(0.5);
+  doc.text("DARSHAN YATRA", margin + 31, y + 26);
+  
+  doc.setCharSpace(0); // reset
 
   // Right side - INVOICE title + company location
   doc.setFont("helvetica", "bold");
@@ -233,12 +245,25 @@ const generateInvoicePdf = async (booking) => {
   // ── Mini header on page 2 ──
   doc.setFillColor(...ACCENT_BG);
   doc.roundedRect(margin, y, contentW, 16, 3, 3, "F");
-  if (logoData) doc.addImage(logoData, "WEBP", margin + 3, y + 1.5, 13, 13);
+  doc.setFont("times", "bold");
+  doc.setTextColor(...BLACK);
+  
+  if (logoData) {
+    doc.addImage(logoData, "WEBP", margin + 4, y + 3, 10, 10);
+  }
+  
+  doc.setFontSize(10);
+  doc.setCharSpace(0.4);
+  doc.text("JAGANNATH", margin + 16, y + 8);
+  doc.setFontSize(8);
+  doc.setCharSpace(0.2);
+  doc.text("DARSHAN YATRA", margin + 16, y + 12);
+  doc.setCharSpace(0);
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.setTextColor(...PRIMARY);
-  doc.text("Jagannath Darshan Yatra", margin + 18, y + 10);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7);
+  doc.setTextColor(...MUTED);
+  doc.text("Your Trusted Travel Partner", margin + 16, y + 15.5);
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
@@ -372,9 +397,25 @@ const generateInvoicePdf = async (booking) => {
   // ── FOOTER ──
   const footerY = pageH - 48;
   doc.setDrawColor(...PRIMARY); doc.setLineWidth(0.8); doc.line(margin, footerY, pageW - margin, footerY);
-  doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(...PRIMARY);
-  doc.text("Jagannath Darshan Yatra", margin + 4, footerY + 9);
-  doc.setFontSize(8); doc.setTextColor(...MUTED); doc.text("Your Trusted Travel Partner", margin + 4, footerY + 14);
+  // Left: Company Logo + Text
+  if (logoData) {
+    doc.addImage(logoData, "WEBP", margin + 4, footerY + 2, 12, 15);
+  }
+  
+  doc.setFont("times", "bold");
+  doc.setTextColor(...BLACK);
+  doc.setFontSize(10);
+  doc.setCharSpace(0.3);
+  doc.text("JAGANNATH", margin + 18, footerY + 7.5);
+  doc.setFontSize(8);
+  doc.setCharSpace(0.15);
+  doc.text("DARSHAN YATRA", margin + 18, footerY + 11.5);
+  doc.setCharSpace(0);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7);
+  doc.setTextColor(...MUTED);
+  doc.text("Your Trusted Travel Partner", margin + 18, footerY + 15.5);
   doc.setFontSize(10); doc.setTextColor(...DARK); doc.text("Booking Via Jungle Resort Pvt. Ltd.", margin + 4, footerY + 22);
   doc.setDrawColor(...DARK); doc.setLineWidth(0.3); doc.line(pageW - margin - 60, footerY + 25, pageW - margin - 4, footerY + 25);
   doc.setFont("helvetica", "normal"); doc.setFontSize(8); doc.setTextColor(...MUTED);

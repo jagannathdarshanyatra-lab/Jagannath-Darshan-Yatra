@@ -43,6 +43,12 @@ router.put('/:id', protectAdmin, upload.single('heroImage'), updateDestination);
 // @access  Private/Admin
 router.delete('/:id', protectAdmin, deleteDestination);
 
+const { setCache } = require('../middleware/cacheMiddleware');
+
+// ============================================
+// ADMIN ROUTES (Protected) - Must come before parameterized routes
+// ============================================
+// ... admin routes ...
 // ============================================
 // PUBLIC ROUTES
 // ============================================
@@ -50,16 +56,16 @@ router.delete('/:id', protectAdmin, deleteDestination);
 // @route   GET /api/destinations
 // @desc    Get all active destinations
 // @access  Public
-router.get('/', getDestinations);
+router.get('/', setCache(3600), getDestinations);
 
 // @route   GET /api/destinations/:slug
 // @desc    Get destination by slug
 // @access  Public
-router.get('/:slug', getDestinationBySlug);
+router.get('/:slug', setCache(3600), getDestinationBySlug);
 
 // @route   GET /api/destinations/:slug/packages
 // @desc    Get packages by destination
 // @access  Public
-router.get('/:slug/packages', getPackagesByDestination);
+router.get('/:slug/packages', setCache(3600), getPackagesByDestination);
 
 module.exports = router;

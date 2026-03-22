@@ -26,6 +26,8 @@ const packageUploadFields = upload.fields([
   { name: 'images', maxCount: 10 },         // Gallery images
 ]);
 
+const { setCache } = require('../middleware/cacheMiddleware');
+
 // ========================
 // PUBLIC ROUTES
 // ========================
@@ -33,17 +35,17 @@ const packageUploadFields = upload.fields([
 // @route   GET /api/packages
 // @desc    Get all packages (with optional filters, active & approved only)
 // @access  Public
-router.get('/', getPackages);
+router.get('/', setCache(3600), getPackages);
 
 // @route   GET /api/packages/slug/:slug
 // @desc    Get package by slug
 // @access  Public
-router.get('/slug/:slug', getPackageBySlug);
+router.get('/slug/:slug', setCache(3600), getPackageBySlug);
 
 // @route   GET /api/packages/destination/:dest
 // @desc    Get packages by destination name
 // @access  Public
-router.get('/destination/:dest', getPackagesByDestinationName);
+router.get('/destination/:dest', setCache(3600), getPackagesByDestinationName);
 
 // ========================
 // ADMIN ROUTES (Protected)

@@ -1,4 +1,5 @@
 import { jsPDF } from "jspdf";
+import logoUrl from "@/assets/Logo_Jagannath_Darshan_Yatra.png";
 
 // ── Color constants (matching the Mango/Orange website theme) ──
 const PRIMARY = [249, 115, 22];       // hsl(24, 95%, 53%) → rgb
@@ -9,6 +10,7 @@ const LIGHT_BG = [255, 248, 240];     // warm background
 const ACCENT_BG = [255, 237, 219];    // peach section bg
 const WHITE = [255, 255, 255];
 const BORDER = [230, 210, 190];
+const BLACK = [0, 0, 0];
 
 // ── Helpers ──
 // Note: jsPDF built-in fonts do not support ₹ (Unicode U+20B9), so we use "Rs."
@@ -57,6 +59,15 @@ export async function generateInvoicePdf(booking) {
   const API_URL = API_BASE.includes('/api') ? API_BASE : `${API_BASE.replace(/\/$/, "")}/api`;
 
   const doc = new jsPDF({ unit: "mm", format: "a4" });
+  
+  // Load Brand Logo
+  let logoBase64 = null;
+  try {
+    logoBase64 = await loadImageAsBase64(logoUrl);
+  } catch (err) {
+    console.error("Failed to load logo for PDF:", err);
+  }
+
   const pageW = doc.internal.pageSize.getWidth();   // 210
   const pageH = doc.internal.pageSize.getHeight();  // 297
   const margin = 15;
@@ -111,11 +122,27 @@ export async function generateInvoicePdf(booking) {
   doc.setFillColor(...ACCENT_BG);
   doc.roundedRect(margin, y, contentW, 42, 3, 3, "F");
 
-  // Brand Text (left)
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(16);
-  doc.setTextColor(...PRIMARY);
-  doc.text("Jagannath Darshan Yatra", margin + 6, y + 22);
+  // Brand Section (Logo + Text)
+  if (logoBase64) {
+    // Add logo image
+    doc.addImage(logoBase64, "PNG", margin + 6, y + 6, 22, 28);
+  }
+
+  // Brand Text
+  doc.setFont("times", "bold");
+  doc.setTextColor(...BLACK);
+  
+  // "JAGANNATH"
+  doc.setFontSize(14);
+  doc.setCharSpace(0.8); 
+  doc.text("JAGANNATH", margin + 31, y + 20);
+  
+  // "DARSHAN YATRA"
+  doc.setFontSize(11);
+  doc.setCharSpace(0.5);
+  doc.text("DARSHAN YATRA", margin + 31, y + 26);
+  
+  doc.setCharSpace(0); // reset
 
   // Right side - INVOICE title + company location
   doc.setFont("helvetica", "bold");
@@ -389,15 +416,26 @@ export async function generateInvoicePdf(booking) {
   doc.setFillColor(...ACCENT_BG);
   doc.roundedRect(margin, y, contentW, 16, 3, 3, "F");
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.setTextColor(...PRIMARY);
-  doc.text("Jagannath Darshan Yatra", margin + 4, y + 7);
+  doc.setFont("times", "bold");
+  doc.setTextColor(...BLACK);
+  
+  // Draw Logo if available
+  if (logoBase64) {
+    doc.addImage(logoBase64, "PNG", margin + 4, y + 3, 10, 10);
+  }
+  
+  doc.setFontSize(10);
+  doc.setCharSpace(0.4);
+  doc.text("JAGANNATH", margin + 16, y + 8);
+  doc.setFontSize(8);
+  doc.setCharSpace(0.2);
+  doc.text("DARSHAN YATRA", margin + 16, y + 12);
+  doc.setCharSpace(0);
 
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(8);
+  doc.setFontSize(7);
   doc.setTextColor(...MUTED);
-  doc.text("Your Trusted Travel Partner", margin + 4, y + 12);
+  doc.text("Your Trusted Travel Partner", margin + 16, y + 15.5);
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
@@ -633,15 +671,25 @@ export async function generateInvoicePdf(booking) {
   doc.line(margin, footerY, pageW - margin, footerY);
 
   // Left: Company + Founder
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.setTextColor(...PRIMARY);
-  doc.text("Jagannath Darshan Yatra", margin + 4, footerY + 9);
+  // Left: Company Logo + Text
+  if (logoBase64) {
+    doc.addImage(logoBase64, "PNG", margin + 4, footerY + 2, 12, 15);
+  }
+  
+  doc.setFont("times", "bold");
+  doc.setTextColor(...BLACK);
+  doc.setFontSize(10);
+  doc.setCharSpace(0.3);
+  doc.text("JAGANNATH", margin + 18, footerY + 7.5);
+  doc.setFontSize(8);
+  doc.setCharSpace(0.15);
+  doc.text("DARSHAN YATRA", margin + 18, footerY + 11.5);
+  doc.setCharSpace(0);
 
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(8);
+  doc.setFontSize(7);
   doc.setTextColor(...MUTED);
-  doc.text("Your Trusted Travel Partner", margin + 4, footerY + 14);
+  doc.text("Your Trusted Travel Partner", margin + 18, footerY + 15.5);
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(10);

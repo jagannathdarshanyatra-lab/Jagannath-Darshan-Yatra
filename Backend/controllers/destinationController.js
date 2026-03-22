@@ -10,13 +10,26 @@ const { deleteImage, getPublicIdFromUrl } = require('../config/cloudinary');
  */
 const getDestinations = async (req, res) => {
   try {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await Destination.countDocuments({ isActive: true });
     const destinations = await Destination.find({ isActive: true })
       .sort({ order: 1, name: 1 })
+      .skip(skip)
+      .limit(limit)
       .select('-__v');
 
     res.json({
       success: true,
       count: destinations.length,
+      pagination: {
+        total,
+        pages: Math.ceil(total / limit),
+        currentPage: page,
+        limit,
+      },
       destinations,
     });
   } catch (error) {
@@ -35,13 +48,26 @@ const getDestinations = async (req, res) => {
  */
 const getAllDestinationsAdmin = async (req, res) => {
   try {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await Destination.countDocuments();
     const destinations = await Destination.find()
       .sort({ order: 1, name: 1 })
+      .skip(skip)
+      .limit(limit)
       .select('-__v');
 
     res.json({
       success: true,
       count: destinations.length,
+      pagination: {
+        total,
+        pages: Math.ceil(total / limit),
+        currentPage: page,
+        limit,
+      },
       destinations,
     });
   } catch (error) {

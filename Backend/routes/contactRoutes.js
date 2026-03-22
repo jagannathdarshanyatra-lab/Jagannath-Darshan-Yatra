@@ -9,8 +9,10 @@ const {
 } = require('../controllers/contactController');
 const { protectAdmin } = require('../middleware/adminAuthMiddleware');
 
+const { contactLimiter } = require('../middleware/rateLimiter');
+
 // Public route - user contact form submission
-router.post('/', submitContactForm);
+router.post('/', contactLimiter, submitContactForm);
 
 // Admin-protected routes
 router.get('/admin/all', protectAdmin, getAllInquiries);

@@ -15,8 +15,13 @@ const getPackages = async (req, res) => {
       minPrice,
       maxPrice,
       sort = 'price',
-      limit,
+      page = 1,
+      limit = 10,
     } = req.query;
+
+    const pageNum = Number(page);
+    const limitNum = Number(limit);
+    const skip = (pageNum - 1) * limitNum;
 
     // Build query
     const query = { isActive: true, approvalStatus: 'approved' };
@@ -58,19 +63,22 @@ const getPackages = async (req, res) => {
         sortQuery = { price: 1 };
     }
 
-    let packagesQuery = Package.find(query)
+    const total = await Package.countDocuments(query);
+    const packages = await Package.find(query)
       .sort(sortQuery)
+      .skip(skip)
+      .limit(limitNum)
       .select('-__v');
-
-    if (limit) {
-      packagesQuery = packagesQuery.limit(Number(limit));
-    }
-
-    const packages = await packagesQuery;
 
     res.json({
       success: true,
       count: packages.length,
+      pagination: {
+        total,
+        pages: Math.ceil(total / limitNum),
+        currentPage: pageNum,
+        limit: limitNum,
+      },
       packages,
     });
   } catch (error) {
@@ -192,13 +200,26 @@ const getPackagesByDestinationName = async (req, res) => {
  */
 const getAllPackagesAdmin = async (req, res) => {
   try {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await Package.countDocuments();
     const packages = await Package.find()
       .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
       .select('-__v');
 
     res.json({
       success: true,
       count: packages.length,
+      pagination: {
+        total,
+        pages: Math.ceil(total / limit),
+        currentPage: page,
+        limit,
+      },
       packages,
     });
   } catch (error) {

@@ -17,13 +17,26 @@ const getStates = async (req, res) => {
       query.isComingSoon = false;
     }
 
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await State.countDocuments(query);
     const states = await State.find(query)
       .sort({ isComingSoon: 1, order: 1, name: 1 })
+      .skip(skip)
+      .limit(limit)
       .select('-__v');
 
     res.json({
       success: true,
       count: states.length,
+      pagination: {
+        total,
+        pages: Math.ceil(total / limit),
+        currentPage: page,
+        limit,
+      },
       states,
     });
   } catch (error) {
@@ -88,17 +101,33 @@ const getStateDestinations = async (req, res) => {
       });
     }
 
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await Destination.countDocuments({
+      stateName: state.name,
+      isActive: true,
+    });
     const destinations = await Destination.find({
       stateName: state.name,
       isActive: true,
     })
       .sort({ order: 1, name: 1 })
+      .skip(skip)
+      .limit(limit)
       .select('-__v');
 
     res.json({
       success: true,
       state: state.name,
       count: destinations.length,
+      pagination: {
+        total,
+        pages: Math.ceil(total / limit),
+        currentPage: page,
+        limit,
+      },
       destinations,
     });
   } catch (error) {
@@ -141,14 +170,27 @@ const getStatePackages = async (req, res) => {
       query.type = type;
     }
 
+    const pageNum = Number(req.query.page) || 1;
+    const limitNum = Number(req.query.limit) || 10;
+    const skip = (pageNum - 1) * limitNum;
+
+    const total = await Package.countDocuments(query);
     const packages = await Package.find(query)
       .sort({ primaryDestination: 1, type: 1, price: 1 })
+      .skip(skip)
+      .limit(limitNum)
       .select('-__v');
 
     res.json({
       success: true,
       state: state.name,
       count: packages.length,
+      pagination: {
+        total,
+        pages: Math.ceil(total / limitNum),
+        currentPage: pageNum,
+        limit: limitNum,
+      },
       packages,
     });
   } catch (error) {

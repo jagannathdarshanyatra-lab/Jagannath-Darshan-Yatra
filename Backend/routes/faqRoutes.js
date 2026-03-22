@@ -11,8 +11,10 @@ const {
   reorderFaqs
 } = require('../controllers/faqController');
 
+const { setCache } = require('../middleware/cacheMiddleware');
+
 // Public route - get active FAQs
-router.get('/', getAllFaqs);
+router.get('/', setCache(3600), getAllFaqs);
 
 // Admin routes - protected
 router.get('/admin/all', protectAdmin, getAllFaqsAdmin);

@@ -83,23 +83,21 @@ const DestinationView = ({ destination, packages, allPackages, onBack, stateName
   return (
     <div className="animate-in fade-in duration-500">
       {/* 1. Banner Section */}
-      <section className="relative h-[70vh] w-full overflow-hidden">
-        <AnimatePresence mode="wait">
-          {bannerImages.map((img, index) => (
-             index === currentBannerIndex && (
-              <motion.img
-                key={img}
-                src={img}
-                alt={`${destination} Banner ${index + 1}`}
-                className="absolute inset-0 w-full h-full object-cover"
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.8 }}
-              />
-            )
-          ))}
-        </AnimatePresence>
+      <section className="relative h-[70vh] w-full overflow-hidden bg-gray-900">
+        {bannerImages.length > 0 && (
+          <AnimatePresence initial={false}>
+            <motion.img
+              key={bannerImages[currentBannerIndex]}
+              src={bannerImages[currentBannerIndex]}
+              alt={`${destination} Banner ${currentBannerIndex + 1}`}
+              className="absolute inset-0 w-full h-full object-cover"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+            />
+          </AnimatePresence>
+        )}
         
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30 flex flex-col items-center justify-center text-center p-4">
@@ -139,6 +137,7 @@ const DestinationView = ({ destination, packages, allPackages, onBack, stateName
         </div>
         
         {/* Banner dots */}
+        {bannerImages.length > 1 && (
          <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-2 z-10">
           {bannerImages.map((_, idx) => (
             <button
@@ -150,6 +149,7 @@ const DestinationView = ({ destination, packages, allPackages, onBack, stateName
             />
           ))}
         </div>
+        )}
       </section>
 
       <div className="container mx-auto px-4 py-16 space-y-24">

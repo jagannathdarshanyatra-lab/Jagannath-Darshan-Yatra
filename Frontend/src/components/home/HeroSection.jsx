@@ -1,20 +1,39 @@
-﻿import { motion } from "framer-motion";
+﻿import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/forms";
 import { Play, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/hero1.webp";
+import hero1 from "@/assets/hero1.webp";
+import hero2 from "@/assets/hero2.webp";
 
 const HeroSection = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const heroImages = [hero1, hero2];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900">
+      {/* Background Image Slider */}
       <div className="absolute inset-0">
-        <img
-          src={heroImage}
-          alt="Puri Beach Sunrise with Jagannath Temple"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-foreground/60 via-foreground/40 to-foreground/80" />
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={heroImages[currentImageIndex]}
+            src={heroImages[currentImageIndex]}
+            alt="Puri spiritual journey"
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-gradient-to-b from-foreground/60 via-foreground/40 to-foreground/80 z-[1]" />
       </div>
 
       {/* Content */}
