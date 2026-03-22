@@ -12,7 +12,7 @@ const IntroAnimation = ({ onComplete }) => {
       setTimeout(() => {
         if (onComplete) onComplete();
       }, 600);
-    }, 2200);
+    }, 4400); // 4.4s + 0.6s exit = 5s total
 
     return () => clearTimeout(timer);
   }, [onComplete]);
@@ -35,25 +35,25 @@ const IntroAnimation = ({ onComplete }) => {
   };
 
   const logoVariants = {
-    initial: { scale: 0, rotate: -10 },
+    initial: { scale: 0, rotate: -5 },
     animate: { 
       scale: 1, 
       rotate: 0,
       transition: { 
         delay: 0.4,
         type: "spring",
-        stiffness: 260,
-        damping: 20 
+        stiffness: 100, // Relaxed for smoothness
+        damping: 15 
       }
     }
   };
 
   const textVariants = {
-    initial: { y: 20, opacity: 0 },
+    initial: { y: 15, opacity: 0 },
     animate: { 
       y: 0, 
       opacity: 1,
-      transition: { delay: 0.8, duration: 0.5 }
+      transition: { delay: 1.0, duration: 0.6 }
     }
   };
 
@@ -61,7 +61,7 @@ const IntroAnimation = ({ onComplete }) => {
     initial: { width: 0 },
     animate: { 
       width: "100%", 
-      transition: { delay: 1, duration: 0.8, ease: "easeInOut" }
+      transition: { delay: 1.5, duration: 1, ease: "easeInOut" }
     }
   };
 
@@ -72,17 +72,20 @@ const IntroAnimation = ({ onComplete }) => {
           className="intro-premium-overlay"
           variants={containerVariants}
           exit="exit"
+          style={{ willChange: "transform" }}
         >
           {/* Background Decorative Shapes */}
           <motion.div 
             className="shape-1"
             animate={{ rotate: 360 }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            style={{ willChange: "transform" }}
           />
           <motion.div 
             className="shape-2"
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ y: [0, -15, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            style={{ willChange: "transform" }}
           />
 
           <div className="intro-container">
@@ -92,6 +95,7 @@ const IntroAnimation = ({ onComplete }) => {
               variants={circleVariants}
               initial="initial"
               animate="animate"
+              style={{ willChange: "transform, opacity" }}
             />
 
             <div className="intro-main-content">
@@ -100,6 +104,7 @@ const IntroAnimation = ({ onComplete }) => {
                 variants={logoVariants}
                 initial="initial"
                 animate="animate"
+                style={{ willChange: "transform" }}
               >
                 <img src={logo} alt="Logo" className="premium-logo" />
               </motion.div>
@@ -110,6 +115,7 @@ const IntroAnimation = ({ onComplete }) => {
                   initial="initial"
                   animate="animate"
                   className="welcome-box"
+                  style={{ willChange: "transform, opacity" }}
                 >
                   <span className="welcome-tag">Welcome to</span>
                   <h1 className="main-title">
@@ -120,6 +126,7 @@ const IntroAnimation = ({ onComplete }) => {
                     variants={lineVariants}
                     initial="initial"
                     animate="animate"
+                    style={{ willChange: "width" }}
                   />
                 </motion.div>
               </div>
