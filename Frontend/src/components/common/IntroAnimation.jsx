@@ -7,12 +7,13 @@ const IntroAnimation = ({ onComplete }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
+    // Total duration 5 seconds: 4.4s display + 0.6s exit animation
     const timer = setTimeout(() => {
       setIsVisible(false);
       setTimeout(() => {
         if (onComplete) onComplete();
       }, 600);
-    }, 4400); // 4.4s + 0.6s exit = 5s total
+    }, 4400);
 
     return () => clearTimeout(timer);
   }, [onComplete]);
@@ -30,7 +31,7 @@ const IntroAnimation = ({ onComplete }) => {
     animate: { 
       scale: 1, 
       opacity: 1,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { duration: 1, ease: "easeOut" }
     }
   };
 
@@ -40,9 +41,9 @@ const IntroAnimation = ({ onComplete }) => {
       scale: 1, 
       rotate: 0,
       transition: { 
-        delay: 0.4,
+        delay: 0.5,
         type: "spring",
-        stiffness: 100, // Relaxed for smoothness
+        stiffness: 120, // Reduced from 260 for smoothness
         damping: 15 
       }
     }
@@ -53,7 +54,7 @@ const IntroAnimation = ({ onComplete }) => {
     animate: { 
       y: 0, 
       opacity: 1,
-      transition: { delay: 1.0, duration: 0.6 }
+      transition: { delay: 1, duration: 0.8 }
     }
   };
 
@@ -79,13 +80,13 @@ const IntroAnimation = ({ onComplete }) => {
             className="shape-1"
             animate={{ rotate: 360 }}
             transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            style={{ willChange: "transform" }}
+            style={{ translateZ: 0 }}
           />
           <motion.div 
             className="shape-2"
             animate={{ y: [0, -15, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            style={{ willChange: "transform" }}
+            style={{ translateZ: 0 }}
           />
 
           <div className="intro-container">
@@ -106,7 +107,7 @@ const IntroAnimation = ({ onComplete }) => {
                 animate="animate"
                 style={{ willChange: "transform" }}
               >
-                <img src={logo} alt="Logo" className="premium-logo" />
+                <img src={logo} alt="Logo" className="premium-logo" loading="eager" />
               </motion.div>
               
               <div className="text-wrapper">
@@ -115,7 +116,7 @@ const IntroAnimation = ({ onComplete }) => {
                   initial="initial"
                   animate="animate"
                   className="welcome-box"
-                  style={{ willChange: "transform, opacity" }}
+                  style={{ transformZ: 0 }}
                 >
                   <span className="welcome-tag">Welcome to</span>
                   <h1 className="main-title">
@@ -126,7 +127,6 @@ const IntroAnimation = ({ onComplete }) => {
                     variants={lineVariants}
                     initial="initial"
                     animate="animate"
-                    style={{ willChange: "width" }}
                   />
                 </motion.div>
               </div>
