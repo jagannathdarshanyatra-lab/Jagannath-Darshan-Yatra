@@ -1,46 +1,112 @@
-.intro-video-overlay {
+.intro-premium-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #000000; /* Ensure solid black base */
+  background-color: hsl(24, 95%, 53%);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
   overflow: hidden;
-  contain: strict;
+  contain: strict; /* Isolate the intro from the rest of the app for zero lag */
 }
 
-/* Background Blurred Video - The Secret for Professional Fitting */
-.intro-video-blur-bg {
+/* Simplified Background Shapes - Standard circles are much faster to render */
+.shape-circle-large {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(40px) brightness(0.6);
-  opacity: 0.7;
-  z-index: 1;
-  pointer-events: none;
-  transform: scale(1.1); /* Prevent blur edges from leaking */
+  top: -15%;
+  right: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
 }
 
-.intro-video-element {
+.shape-circle-small {
+  position: absolute;
+  bottom: -10%;
+  left: -5%;
+  width: 35vw;
+  height: 35vw;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+.intro-container {
   position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Full visibility, no cropping */
-  object-position: center;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
 }
 
-/* Mobile responsive adjustments */
-@media (max-width: 480px) {
-  .intro-video-element {
-    width: 95%; /* Slight breathability for mobile */
+.white-portal-smooth {
+  position: absolute;
+  width: min(85vw, 650px);
+  height: min(85vw, 650px);
+  background: white;
+  border-radius: 50%;
+  /* Removed box-shadow - it's a huge cause of lag during scale animations */
+}
+
+.intro-main-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  gap: 2rem;
+}
+
+.premium-logo {
+  height: clamp(120px, 25vw, 200px);
+  width: auto;
+}
+
+.text-wrapper {
+  text-align: center;
+}
+
+.welcome-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.welcome-tag {
+  color: hsl(24, 95%, 53%);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
+}
+
+.main-title {
+  color: #1a1a1a;
+  font-size: clamp(1.4rem, 5vw, 3rem);
+  font-weight: 700;
+  margin-top: 0.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.highlight {
+  color: hsl(24, 95%, 53%);
+}
+
+.accent-line-smooth {
+  height: 4px;
+  background: hsl(24, 95%, 53%);
+  margin-top: 1.5rem;
+  border-radius: 99px;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .white-portal-smooth {
+    width: 95vw;
+    height: 95vw;
   }
 }
