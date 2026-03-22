@@ -16,33 +16,17 @@
 .intro-video-element {
   width: 100%;
   height: 100%;
-  /* cover ensures no gaps, contain ensures no cropping. 
-     For a cinematic intro, cover is almost always preferred. */
-  object-fit: cover; 
+  /* Switching to 'contain' to ensure the full video is visible 
+     without being zoomed/cropped on any screen. */
+  object-fit: contain; 
   object-position: center center;
   display: block;
 }
 
-/* Specific fix for devices with odd aspect ratios (e.g. some Tablets) */
-@media screen and (min-aspect-ratio: 16/9) {
+/* On very small mobile devices, we still ensure it fits the width */
+@media (max-width: 480px) {
   .intro-video-element {
-    width: 100%;
+    width: 95%; /* Slight padding so it doesn't touch the very edges if helpful */
     height: auto;
-  }
-}
-
-@media screen and (max-aspect-ratio: 16/9) {
-  .intro-video-element {
-    width: auto;
-    height: 100%;
-  }
-}
-
-/* Ensure mobile portrait still looks good */
-@media (max-width: 480px) and (orientation: portrait) {
-  .intro-video-element {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
   }
 }
