@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/forms";
 import { Play, ChevronDown } from "lucide-react";
@@ -37,7 +37,7 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 pt-32 pb-20 text-center">
+      <div className="relative z-10 container mx-auto px-4 pt-24 sm:pt-32 pb-16 sm:pb-20 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -57,7 +57,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-6"
+            className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-4 sm:mb-6"
           >
             Start Your Journey
             <span className="block text-gradient bg-gradient-to-r from-amber-300 via-primary to-amber-400 bg-clip-text text-transparent">
@@ -69,7 +69,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="text-lg sm:text-xl text-primary-foreground/90 max-w-2xl mx-auto mb-10"
+            className="text-base sm:text-xl text-primary-foreground/90 max-w-2xl mx-auto mb-8 sm:mb-10"
           >
             Experience the divine charm of Jagannath Temple, serene beaches of Puri, 
             and the architectural marvel of Konark. Your spiritual journey begins here.
@@ -101,7 +101,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9 }}
-            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
+            className="mt-10 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
           >
             {[
               { number: "3000+", label: "Happy Travelers" },
@@ -110,7 +110,7 @@ const HeroSection = () => {
               { number: "24/7", label: "Support" },
             ].map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-primary-foreground mb-1">
+                <div className="text-2xl sm:text-4xl font-bold text-primary-foreground mb-1">
                   {stat.number}
                 </div>
                 <div className="text-sm text-primary-foreground/70">{stat.label}</div>
