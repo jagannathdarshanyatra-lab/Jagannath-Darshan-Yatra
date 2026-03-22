@@ -7,22 +7,23 @@ const IntroAnimation = ({ onComplete }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // Total duration 5 seconds: 4.4s display + 0.6s exit animation
+    // Total duration ~7 seconds: 6.4s display + 0.6s exit animation
     const timer = setTimeout(() => {
       setIsVisible(false);
       setTimeout(() => {
         if (onComplete) onComplete();
       }, 600);
-    }, 4400);
+    }, 6400);
 
     return () => clearTimeout(timer);
   }, [onComplete]);
 
-  // Animation Variants
+  // Animation Variants - Using simple ease for maximum performance
   const containerVariants = {
     exit: {
-      y: "-100%",
-      transition: { duration: 0.6, ease: [0.9, 0, 0.1, 1] }
+      opacity: 0,
+      scale: 1.1,
+      transition: { duration: 0.6, ease: "easeInOut" }
     }
   };
 
@@ -31,30 +32,28 @@ const IntroAnimation = ({ onComplete }) => {
     animate: { 
       scale: 1, 
       opacity: 1,
-      transition: { duration: 1, ease: "easeOut" }
+      transition: { duration: 1.2, ease: "easeOut" }
     }
   };
 
   const logoVariants = {
-    initial: { scale: 0, rotate: -5 },
+    initial: { scale: 0.5, opacity: 0 },
     animate: { 
       scale: 1, 
-      rotate: 0,
+      opacity: 1,
       transition: { 
-        delay: 0.5,
-        type: "spring",
-        stiffness: 120, // Reduced from 260 for smoothness
-        damping: 15 
+        delay: 0.8,
+        duration: 1,
+        ease: "backOut"
       }
     }
   };
 
   const textVariants = {
-    initial: { y: 15, opacity: 0 },
+    initial: { opacity: 0 },
     animate: { 
-      y: 0, 
       opacity: 1,
-      transition: { delay: 1, duration: 0.8 }
+      transition: { delay: 1.5, duration: 1 }
     }
   };
 
@@ -62,7 +61,7 @@ const IntroAnimation = ({ onComplete }) => {
     initial: { width: 0 },
     animate: { 
       width: "100%", 
-      transition: { delay: 1.5, duration: 1, ease: "easeInOut" }
+      transition: { delay: 2, duration: 1.5, ease: "easeInOut" }
     }
   };
 
@@ -73,30 +72,26 @@ const IntroAnimation = ({ onComplete }) => {
           className="intro-premium-overlay"
           variants={containerVariants}
           exit="exit"
-          style={{ willChange: "transform" }}
         >
-          {/* Background Decorative Shapes */}
+          {/* Background Decorative Shapes - Simplified to Opacity Only */}
           <motion.div 
             className="shape-1"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            style={{ translateZ: 0 }}
+            animate={{ opacity: [0.1, 0.2, 0.1] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           />
           <motion.div 
             className="shape-2"
-            animate={{ y: [0, -15, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            style={{ translateZ: 0 }}
+            animate={{ opacity: [0.1, 0.15, 0.1] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           />
 
           <div className="intro-container">
-            {/* White Portal Reveal */}
+            {/* White Portal Reveal - Shadow Removed in CSS */}
             <motion.div 
               className="white-portal"
               variants={circleVariants}
               initial="initial"
               animate="animate"
-              style={{ willChange: "transform, opacity" }}
             />
 
             <div className="intro-main-content">
@@ -105,7 +100,6 @@ const IntroAnimation = ({ onComplete }) => {
                 variants={logoVariants}
                 initial="initial"
                 animate="animate"
-                style={{ willChange: "transform" }}
               >
                 <img src={logo} alt="Logo" className="premium-logo" loading="eager" />
               </motion.div>
@@ -116,7 +110,6 @@ const IntroAnimation = ({ onComplete }) => {
                   initial="initial"
                   animate="animate"
                   className="welcome-box"
-                  style={{ transformZ: 0 }}
                 >
                   <span className="welcome-tag">Welcome to</span>
                   <h1 className="main-title">
