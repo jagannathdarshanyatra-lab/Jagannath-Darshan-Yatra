@@ -44,8 +44,8 @@
 
 .white-portal-smooth {
   position: absolute;
-  width: min(85vw, 650px);
-  height: min(85vw, 650px);
+  width: min(92vw, 850px);
+  height: min(92vw, 850px);
   background: white;
   border-radius: 50%;
   /* Removed box-shadow - it's a huge cause of lag during scale animations */
@@ -57,39 +57,43 @@
   flex-direction: column;
   align-items: center;
   z-index: 10;
-  gap: 2rem;
+  gap: clamp(2rem, 5vw, 4rem); /* Dynamic gap for better spacing */
+  padding: 2rem;
 }
 
 .premium-logo {
-  height: clamp(120px, 25vw, 200px);
+  height: clamp(140px, 30vw, 260px); /* Increased size */
   width: auto;
+  object-fit: contain;
 }
 
 .text-wrapper {
   text-align: center;
+  max-width: 90%;
 }
 
 .welcome-box {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
   align-items: center;
 }
 
 .welcome-tag {
   color: hsl(24, 95%, 53%);
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.3em;
-  font-size: clamp(0.7rem, 2vw, 0.9rem);
+  letter-spacing: 0.4em;
+  font-size: clamp(0.75rem, 2.5vw, 1.1rem);
 }
 
 .main-title {
   color: #1a1a1a;
-  font-size: clamp(1.4rem, 5vw, 3rem);
-  font-weight: 700;
+  font-size: clamp(1.8rem, 6vw, 4.2rem); /* Significantly increased font size */
+  font-weight: 800;
   margin-top: 0.5rem;
   font-family: 'Playfair Display', serif;
+  line-height: 1.1;
 }
 
 .highlight {
@@ -97,16 +101,25 @@
 }
 
 .accent-line-smooth {
-  height: 4px;
+  height: clamp(4px, 1vw, 6px);
   background: hsl(24, 95%, 53%);
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   border-radius: 99px;
-  width: 100%;
+  width: 120%; /* wider than text for premium feel */
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .white-portal-smooth {
-    width: 95vw;
-    height: 95vw;
+    width: 96vw;
+    height: 96vw;
+  }
+  
+  .intro-main-content {
+    gap: 1.5rem;
+  }
+  
+  .accent-line-smooth {
+    width: 100%;
+    margin-top: 1rem;
   }
 }
