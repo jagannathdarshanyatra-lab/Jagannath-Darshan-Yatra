@@ -8,7 +8,6 @@ const IntroAnimation = ({ onComplete }) => {
 
   const handleVideoEnd = () => {
     setIsVisible(false);
-    // Give time for the AnimatePresence exit animation to finish
     setTimeout(() => {
       if (onComplete) onComplete();
     }, 600);
@@ -23,6 +22,16 @@ const IntroAnimation = ({ onComplete }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
         >
+          {/* Background Blurred Layer - Fills the gaps dynamically */}
+          <video
+            src={introVideo}
+            autoPlay
+            muted
+            playsInline
+            className="intro-video-blur-bg"
+          />
+          
+          {/* Main Foreground Video - Shows full content clearly */}
           <video
             src={introVideo}
             autoPlay
