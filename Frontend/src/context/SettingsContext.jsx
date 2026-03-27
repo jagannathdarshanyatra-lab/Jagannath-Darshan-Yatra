@@ -42,7 +42,7 @@ export const SettingsProvider = ({ children }) => {
   const cachedSettings = getCachedSettings();
   // If we have cached settings, use them immediately (loading = false)
   // If not, default to non-maintenance so the app renders instantly
-  const [settings, setSettings] = useState(cachedSettings || { website: { maintenance: false } });
+  const [settings, setSettings] = useState(cachedSettings || { website: { maintenance: false, showPrices: true } });
   const [loading, setLoading] = useState(false); // Never block initial render
   const [error, setError] = useState(null);
 

@@ -10,10 +10,9 @@
   justify-content: center;
   z-index: 9999;
   overflow: hidden;
-  contain: strict; /* Isolate the intro from the rest of the app for zero lag */
+  contain: strict;
 }
 
-/* Simplified Background Shapes - Standard circles are much faster to render */
 .shape-circle-large {
   position: absolute;
   top: -15%;
@@ -48,7 +47,6 @@
   height: min(94vw, 900px);
   background: white;
   border-radius: 50%;
-  /* Removed box-shadow - it's a huge cause of lag during scale animations */
 }
 
 .intro-main-content {
