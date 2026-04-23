@@ -1,5 +1,5 @@
 const Hotel = require('../models/Hotel');
-const otaProvider = require('../utils/otaProviders/otaProvider');
+
 
 // @desc    Get all hotels (with optional filters)
 // @route   GET /api/hotels
@@ -37,20 +37,14 @@ const getHotels = async (req, res) => {
       .skip(skip)
       .limit(limit);
 
-    // 3. Fetch from OTA API (OTA usually has its own pagination, but for now we'll just merge)
-    let otaHotels = [];
-    if (process.env.OTA_CLIENT_ID) {
-      otaHotels = await otaProvider.getHotels({ destination, packageType });
-    }
-
-    const allHotels = [...localHotels, ...otaHotels];
+    const allHotels = localHotels;
     
     res.json({
       success: true,
       count: allHotels.length,
       pagination: {
-        total: totalLocal + otaHotels.length,
-        pages: Math.ceil((totalLocal + otaHotels.length) / limit),
+        total: totalLocal,
+        pages: Math.ceil(totalLocal / limit),
         currentPage: page,
         limit,
       },
@@ -98,7 +92,7 @@ const createHotel = async (req, res) => {
                      (typeof req.body.amenities === 'string' ? req.body.amenities.split(',').map(a => a.trim()) : []);
     const description = req.body.description;
     const rating = Number(req.body.rating) || 0;
-    const otaApiLink = req.body.otaApiLink;
+
 
     // Process uploaded images
     const uploadedFiles = await processUploadedFiles(req.files || {}, {
@@ -116,7 +110,7 @@ const createHotel = async (req, res) => {
       amenities,
       description,
       rating,
-      otaApiLink,
+
       approvalStatus: req.admin && req.admin.role === 'superadmin' ? 'approved' : 'pending',
     });
 
@@ -187,7 +181,7 @@ const updateHotel = async (req, res) => {
     hotel.description = req.body.description !== undefined ? req.body.description : hotel.description;
     hotel.rating = req.body.rating !== undefined ? Number(req.body.rating) : hotel.rating;
     hotel.isActive = req.body.isActive !== undefined ? (req.body.isActive === 'true' || req.body.isActive === true) : hotel.isActive;
-    hotel.otaApiLink = req.body.otaApiLink !== undefined ? req.body.otaApiLink : hotel.otaApiLink;
+
 
     const updatedHotel = await hotel.save();
     res.json(updatedHotel);

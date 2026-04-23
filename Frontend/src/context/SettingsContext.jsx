@@ -65,7 +65,6 @@ export const SettingsProvider = ({ children }) => {
           console.error('Failed to load settings:', err);
         }
         setError(err.message);
-        // Keep using cached/default settings — don't block the app
       }
     };
 

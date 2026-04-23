@@ -13,7 +13,7 @@ const {
 } = require('../controllers/hotelController');
 const { protect, admin } = require('../middleware/authMiddleware');
 
-const { validateOtaRequest } = require('../middleware/otaRequestMiddleware');
+
 
 const { protectAdmin, requireSuperAdmin } = require('../middleware/adminAuthMiddleware');
 const { upload } = require('../utils/imageUpload');
@@ -32,7 +32,7 @@ router.get('/admin/pending', requireSuperAdmin, getPendingHotels);
 const { setCache } = require('../middleware/cacheMiddleware');
 
 // Public routes for fetching (only approved)
-router.get('/', setCache(3600), validateOtaRequest, getHotels);
+router.get('/', setCache(3600), getHotels);
 
 // Admin CRUD routes
 router.post('/', protectAdmin, hotelUploadField, createHotel);

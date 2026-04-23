@@ -257,16 +257,24 @@ const DestinationView = ({ destination, packages, allPackages, onBack, stateName
                           {settings?.website?.showPrices ? (
                             <>
                               <span className={`block text-2xl font-bold ${isElite ? "text-amber-400" : "text-primary"}`}>
-                                {typeof pkg.price === 'number' || !isNaN(pkg.price) 
-                                  ? `₹${(Number(pkg.price) / 1000).toFixed(1)}k`
-                                  : pkg.price || 'Contact'
-                                }
+                                {(() => {
+                                  if (pkg.price == null || pkg.price === '') return 'Contact';
+                                  const num = Number(String(pkg.price).replace(/[^0-9.]/g, ''));
+                                  if (isNaN(num) || num <= 0) return pkg.price && pkg.price !== '0' ? `₹${pkg.price}` : 'Contact';
+                                  return `₹${num < 100 ? num.toFixed(1) : (num / 1000).toFixed(1)}k`;
+                                })()}
                               </span>
-                              {(typeof pkg.price === 'number' || !isNaN(pkg.price)) && (
-                                <span className={`text-xs line-through ${isElite ? "text-gray-600" : "text-muted-foreground"}`}>
-                                  ₹{(Math.round(Number(pkg.price) / 0.6) / 1000).toFixed(1)}k
-                                </span>
-                              )}
+                              {(() => {
+                                if (pkg.price == null || pkg.price === '') return null;
+                                const num = Number(String(pkg.price).replace(/[^0-9.]/g, ''));
+                                if (isNaN(num) || num <= 0) return null;
+                                const original = num / 0.6;
+                                return (
+                                  <span className={`text-xs line-through ${isElite ? "text-gray-600" : "text-muted-foreground"}`}>
+                                    ₹{original < 100 ? original.toFixed(1) : (original / 1000).toFixed(1)}k
+                                  </span>
+                                );
+                              })()}
                             </>
                           ) : (
                             <span className={`block text-sm font-bold ${isElite ? "text-amber-400" : "text-primary"}`}>

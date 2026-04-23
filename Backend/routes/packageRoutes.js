@@ -24,6 +24,7 @@ const packageUploadFields = upload.fields([
   { name: 'locationImage', maxCount: 1 },   // Location/destination image
   { name: 'heroImages', maxCount: 3 },      // Banner carousel images
   { name: 'images', maxCount: 10 },         // Gallery images
+  { name: 'hotelImages', maxCount: 10 },    // Hotel images
 ]);
 
 const { setCache } = require('../middleware/cacheMiddleware');

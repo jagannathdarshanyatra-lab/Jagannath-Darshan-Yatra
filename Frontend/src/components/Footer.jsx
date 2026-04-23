@@ -25,7 +25,7 @@ const Footer = () => {
               Your trusted travel partner for authentic Odisha experiences. From sacred temples to pristine beaches, we craft unforgettable journeys.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 bg-primary/20 hover:bg-primary rounded-full flex items-center justify-center transition-colors">
+              <a href="https://www.facebook.com/JagannathDarshanPuriDham/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-primary/20 hover:bg-primary rounded-full flex items-center justify-center transition-colors">
                 <Facebook className="w-5 h-5" />
               </a>
               <a href="#" className="w-10 h-10 bg-primary/20 hover:bg-primary rounded-full flex items-center justify-center transition-colors">
@@ -86,8 +86,8 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                <a href="tel:+919556006338" className="text-primary-foreground/80 hover:text-primary transition-colors">
-                  +91 95560 06338
+                <a href="tel:+918093149715" className="text-primary-foreground/80 hover:text-primary transition-colors">
+                  +91 80931 49715
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -119,3 +119,5 @@ const Footer = () => {
 };
 
 export default Footer;
+
+

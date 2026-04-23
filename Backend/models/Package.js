@@ -123,6 +123,9 @@ const packageSchema = new mongoose.Schema(
       nights: { type: Number },
       roomType: { type: String },
     }],
+    hotelImages: [{
+      type: String,
+    }],
     foodPlan: {
       type: String,
       default: '',

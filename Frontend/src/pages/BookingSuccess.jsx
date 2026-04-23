@@ -215,14 +215,7 @@ const BookingSuccess = () => {
               </Link>
               
               {/* Show Select Hotels button if not yet selected (and booking is confirmed/paid ideally, but for now just show it) */}
-               {booking && (!booking.selectedHotels || booking.selectedHotels.length === 0) && (
-                  <Link to={`/bookings/${booking._id}/select-hotels`} className="flex-1">
-                    <Button className="w-full h-14 bg-primary-600 hover:bg-primary-700 text-white rounded-xl text-lg animate-pulse">
-                      <FaHotel className="w-5 h-5 mr-2" />
-                      Select Hotels
-                    </Button>
-                  </Link>
-               )}
+
               <Link to="/" className="flex-1">
                 <Button variant="outline" className="w-full h-14 border-gray-200 hover:bg-gray-50 rounded-xl text-lg">
                   <Home className="w-5 h-5 mr-2" />

@@ -167,7 +167,7 @@ const BookingForm = () => {
 
         if (!razorpayKey) {
           toast.info('Payment gateway is not configured. Booking saved successfully!');
-          window.location.href = `/bookings/${booking._id}/select-hotels`;
+          window.location.href = `/booking-success?id=${booking._id}`;
           return;
         }
 
@@ -190,11 +190,7 @@ const BookingForm = () => {
               }, token);
 
               toast.success('Payment successful! Your booking is confirmed.');
-              if (selectedHotel) {
                 window.location.href = `/booking-success?id=${booking._id}`;
-              } else {
-                window.location.href = `/bookings/${booking._id}/select-hotels`;
-              }
             } catch (error) {
               toast.error('Payment verification failed. Please contact support.');
             }

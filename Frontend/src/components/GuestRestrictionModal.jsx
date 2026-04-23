@@ -53,7 +53,7 @@ const GuestRestrictionModal = ({ isOpen, onClose, maxGuests, packageTier }) => {
                     variant="outline" 
                     className="h-12 rounded-xl"
                     onClick={() => {
-                        window.location.href = "tel:+919556006338";
+                        window.location.href = "tel:+918093149715";
                     }}
                 >
                     <Phone className="w-4 h-4 mr-2" /> Call us
@@ -61,7 +61,7 @@ const GuestRestrictionModal = ({ isOpen, onClose, maxGuests, packageTier }) => {
                 <Button 
                     variant="outline" 
                     className="h-12 rounded-xl border-green-200 text-green-600 hover:bg-green-50"
-                    onClick={() => window.open("https://wa.me/919556006338", "_blank")}
+                    onClick={() => window.open("https://wa.me/918093149715", "_blank")}
                 >
                     <MessageCircle className="w-4 h-4 mr-2" /> WhatsApp
                 </Button>
@@ -83,3 +83,4 @@ const GuestRestrictionModal = ({ isOpen, onClose, maxGuests, packageTier }) => {
 };
 
 export default GuestRestrictionModal;
+

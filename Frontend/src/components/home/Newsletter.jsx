@@ -1,9 +1,9 @@
-﻿import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/forms";
 import { MessageCircle, Phone, Sparkles } from "lucide-react";
 
 const WhatsAppCTA = () => {
-  const whatsappNumber = "917205099129";
+  const whatsappNumber = "918093149715";
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi! I'm interested in Jagannath Darshan Yatra travel packages. Please share the latest offers.`;
 
   return (
@@ -50,7 +50,7 @@ const WhatsAppCTA = () => {
             </a>
             
             <a 
-              href="tel:+919556006338"
+              href="tel:+918093149715"
               className="w-full sm:w-auto"
             >
               <Button
@@ -58,7 +58,7 @@ const WhatsAppCTA = () => {
                 className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 px-8 py-6 text-lg w-full sm:w-auto gap-3"
               >
                 <Phone className="w-5 h-5" />
-                +91 95560 06338
+                +91 80931 49715
               </Button>
             </a>
           </div>
@@ -69,3 +69,4 @@ const WhatsAppCTA = () => {
 };
 
 export default WhatsAppCTA;
+

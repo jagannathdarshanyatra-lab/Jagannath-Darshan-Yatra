@@ -163,6 +163,18 @@ export function PackageForm({ onClose, initialData }) {
     }
     return [{ city: '', hotel: '', nights: '', roomType: '' }];
   });
+  
+  // Hotel Images State
+  const [hotelImages, setHotelImages] = useState(() => {
+    if (initialData?.hotelImages && initialData.hotelImages.length > 0) {
+      return initialData.hotelImages.map((url, idx) => ({
+        url,
+        name: `Hotel ${idx + 1}`,
+        isExisting: true,
+      }));
+    }
+    return [];
+  });
 
   const [foodPlan, setFoodPlan] = useState(mappedData.foodPlan || '');
   const [transportation, setTransportation] = useState(mappedData.pickupDrop || '');
@@ -297,6 +309,12 @@ export function PackageForm({ onClose, initialData }) {
       const newGalleryImages = galleryImages.filter(img => img.isNew && img.file);
       newGalleryImages.forEach(img => {
         formData.append('images', img.file);
+      });
+      
+      // Add hotel images if they're new files
+      const newHotelImages = hotelImages.filter(img => img.isNew && img.file);
+      newHotelImages.forEach(img => {
+        formData.append('hotelImages', img.file);
       });
 
       if (initialData?._id) {
@@ -678,7 +696,7 @@ export function PackageForm({ onClose, initialData }) {
                       className="h-9 text-sm"
                     />
                     <Input
-                      placeholder="Hotel Name"
+                      placeholder="Hotel Description (Hidden on Frontend)"
                       value={hotel.hotel}
                       onChange={(e) => {
                         const newDetails = [...hotelDetails];
@@ -794,6 +812,16 @@ export function PackageForm({ onClose, initialData }) {
             images={galleryImages}
             onImagesChange={setGalleryImages}
           />
+
+          {/* Row 4: Hotel Images */}
+          <div className="pt-4 border-t border-border">
+            <ImageUploader
+              label="Hotel Images (Where You'll Stay Section, Max 10)"
+              maxImages={10}
+              images={hotelImages}
+              onImagesChange={setHotelImages}
+            />
+          </div>
         </div>
       </div>
 

@@ -162,7 +162,7 @@ export async function generateInvoicePdf(booking) {
     pageW - margin - 4, y + 23.5, { align: "right" }
   );
   doc.text(
-    "Phone: +91 95560 06338 | jagannathdarshanyatra@gmail.com",
+    "Phone: +91 80931 49715 | jagannathdarshanyatra@gmail.com",
     pageW - margin - 4, y + 28, { align: "right" }
   );
 
@@ -715,3 +715,4 @@ export async function generateInvoicePdf(booking) {
   const fileName = `Jagannath_Darshan_Invoice_${getBookingId(booking)}.pdf`;
   doc.save(fileName);
 }
+

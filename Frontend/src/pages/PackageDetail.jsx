@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { sonnerToast as toast } from "@/components/ui/feedback";
 import { motion } from "framer-motion";
@@ -91,8 +91,13 @@ const PackageDetail = () => {
 
   const handleConsentAccept = () => {
     setShowConsentModal(false);
-    // Navigate to hotel selection after consent
-    navigate(`/packages/${id}/hotels`, { state: { travelers } });
+    // Navigate directly to booking form, skipping hotel selection
+    navigate('/booking-form', { 
+      state: { 
+        pkg: pkg, 
+        travelers: travelers 
+      } 
+    });
   };
 
   if (loading) {
@@ -337,7 +342,7 @@ const PackageDetail = () => {
                       variant="outline" 
                       className="h-12 rounded-xl border-gray-200 hover:bg-orange-50 hover:text-orange-600 hover:border-orange-200"
                       onClick={() => {
-                        window.location.href = "tel:+919556006338";
+                        window.location.href = "tel:+918093149715";
                       }}
                     >
                       <Phone className="w-4 h-4 sm:mr-2" /><span className="hidden sm:inline">Call Expert</span><span className="sm:hidden">Call</span>
@@ -345,7 +350,7 @@ const PackageDetail = () => {
                     <Button 
                       variant="outline" 
                       className="h-12 rounded-xl border-gray-200 hover:bg-green-50 hover:text-green-600 hover:border-green-200"
-                      onClick={() => window.open("https://wa.me/919556006338", "_blank")}
+                      onClick={() => window.open("https://wa.me/918093149715", "_blank")}
                     >
                       <MessageCircle className="w-4 h-4 sm:mr-2" /><span className="hidden sm:inline">WhatsApp</span><span className="sm:hidden">Chat</span>
                     </Button>
@@ -426,16 +431,39 @@ const PackageDetail = () => {
                          </div>
                          Where You'll Stay
                       </h2>
-                      <div className="grid md:grid-cols-2 gap-4">
-                         {pkg.hotelDetails.map((hotel, i) => (
-                            <div key={i} className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
-                               <div className="text-xs uppercase font-bold text-gray-400 mb-2">{hotel.city}</div>
-                               <div className="font-serif text-xl font-bold text-gray-900 mb-2">{hotel.hotel}</div>
-                               <div className="inline-block px-3 py-1 bg-white rounded-lg text-sm font-medium text-gray-600 border border-gray-100">
-                                  {hotel.nights} Nights • {hotel.type}
-                               </div>
-                            </div>
-                         ))}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                         {pkg.hotelImages && pkg.hotelImages.length > 0 ? (
+                           pkg.hotelImages.map((img, i) => (
+                             <motion.div 
+                                key={i}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: i * 0.1, duration: 0.5 }}
+                                className="relative group aspect-[4/3] rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500"
+                             >
+                                <img 
+                                   src={img} 
+                                   alt={`Accommodation ${i + 1}`} 
+                                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                <div className="absolute bottom-4 left-6 right-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 opacity-0 group-hover:opacity-100">
+                                   <div className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-[10px] font-bold uppercase tracking-wider border border-white/20 w-fit">
+                                      Room View {i + 1}
+                                   </div>
+                                </div>
+                             </motion.div>
+                           ))
+                         ) : (
+                           /* Fallback for old packages without hotelImages */
+                           <div className="md:col-span-2 lg:col-span-3 bg-gray-50/50 rounded-3xl p-12 border-2 border-dashed border-gray-100 flex flex-col items-center justify-center text-center">
+                              <div className="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-4">
+                                 <Hotel className="w-8 h-8 text-gray-200" />
+                              </div>
+                              <h4 className="text-gray-900 font-bold mb-1">Accommodation Gallery</h4>
+                              <p className="text-gray-400 text-sm max-w-xs">Premium stay images for this package are being updated. Check back soon!</p>
+                           </div>
+                         )}
                       </div>
                     </div>
 
@@ -533,3 +561,4 @@ const PackageDetail = () => {
 };
 
 export default PackageDetail;
+

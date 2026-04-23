@@ -23,7 +23,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Bookings = lazy(() => import("./pages/Bookings"));
 const BookingDetail = lazy(() => import("./pages/BookingDetail"));
-const HotelSelection = lazy(() => import("./pages/HotelSelection"));
+
 const BookingSuccess = lazy(() => import("./pages/BookingSuccess"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
@@ -70,8 +70,7 @@ const AppRoutes = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/bookings" element={<Bookings />} />
         <Route path="/bookings/:id" element={<BookingDetail />} />
-        <Route path="/bookings/:bookingId/select-hotels" element={<HotelSelection />} />
-        <Route path="/packages/:packageId/hotels" element={<HotelSelection />} />
+
         <Route path="/booking-success" element={<BookingSuccess />} />
         <Route path="/booking-form" element={<BookingForm />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />

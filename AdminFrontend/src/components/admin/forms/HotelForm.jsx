@@ -81,7 +81,7 @@ export function HotelForm({ onClose, initialData }) {
     formData.append('packageType', selectedTiers.join(','));
     formData.append('amenities', e.target.amenities.value);
     formData.append('isActive', isActive);
-    formData.append('otaApiLink', e.target.otaApiLink.value);
+
 
     // Existing images (filtering out blob URLs which are previews of new files)
     const existingImages = selectedImages.filter(img => !img.startsWith('blob:'));
@@ -210,24 +210,7 @@ export function HotelForm({ onClose, initialData }) {
         </div>
       </div>
 
-      {/* OTA Configuration */}
-      <div className="form-section">
-        <h4 className="font-semibold text-foreground mb-4">OTA Configuration</h4>
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="otaApiLink">OTA API Link (Optional)</Label>
-            <Input 
-              id="otaApiLink" 
-              name="otaApiLink" 
-              placeholder="https://ota-provider.com/api/v1/booking" 
-              defaultValue={initialData?.otaApiLink} 
-            />
-            <p className="text-xs text-muted-foreground italic">
-              When provided, users will be redirected to this API for automated booking.
-            </p>
-          </div>
-        </div>
-      </div>
+
 
       {/* Images */}
       <div className="form-section">

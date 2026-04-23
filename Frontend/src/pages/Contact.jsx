@@ -150,8 +150,8 @@ const Contact = () => {
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-4 gap-6 -mt-20">
               {[
-                { icon: Phone, title: "Call Us", info: "+91 95560 06338", action: "tel:+919556006338" },
-                { icon: MessageCircle, title: "WhatsApp", info: "+91 95560 06338", action: "https://wa.me/919556006338" },
+                { icon: Phone, title: "Call Us", info: "+91 80931 49715", action: "tel:+918093149715" },
+                { icon: MessageCircle, title: "WhatsApp", info: "+91 80931 49715", action: "https://wa.me/918093149715" },
                 { icon: Mail, title: "Email", info: "jagannathdarshanyatra@gmail.com", action: "mailto:jagannathdarshanyatra@gmail.com" },
                 { icon: Clock, title: "Hours", info: "24/7 Support", action: null },
               ].map((item, index) => {
@@ -228,7 +228,7 @@ const Contact = () => {
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           className="w-full px-4 py-3 rounded-xl bg-card border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                          placeholder="+91 95560 06338"
+                          placeholder="+91 80931 *****"
                         />
                       </div>
                     </div>
@@ -392,7 +392,7 @@ const Contact = () => {
                     Our travel experts are available 24/7 to assist you with bookings, 
                     queries, or any travel emergencies.
                   </p>
-                  <a href="https://wa.me/917205099129" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/918093149715" target="_blank" rel="noopener noreferrer">
                     <Button className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 w-full gap-2">
                       <MessageCircle className="w-5 h-5" />
                       Chat on WhatsApp
@@ -493,3 +493,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

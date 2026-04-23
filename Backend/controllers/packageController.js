@@ -259,6 +259,7 @@ const createPackage = async (req, res) => {
       locationImage: 'packages/location',
       heroImages: 'packages/hero',
       images: 'packages/gallery',
+      hotelImages: 'packages/hotels',
     });
 
     // Parse itinerary from string format
@@ -339,8 +340,8 @@ const createPackage = async (req, res) => {
       type: req.body.type || req.body.tier,
       duration: req.body.duration,
       groupSize: req.body.groupSize,
-      price: Number(req.body.price),
-      originalPrice: Number(req.body.originalPrice) || Number(req.body.price) * 1.2,
+      price: Number(String(req.body.price).replace(/,/g, '')),
+      originalPrice: req.body.originalPrice ? Number(String(req.body.originalPrice).replace(/,/g, '')) : Number(String(req.body.price).replace(/,/g, '')) * 1.2,
       description: req.body.description || `Experience the best of ${req.body.primaryDestination || req.body.specificDestination}`,
       highlights: parseCommaSeparated(parseField(req.body.highlights)),
       included: parseCommaSeparated(parseField(req.body.included)),
@@ -372,6 +373,9 @@ const createPackage = async (req, res) => {
     }
     if (uploadedImages.images && uploadedImages.images.length > 0) {
       packageData.images = uploadedImages.images;
+    }
+    if (uploadedImages.hotelImages && uploadedImages.hotelImages.length > 0) {
+      packageData.hotelImages = uploadedImages.hotelImages;
     }
 
     // Create the package
@@ -497,6 +501,7 @@ const updatePackage = async (req, res) => {
       locationImage: 'packages/location',
       heroImages: 'packages/hero',
       images: 'packages/gallery',
+      hotelImages: 'packages/hotels',
     });
 
     // Build update data
@@ -522,10 +527,10 @@ const updatePackage = async (req, res) => {
       updateData.groupSize = req.body.groupSize;
     }
     if (req.body.price) {
-      updateData.price = Number(req.body.price);
+      updateData.price = Number(String(req.body.price).replace(/,/g, ''));
     }
     if (req.body.originalPrice) {
-      updateData.originalPrice = Number(req.body.originalPrice);
+      updateData.originalPrice = Number(String(req.body.originalPrice).replace(/,/g, ''));
     }
     if (req.body.description) {
       updateData.description = req.body.description;
@@ -617,6 +622,9 @@ const updatePackage = async (req, res) => {
       // Optionally delete old gallery images
       // For now, we'll replace them
       updateData.images = uploadedImages.images;
+    }
+    if (uploadedImages.hotelImages && uploadedImages.hotelImages.length > 0) {
+      updateData.hotelImages = uploadedImages.hotelImages;
     }
 
     // Update the package
