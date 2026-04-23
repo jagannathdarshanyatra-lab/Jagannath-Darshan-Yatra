@@ -9,10 +9,10 @@ const BookingConsentModal = ({ isOpen, onClose, onAccept, packageName }) => {
 
   if (!isOpen) return null;
 
-  // Calculate the 7-day restriction date for the example message
+  // Calculate the 3-day restriction date for the example message
   const today = new Date();
-  const nextWeek = new Date();
-  nextWeek.setDate(today.getDate() + 7);
+  const minBookingDate = new Date();
+  minBookingDate.setDate(today.getDate() + 3);
   
   const formatDate = (date) => {
     return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -55,15 +55,15 @@ const BookingConsentModal = ({ isOpen, onClose, onAccept, packageName }) => {
             <section className="space-y-4">
               <div className="flex items-center gap-2 text-orange-700 font-bold">
                 <Calendar className="w-5 h-5" />
-                <h3>7-Day Advance Booking Required</h3>
+                <h3>3-Day Advance Booking Required</h3>
               </div>
               <div className="bg-orange-50/50 border border-orange-100 rounded-2xl p-4 flex gap-4">
                 <Info className="w-5 h-5 text-orange-600 shrink-0 mt-0.5" />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  To ensure the best experience and confirmed arrangements, all bookings must be made at least <strong>7 days in advance</strong>.
+                  To ensure the best experience and confirmed arrangements, all bookings must be made at least <strong>3 days in advance</strong>.
                   <br />
                   <span className="text-gray-500 italic mt-2 block">
-                    Example: If today is {formatDate(today)}, you can only book for <strong>{formatDate(nextWeek)}</strong> onwards.
+                    Example: If today is {formatDate(today)}, you can only book for <strong>{formatDate(minBookingDate)}</strong> onwards.
                   </span>
                 </p>
               </div>
@@ -124,7 +124,7 @@ const BookingConsentModal = ({ isOpen, onClose, onAccept, packageName }) => {
                     className="mt-1 w-5 h-5 rounded border-gray-300 text-orange-600 focus:ring-orange-500 cursor-pointer"
                   />
                   <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors">
-                    I understand that I can only book for dates starting 7 days from today.
+                    I understand that I can only book for dates starting 3 days from today.
                   </span>
                 </label>
                 <label className="flex items-start gap-3 cursor-pointer group">

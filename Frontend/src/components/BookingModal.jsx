@@ -41,10 +41,10 @@ const BookingModal = ({ isOpen, onClose, pkg, user, token, initialTravelers = 2,
   const totalOriginalPrice = calculateTotal(numericOriginalPrice);
   const savings = (totalOriginalPrice > totalPrice) ? (totalOriginalPrice - totalPrice) : 0;
 
-  // Get minimum date (7 days from now) - Local time aware
+  // Get minimum date (3 days from now) - Local time aware
   const getMinDate = () => {
     const minDate = new Date();
-    minDate.setDate(minDate.getDate() + 7);
+    minDate.setDate(minDate.getDate() + 3);
     const year = minDate.getFullYear();
     const month = String(minDate.getMonth() + 1).padStart(2, '0');
     const day = String(minDate.getDate()).padStart(2, '0');
@@ -302,7 +302,7 @@ const BookingModal = ({ isOpen, onClose, pkg, user, token, initialTravelers = 2,
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all"
                 />
                 <p className="text-[10px] text-orange-600 font-bold mt-1.5 flex items-center gap-1 uppercase tracking-wider">
-                  <Info className="w-3 h-3" /> Minimum 7 days advance booking required
+                  <Info className="w-3 h-3" /> Minimum 3 days advance booking required
                 </p>
               </div>
 
