@@ -1,10 +1,16 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/forms";
 import { Star, ArrowRight, Clock, MapPin, Users, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { fetchPackages } from "@/services/packageService";
 
+
+const optimizeImageUrl = (url, width = 800) => {
+  if (!url || !url.includes('cloudinary.com')) return url;
+  // Add auto format and quality, and specific width
+  return url.replace('/upload/', `/upload/f_auto,q_auto,w_${width}/`);
+};
 
 const FeaturedPackages = () => {
   const [packages, setPackages] = useState([]);
@@ -15,10 +21,15 @@ const FeaturedPackages = () => {
     const loadPackages = async () => {
       try {
         setLoading(true);
+        // Fetch all packages (cached in service)
         const data = await fetchPackages();
+        
+        // Filter for specific destinations - still doing in memory for now to keep the specific tier logic
+        // but the data is already smaller due to backend select optimization
         const relevantPackages = data.filter(p => 
           ["Puri", "Bhubaneswar"].includes(p.primaryDestination)
         );
+        
         const elitePkg = relevantPackages.find(p => p.type === "Elite");
         const standardPkg = relevantPackages.find(p => p.type === "Standard");
         const proPkg = relevantPackages.find(p => p.type === "Pro");
@@ -26,7 +37,7 @@ const FeaturedPackages = () => {
         const sortedPackages = [elitePkg, standardPkg, proPkg, premiumPkg].filter(Boolean);
         
         if (sortedPackages.length === 0 && data.length > 0) {
-          setPackages(data.slice(0, 4)); // Increased slice to handle more tiers
+          setPackages(data.slice(0, 4));
         } else {
           setPackages(sortedPackages);
         }
@@ -101,7 +112,7 @@ const FeaturedPackages = () => {
                 {/* Image Section */}
                 <div className="h-64 w-full overflow-hidden relative">
                     <img 
-                        src={mainImage} 
+                        src={optimizeImageUrl(mainImage)} 
                         alt={pkg.name} 
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />

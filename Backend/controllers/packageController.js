@@ -68,7 +68,7 @@ const getPackages = async (req, res) => {
       .sort(sortQuery)
       .skip(skip)
       .limit(limitNum)
-      .select('-__v');
+      .select('-__v -itinerary -hotelDetails -included -excluded');
 
     res.json({
       success: true,

@@ -5,6 +5,13 @@
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
+// In-memory cache for packages
+const cache = {
+  packages: null,
+  timestamp: 0,
+};
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
 /**
  * Fetch all destinations
  */
@@ -34,6 +41,12 @@ export const fetchDestinationBySlug = async (slug) => {
  * @param {Object} filters - Optional filters { destination, type, minPrice, maxPrice, sort, limit }
  */
 export const fetchPackages = async (filters = {}) => {
+  // Use cache if no filters are applied and cache is valid
+  const hasFilters = Object.keys(filters).length > 0;
+  if (!hasFilters && cache.packages && (Date.now() - cache.timestamp < CACHE_DURATION)) {
+    return cache.packages;
+  }
+
   const params = new URLSearchParams();
   
   if (filters.destination) params.append('destination', filters.destination);
@@ -51,6 +64,13 @@ export const fetchPackages = async (filters = {}) => {
   if (!data.success) {
     throw new Error(data.error || 'Failed to fetch packages');
   }
+
+  // Update cache if no filters were applied
+  if (!hasFilters) {
+    cache.packages = data.packages;
+    cache.timestamp = Date.now();
+  }
+
   return data.packages;
 };
 

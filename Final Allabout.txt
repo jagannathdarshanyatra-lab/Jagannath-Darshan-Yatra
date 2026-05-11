@@ -1,0 +1,718 @@
+Codebase Expert Review and File-wise Brief Audit
+
+===== Backend =====
+
+File: Backend/.env
+.env works as a project file inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Backend/assets/Logo_Jagannath_Darshan_Yatra.webp
+Logo_Jagannath_Darshan_Yatra.webp works as a project file inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Backend/config/cloudinary.js
+cloudinary.js works as a runtime configuration inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like cloudinary to execute expected behavior. It is referenced by files such as Backend/controllers/destinationController.js, Backend/controllers/packageController.js, Backend/controllers/packageController.js, which place it into the overall application flow.
+
+File: Backend/config/db.js
+db.js works as a runtime configuration inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like mongoose to execute expected behavior. It is referenced by files such as Backend/server.js, which place it into the overall application flow.
+
+File: Backend/controllers/adminAuthController.js
+adminAuthController.js works as a controller module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/utils/generateAdminToken.js, showing immediate dependencies. It is referenced by files such as Backend/routes/adminRoutes.js, which place it into the overall application flow.
+
+File: Backend/controllers/authController.js
+authController.js works as a controller module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/models/User.js, Backend/utils/generateToken.js, showing immediate dependencies. It is referenced by files such as Backend/routes/authRoutes.js, which place it into the overall application flow.
+
+File: Backend/controllers/bookingController.js
+bookingController.js works as a controller module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/models/Booking.js, Backend/utils/refundCalculator.js, Backend/utils/invoiceGenerator.js, showing immediate dependencies. It is referenced by files such as Backend/routes/bookingRoutes.js, which place it into the overall application flow.
+
+File: Backend/controllers/contactController.js
+contactController.js works as a controller module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/models/Contact.js, showing immediate dependencies. It is referenced by files such as Backend/routes/contactRoutes.js, which place it into the overall application flow.
+
+File: Backend/controllers/dashboardController.js
+dashboardController.js works as a controller module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/models/Booking.js, Backend/models/Package.js, Backend/models/Destination.js, showing immediate dependencies. It is referenced by files such as Backend/routes/dashboardRoutes.js, which place it into the overall application flow.
+
+File: Backend/controllers/destinationController.js
+destinationController.js works as a controller module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/models/Destination.js, Backend/models/Package.js, Backend/utils/imageUpload.js, showing immediate dependencies. It is referenced by files such as Backend/routes/destinationRoutes.js, which place it into the overall application flow.
+
+File: Backend/controllers/faqController.js
+faqController.js works as a controller module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/models/Faq.js, showing immediate dependencies. It is referenced by files such as Backend/routes/faqRoutes.js, which place it into the overall application flow.
+
+File: Backend/controllers/hotelController.js
+hotelController.js works as a controller module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/models/Hotel.js, Backend/utils/imageUpload.js, Backend/utils/imageUpload.js, showing immediate dependencies. It is referenced by files such as Backend/routes/hotelRoutes.js, which place it into the overall application flow.
+
+File: Backend/controllers/packageController.js
+packageController.js works as a controller module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/models/Package.js, Backend/utils/imageUpload.js, Backend/utils/imageUpload.js, showing immediate dependencies. It is referenced by files such as Backend/routes/packageRoutes.js, which place it into the overall application flow.
+
+File: Backend/controllers/paymentController.js
+paymentController.js works as a controller module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/models/Booking.js, Backend/utils/mailHelper.js, showing immediate dependencies. It is referenced by files such as Backend/routes/bookingRoutes.js, Backend/routes/paymentRoutes.js, which place it into the overall application flow.
+
+File: Backend/controllers/settingsController.js
+settingsController.js works as a controller module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/models/Settings.js, showing immediate dependencies. It is referenced by files such as Backend/routes/settingsRoutes.js, which place it into the overall application flow.
+
+File: Backend/controllers/stateController.js
+stateController.js works as a controller module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/models/State.js, Backend/models/Destination.js, Backend/models/Package.js, showing immediate dependencies. It is referenced by files such as Backend/routes/stateRoutes.js, which place it into the overall application flow.
+
+File: Backend/middleware/adminAuthMiddleware.js
+adminAuthMiddleware.js works as a middleware module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like jsonwebtoken to execute expected behavior. It is referenced by files such as Backend/routes/contactRoutes.js, Backend/routes/dashboardRoutes.js, Backend/routes/destinationRoutes.js, which place it into the overall application flow.
+
+File: Backend/middleware/authMiddleware.js
+authMiddleware.js works as a middleware module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/models/User.js, showing immediate dependencies. It is referenced by files such as Backend/routes/authRoutes.js, Backend/routes/bookingRoutes.js, Backend/routes/hotelRoutes.js, which place it into the overall application flow.
+
+File: Backend/middleware/cacheMiddleware.js
+cacheMiddleware.js works as a middleware module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is referenced by files such as Backend/routes/destinationRoutes.js, Backend/routes/faqRoutes.js, Backend/routes/hotelRoutes.js, which place it into the overall application flow.
+
+File: Backend/middleware/rateLimiter.js
+rateLimiter.js works as a middleware module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like express-rate-limit to execute expected behavior. It is referenced by files such as Backend/routes/authRoutes.js, Backend/routes/contactRoutes.js, which place it into the overall application flow.
+
+File: Backend/models/Booking.js
+Booking.js works as a database model inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like mongoose to execute expected behavior. It is referenced by files such as Backend/controllers/bookingController.js, Backend/controllers/dashboardController.js, Backend/controllers/paymentController.js, which place it into the overall application flow.
+
+File: Backend/models/Contact.js
+Contact.js works as a database model inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like mongoose to execute expected behavior. It is referenced by files such as Backend/controllers/contactController.js, Backend/controllers/dashboardController.js, which place it into the overall application flow.
+
+File: Backend/models/Destination.js
+Destination.js works as a database model inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like mongoose to execute expected behavior. It is referenced by files such as Backend/controllers/dashboardController.js, Backend/controllers/destinationController.js, Backend/controllers/stateController.js, which place it into the overall application flow.
+
+File: Backend/models/Faq.js
+Faq.js works as a database model inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like mongoose to execute expected behavior. It is referenced by files such as Backend/controllers/faqController.js, which place it into the overall application flow.
+
+File: Backend/models/Hotel.js
+Hotel.js works as a database model inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like mongoose to execute expected behavior. It is referenced by files such as Backend/controllers/dashboardController.js, Backend/controllers/hotelController.js, Backend/utils/invoiceGenerator.js, which place it into the overall application flow.
+
+File: Backend/models/Package.js
+Package.js works as a database model inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like mongoose to execute expected behavior. It is referenced by files such as Backend/controllers/dashboardController.js, Backend/controllers/destinationController.js, Backend/controllers/packageController.js, which place it into the overall application flow.
+
+File: Backend/models/Settings.js
+Settings.js works as a database model inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like mongoose to execute expected behavior. It is referenced by files such as Backend/controllers/settingsController.js, which place it into the overall application flow.
+
+File: Backend/models/State.js
+State.js works as a database model inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like mongoose to execute expected behavior. It is referenced by files such as Backend/controllers/stateController.js, which place it into the overall application flow.
+
+File: Backend/models/User.js
+User.js works as a database model inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like mongoose, bcryptjs to execute expected behavior. It is referenced by files such as Backend/controllers/authController.js, Backend/middleware/authMiddleware.js, which place it into the overall application flow.
+
+File: Backend/models/Visitor.js
+Visitor.js works as a database model inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like mongoose to execute expected behavior. It is referenced by files such as Backend/controllers/dashboardController.js, which place it into the overall application flow.
+
+File: Backend/package.json
+package.json works as a package manifest inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Backend/routes/adminRoutes.js
+adminRoutes.js works as a route module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. It declares endpoints like POST /login and forwards request handling to attached logic. Direct wiring is visible through imports from Backend/controllers/adminAuthController.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Backend/routes/authRoutes.js
+authRoutes.js works as a route module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. It declares endpoints like POST /register, POST /login, POST /reset-password and forwards request handling to attached logic. Direct wiring is visible through imports from Backend/controllers/authController.js, Backend/middleware/authMiddleware.js, Backend/middleware/rateLimiter.js, showing immediate dependencies. It is referenced by files such as Backend/server.js, which place it into the overall application flow.
+
+File: Backend/routes/bookingRoutes.js
+bookingRoutes.js works as a route module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. It declares endpoints like GET /:id/refund-preview, PUT /:id/request-cancel, PUT /:id/approve-cancel and forwards request handling to attached logic. Direct wiring is visible through imports from Backend/controllers/bookingController.js, Backend/controllers/paymentController.js, Backend/middleware/authMiddleware.js, showing immediate dependencies. It is referenced by files such as Backend/server.js, which place it into the overall application flow.
+
+File: Backend/routes/contactRoutes.js
+contactRoutes.js works as a route module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. It declares endpoints like POST /, GET /admin/all, GET /admin/:id and forwards request handling to attached logic. Direct wiring is visible through imports from Backend/controllers/contactController.js, Backend/middleware/adminAuthMiddleware.js, Backend/middleware/rateLimiter.js, showing immediate dependencies. It is referenced by files such as Backend/server.js, which place it into the overall application flow.
+
+File: Backend/routes/dashboardRoutes.js
+dashboardRoutes.js works as a route module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. It declares endpoints like POST /track-visit, GET /stats, GET /notifications and forwards request handling to attached logic. Direct wiring is visible through imports from Backend/controllers/dashboardController.js, Backend/middleware/adminAuthMiddleware.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Backend/routes/destinationRoutes.js
+destinationRoutes.js works as a route module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. It declares endpoints like GET /admin/all, GET /id/:id, POST / and forwards request handling to attached logic. Direct wiring is visible through imports from Backend/utils/imageUpload.js, Backend/middleware/adminAuthMiddleware.js, Backend/controllers/destinationController.js, showing immediate dependencies. It is referenced by files such as Backend/server.js, which place it into the overall application flow.
+
+File: Backend/routes/faqRoutes.js
+faqRoutes.js works as a route module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. It declares endpoints like GET /, GET /admin/all, GET /:id and forwards request handling to attached logic. Direct wiring is visible through imports from Backend/middleware/adminAuthMiddleware.js, Backend/controllers/faqController.js, Backend/middleware/cacheMiddleware.js, showing immediate dependencies. It is referenced by files such as Backend/server.js, which place it into the overall application flow.
+
+File: Backend/routes/hotelRoutes.js
+hotelRoutes.js works as a route module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. It declares endpoints like GET /admin/all, GET /admin/pending, GET / and forwards request handling to attached logic. Direct wiring is visible through imports from Backend/controllers/hotelController.js, Backend/middleware/authMiddleware.js, Backend/middleware/adminAuthMiddleware.js, showing immediate dependencies. It is referenced by files such as Backend/server.js, which place it into the overall application flow.
+
+File: Backend/routes/packageRoutes.js
+packageRoutes.js works as a route module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. It declares endpoints like GET /, GET /slug/:slug, GET /destination/:dest and forwards request handling to attached logic. Direct wiring is visible through imports from Backend/controllers/packageController.js, Backend/middleware/adminAuthMiddleware.js, Backend/utils/imageUpload.js, showing immediate dependencies. It is referenced by files such as Backend/server.js, which place it into the overall application flow.
+
+File: Backend/routes/paymentRoutes.js
+paymentRoutes.js works as a route module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. It declares endpoints like GET /key, POST /create-order, POST /verify and forwards request handling to attached logic. Direct wiring is visible through imports from Backend/controllers/paymentController.js, Backend/middleware/authMiddleware.js, showing immediate dependencies. It is referenced by files such as Backend/server.js, which place it into the overall application flow.
+
+File: Backend/routes/settingsRoutes.js
+settingsRoutes.js works as a route module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/controllers/settingsController.js, Backend/middleware/adminAuthMiddleware.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Backend/routes/stateRoutes.js
+stateRoutes.js works as a route module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. It declares endpoints like GET /, GET /:slug, GET /:slug/destinations and forwards request handling to attached logic. Direct wiring is visible through imports from Backend/middleware/cacheMiddleware.js, Backend/controllers/stateController.js, showing immediate dependencies. It is referenced by files such as Backend/server.js, which place it into the overall application flow.
+
+File: Backend/server.js
+server.js works as a backend server entry inside Backend. It defines behavior needed in this layer and keeps concerns scoped. It mounts prefixes such as /api/, /api/auth, /api/bookings, /api/contact, wiring child modules into the runtime pipeline. Direct wiring is visible through imports from Backend/config/db.js, Backend/routes/authRoutes.js, Backend/routes/bookingRoutes.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Backend/utils/generateAdminToken.js
+generateAdminToken.js works as a utility/helper module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like jsonwebtoken to execute expected behavior. It is referenced by files such as Backend/controllers/adminAuthController.js, which place it into the overall application flow.
+
+File: Backend/utils/generateToken.js
+generateToken.js works as a utility/helper module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like jsonwebtoken to execute expected behavior. It is referenced by files such as Backend/controllers/authController.js, which place it into the overall application flow.
+
+File: Backend/utils/imageUpload.js
+imageUpload.js works as a utility/helper module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/config/cloudinary.js, showing immediate dependencies. It is referenced by files such as Backend/controllers/destinationController.js, Backend/controllers/hotelController.js, Backend/controllers/hotelController.js, which place it into the overall application flow.
+
+File: Backend/utils/invoiceGenerator.js
+invoiceGenerator.js works as a utility/helper module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Backend/models/Hotel.js, Backend/models/Package.js, showing immediate dependencies. It is referenced by files such as Backend/controllers/bookingController.js, which place it into the overall application flow.
+
+File: Backend/utils/mailHelper.js
+mailHelper.js works as a utility/helper module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like resend to execute expected behavior. It is referenced by files such as Backend/controllers/paymentController.js, which place it into the overall application flow.
+
+File: Backend/utils/refundCalculator.js
+refundCalculator.js works as a utility/helper module inside Backend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is referenced by files such as Backend/controllers/bookingController.js, which place it into the overall application flow.
+
+===== Frontend =====
+
+File: Frontend/.env
+.env works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/.gitignore
+.gitignore works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/components.json
+components.json works as a project configuration inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/index.html
+index.html works as a HTML entry template inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/package.json
+package.json works as a package manifest inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/postcss.config.js
+postcss.config.js works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/public/placeholder.svg
+placeholder.svg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/public/robots.txt
+robots.txt works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/public/sitemap.xml
+sitemap.xml works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/README.md
+README.md works as a project documentation inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/App.css
+App.css works as a styling stylesheet inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/App.jsx
+App.jsx works as a application router shell inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Frontend/src/context/SettingsContext.jsx, Frontend/src/components/common/IntroAnimation.jsx, showing immediate dependencies. It is referenced by files such as Frontend/src/main.jsx, which place it into the overall application flow.
+
+File: Frontend/src/assets/Experience2.webp
+Experience2.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Experience3.webp
+Experience3.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Experience4.webp
+Experience4.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/ExperienceHero.webp
+ExperienceHero.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/hero1.webp
+hero1.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/hero12.webp
+hero12.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/hero2.webp
+hero2.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel Lucky India.png
+Hotel Lucky India.png works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel10.jpg
+Hotel10.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel11.avif
+Hotel11.avif works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel12.jpg
+Hotel12.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel13.jpg
+Hotel13.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel14.jpg
+Hotel14.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel15.webp
+Hotel15.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel16.jpg
+Hotel16.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel17.jpg
+Hotel17.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel18.jpg
+Hotel18.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel19.webp
+Hotel19.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel2.jpg
+Hotel2.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel20.avif
+Hotel20.avif works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel21.jpg
+Hotel21.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel22.jpg
+Hotel22.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel3.avif
+Hotel3.avif works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel4.jpg
+Hotel4.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel5.avif
+Hotel5.avif works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel6 (1).avif
+Hotel6 (1).avif works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel6.jpg
+Hotel6.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel7.jpg
+Hotel7.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel8.jpg
+Hotel8.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Hotels/Hotel9.avif
+Hotel9.avif works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Logo_Jagannath_Darshan_Yatra compressed.png
+Logo_Jagannath_Darshan_Yatra compressed.png works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Logo_Jagannath_Darshan_Yatra compressed123.png
+Logo_Jagannath_Darshan_Yatra compressed123.png works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Logo_Jagannath_Darshan_Yatra.png
+Logo_Jagannath_Darshan_Yatra.png works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Logo_Jagannath_Darshan_Yatra.webp
+Logo_Jagannath_Darshan_Yatra.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is referenced by files such as Frontend/src/components/common/IntroAnimation.jsx, Frontend/src/components/Footer.jsx, which place it into the overall application flow.
+
+File: Frontend/src/assets/Puri/destination1.webp
+destination1.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri1.webp
+Puri1.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri10.jpg
+Puri10.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri10.webp
+Puri10.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri11.webp
+Puri11.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri12.webp
+Puri12.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri2.webp
+Puri2.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri3.jpg
+Puri3.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri3.webp
+Puri3.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri30.webp
+Puri30.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri4.webp
+Puri4.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri5.webp
+Puri5.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri6.webp
+Puri6.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri7.webp
+Puri7.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri8.webp
+Puri8.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Puri9.webp
+Puri9.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Reathyatra.jpeg
+Reathyatra.jpeg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Temple1.webp
+Temple1.webp works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/Puri/Temple2.jpg
+Temple2.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/assets/SriJagannath1.jpg
+SriJagannath1.jpg works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/BookingConsentModal.jsx
+BookingConsentModal.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/BookingModal.jsx
+BookingModal.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, react-router-dom, framer-motion to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/common/IntroAnimation.css
+IntroAnimation.css works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is referenced by files such as Frontend/src/components/common/IntroAnimation.jsx, which place it into the overall application flow.
+
+File: Frontend/src/components/common/IntroAnimation.jsx
+IntroAnimation.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Frontend/src/assets/Logo_Jagannath_Darshan_Yatra.webp, Frontend/src/components/common/IntroAnimation.css, showing immediate dependencies. It is referenced by files such as Frontend/src/App.jsx, which place it into the overall application flow.
+
+File: Frontend/src/components/DestinationView.jsx
+DestinationView.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/Footer.jsx
+Footer.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Frontend/src/assets/Logo_Jagannath_Darshan_Yatra.webp, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/GuestRestrictionModal.jsx
+GuestRestrictionModal.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/home/ComingSoonStates.jsx
+ComingSoonStates.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like framer-motion, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/home/FeaturedPackages.jsx
+FeaturedPackages.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, framer-motion, @/components/ui/forms to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/home/HeroSection.jsx
+HeroSection.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, framer-motion, @/components/ui/forms to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/home/Newsletter.jsx
+Newsletter.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like framer-motion, @/components/ui/forms, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/home/Testimonials.jsx
+Testimonials.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like framer-motion, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/home/WhyChooseUs.jsx
+WhyChooseUs.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like framer-motion, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/HotelDetailsModal.jsx
+HotelDetailsModal.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/Navbar.jsx
+Navbar.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, react-router-dom, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/ScrollToTop.jsx
+ScrollToTop.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, react-router-dom to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/SEO.jsx
+SEO.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, react-helmet-async to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/ui/display.jsx
+display.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, @radix-ui/react-accordion, @radix-ui/react-collapsible to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/ui/feedback.jsx
+feedback.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, @radix-ui/react-progress, @radix-ui/react-toast to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/ui/forms.jsx
+forms.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, @radix-ui/react-label, @radix-ui/react-checkbox to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/ui/overlay.jsx
+overlay.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, @radix-ui/react-dialog, @radix-ui/react-dialog to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/components/ui/sidebar.jsx
+sidebar.jsx works as a UI component inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, @radix-ui/react-slot, class-variance-authority to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/context/SettingsContext.jsx
+SettingsContext.jsx works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including useSettings, SettingsProvider, enabling reuse by connected modules. Direct wiring is visible through imports from Frontend/src/services/settingsService.js, showing immediate dependencies. It is referenced by files such as Frontend/src/App.jsx, which place it into the overall application flow.
+
+File: Frontend/src/data/states.js
+states.js works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including states, getStateBySlug, getActiveStates, enabling reuse by connected modules. It depends on packages like @/assets/ExperienceHero.webp to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/hooks/use-mobile.jsx
+use-mobile.jsx works as a custom hook inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including useIsMobile, enabling reuse by connected modules. It depends on packages like react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/hooks/use-toast.js
+use-toast.js works as a custom hook inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including reducer, enabling reuse by connected modules. It depends on packages like react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/index.css
+index.css works as a styling stylesheet inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is referenced by files such as Frontend/src/main.jsx, which place it into the overall application flow.
+
+File: Frontend/src/lib/utils.js
+utils.js works as a utility/helper module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including cn, enabling reuse by connected modules. It depends on packages like clsx, tailwind-merge to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/main.jsx
+main.jsx works as a application bootstrap entry inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from Frontend/src/App.jsx, Frontend/src/index.css, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/BookingDetail.jsx
+BookingDetail.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/BookingForm.jsx
+BookingForm.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, react-router-dom, framer-motion to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/Bookings.jsx
+Bookings.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/BookingSuccess.jsx
+BookingSuccess.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, react-router-dom, framer-motion to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/Contact.jsx
+Contact.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/Destinations.jsx
+Destinations.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/DownloadInvoice.jsx
+DownloadInvoice.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, react-router-dom, @/utils/InvoicePdf to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/Experiences.jsx
+Experiences.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like framer-motion, lucide-react, @/components/ui/forms to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/Index.jsx
+Index.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like @/components/Navbar, @/components/Footer, @/components/home/HeroSection to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/Login.jsx
+Login.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, framer-motion, react-router-dom to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/Maintenance.jsx
+Maintenance.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like lucide-react, @/components/ui/forms to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/NotFound.jsx
+NotFound.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react-router-dom, react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/PackageDetail.jsx
+PackageDetail.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, react-router-dom, @/components/ui/feedback to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/Packages.jsx
+Packages.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/PrivacyPolicy.jsx
+PrivacyPolicy.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like @/components/Navbar, @/components/Footer, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/Profile.jsx
+Profile.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/RefundPolicy.jsx
+RefundPolicy.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like @/components/Navbar, @/components/Footer, lucide-react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/pages/TermsOfService.jsx
+TermsOfService.jsx works as a page module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like @/components/Navbar, @/components/Footer to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/services/packageService.js
+packageService.js works as a API service layer inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including fetchDestinations, fetchDestinationBySlug, fetchPackages, enabling reuse by connected modules. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/src/services/settingsService.js
+settingsService.js works as a API service layer inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including fetchSettings, enabling reuse by connected modules. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is referenced by files such as Frontend/src/context/SettingsContext.jsx, which place it into the overall application flow.
+
+File: Frontend/src/utils/InvoicePdf.jsx
+InvoicePdf.jsx works as a utility/helper module inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like jspdf, @/assets/Logo_Jagannath_Darshan_Yatra.png to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/tailwind.config.js
+tailwind.config.js works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like tailwindcss-animate to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/vercel.json
+vercel.json works as a project configuration inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: Frontend/vite.config.js
+vite.config.js works as a project file inside Frontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like vite, @vitejs/plugin-react-swc, path to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+===== AdminFrontend =====
+
+File: AdminFrontend/.env
+.env works as a project file inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/.gitignore
+.gitignore works as a project file inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/components.json
+components.json works as a project configuration inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/index.html
+index.html works as a HTML entry template inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/jsconfig.json
+jsconfig.json works as a project configuration inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/package.json
+package.json works as a package manifest inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/postcss.config.js
+postcss.config.js works as a project file inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/public/placeholder.svg
+placeholder.svg works as a project file inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/public/robots.txt
+robots.txt works as a project file inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/README.md
+README.md works as a project documentation inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/App.css
+App.css works as a styling stylesheet inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/App.jsx
+App.jsx works as a application router shell inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from AdminFrontend/src/pages/Dashboard.jsx, AdminFrontend/src/pages/PackagesPage.jsx, AdminFrontend/src/pages/DestinationsPage.jsx, showing immediate dependencies. It is referenced by files such as AdminFrontend/src/main.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/assets/Logo_Bharat_Darshan.webp
+Logo_Bharat_Darshan.webp works as a project file inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/assets/Logo_Jagannath_Darshan_Yatra.webp
+Logo_Jagannath_Darshan_Yatra.webp works as a project file inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is referenced by files such as AdminFrontend/src/pages/AuthPage.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/assets/White_Logo_Bharat_Darshan.webp
+White_Logo_Bharat_Darshan.webp works as a project file inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/admin/AdminHeader.jsx
+AdminHeader.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including AdminHeader, enabling reuse by connected modules. It depends on packages like lucide-react, @/components/ui/Primitives, react-router-dom to execute expected behavior. It is referenced by files such as AdminFrontend/src/components/admin/AdminLayout.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/components/admin/AdminLayout.jsx
+AdminLayout.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including AdminLayout, enabling reuse by connected modules. Direct wiring is visible through imports from AdminFrontend/src/components/admin/AdminSidebar.jsx, AdminFrontend/src/components/admin/AdminHeader.jsx, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/admin/AdminSidebar.jsx
+AdminSidebar.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including AdminSidebar, enabling reuse by connected modules. It depends on packages like react-router-dom, framer-motion, lucide-react to execute expected behavior. It is referenced by files such as AdminFrontend/src/components/admin/AdminLayout.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/components/admin/BookingDetail.jsx
+BookingDetail.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including BookingDetail, enabling reuse by connected modules. It depends on packages like react, lucide-react, @/components/ui/Primitives to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/admin/charts/BookingsChart.jsx
+BookingsChart.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including BookingsChart, enabling reuse by connected modules. It depends on packages like framer-motion, recharts to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/admin/charts/DestinationChart.jsx
+DestinationChart.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including DestinationChart, enabling reuse by connected modules. It depends on packages like framer-motion, recharts to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/admin/charts/RevenueChart.jsx
+RevenueChart.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including RevenueChart, enabling reuse by connected modules. It depends on packages like framer-motion, recharts to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/admin/charts/TierBreakdownChart.jsx
+TierBreakdownChart.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including TierBreakdownChart, enabling reuse by connected modules. It depends on packages like framer-motion to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/admin/forms/BookingForm.jsx
+BookingForm.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including BookingForm, enabling reuse by connected modules. It depends on packages like react, lucide-react, @/components/ui/Primitives to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/admin/forms/DestinationForm.jsx
+DestinationForm.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including DestinationForm, enabling reuse by connected modules. It depends on packages like react, lucide-react, @/components/ui/Primitives to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/admin/forms/HotelForm.jsx
+HotelForm.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including HotelForm, enabling reuse by connected modules. It depends on packages like react, lucide-react, @/components/ui/Primitives to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/admin/forms/PackageForm.jsx
+PackageForm.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including PackageForm, enabling reuse by connected modules. It depends on packages like react, @/components/ui/Primitives, @/components/ui/Primitives to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/admin/QuickActions.jsx
+QuickActions.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including QuickActions, enabling reuse by connected modules. It depends on packages like framer-motion, lucide-react, react-router-dom to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/admin/RecentActivity.jsx
+RecentActivity.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including RecentActivity, enabling reuse by connected modules. It depends on packages like framer-motion, lucide-react, @/lib/utils to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/admin/StatCard.jsx
+StatCard.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including StatCard, enabling reuse by connected modules. It depends on packages like framer-motion, @/lib/utils to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/NavLink.jsx
+NavLink.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react-router-dom, react, @/lib/utils to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/ProtectedAdminRoute.jsx
+ProtectedAdminRoute.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from AdminFrontend/src/services/adminAuthService.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/ui/Interactive.jsx
+Interactive.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, @radix-ui/react-slot, class-variance-authority to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/ui/Layout.jsx
+Layout.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, @radix-ui/react-accordion, @radix-ui/react-alert-dialog to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/components/ui/Primitives.jsx
+Primitives.jsx works as a UI component inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react, @radix-ui/react-slot, class-variance-authority to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/config/api.js
+api.js works as a runtime configuration inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including API_URL, enabling reuse by connected modules. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is referenced by files such as AdminFrontend/src/lib/axios.js, AdminFrontend/src/services/adminAuthService.js, AdminFrontend/src/services/approvalService.js, which place it into the overall application flow.
+
+File: AdminFrontend/src/hooks/use-mobile.jsx
+use-mobile.jsx works as a custom hook inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including useIsMobile, enabling reuse by connected modules. It depends on packages like react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/hooks/use-toast.js
+use-toast.js works as a custom hook inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including reducer, enabling reuse by connected modules. It depends on packages like react to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/index.css
+index.css works as a styling stylesheet inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is referenced by files such as AdminFrontend/src/main.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/lib/axios.js
+axios.js works as a utility/helper module inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from AdminFrontend/src/config/api.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/lib/utils.js
+utils.js works as a utility/helper module inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including cn, enabling reuse by connected modules. It depends on packages like clsx, tailwind-merge to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/main.jsx
+main.jsx works as a application bootstrap entry inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from AdminFrontend/src/App.jsx, AdminFrontend/src/index.css, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/pages/ApprovalsPage.jsx
+ApprovalsPage.jsx works as a page module inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including ApprovalsPage, enabling reuse by connected modules. Direct wiring is visible through imports from AdminFrontend/src/services/approvalService.js, AdminFrontend/src/services/adminAuthService.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/pages/AuthPage.jsx
+AuthPage.jsx works as a page module inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including AuthPage, enabling reuse by connected modules. Direct wiring is visible through imports from AdminFrontend/src/assets/Logo_Jagannath_Darshan_Yatra.webp, AdminFrontend/src/services/adminAuthService.js, showing immediate dependencies. It is referenced by files such as AdminFrontend/src/App.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/pages/BookingsPage.jsx
+BookingsPage.jsx works as a page module inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including BookingsPage, enabling reuse by connected modules. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is referenced by files such as AdminFrontend/src/App.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/pages/Dashboard.jsx
+Dashboard.jsx works as a page module inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including Dashboard, enabling reuse by connected modules. It depends on packages like framer-motion, lucide-react, react to execute expected behavior. It is referenced by files such as AdminFrontend/src/App.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/pages/DestinationsPage.jsx
+DestinationsPage.jsx works as a page module inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including DestinationsPage, enabling reuse by connected modules. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is referenced by files such as AdminFrontend/src/App.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/pages/FAQPage.jsx
+FAQPage.jsx works as a page module inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including FAQPage, enabling reuse by connected modules. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is referenced by files such as AdminFrontend/src/App.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/pages/HotelsPage.jsx
+HotelsPage.jsx works as a page module inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including HotelsPage, enabling reuse by connected modules. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is referenced by files such as AdminFrontend/src/App.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/pages/InquiriesPage.jsx
+InquiriesPage.jsx works as a page module inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including InquiriesPage, enabling reuse by connected modules. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is referenced by files such as AdminFrontend/src/App.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/pages/NotFound.jsx
+NotFound.jsx works as a page module inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like react-router-dom, react to execute expected behavior. It is referenced by files such as AdminFrontend/src/App.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/pages/PackagesPage.jsx
+PackagesPage.jsx works as a page module inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including PackagesPage, enabling reuse by connected modules. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is referenced by files such as AdminFrontend/src/App.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/pages/SettingsPage.jsx
+SettingsPage.jsx works as a page module inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including SettingsPage, enabling reuse by connected modules. It depends on packages like react, framer-motion, lucide-react to execute expected behavior. It is referenced by files such as AdminFrontend/src/App.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/services/adminAuthService.js
+adminAuthService.js works as a API service layer inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from AdminFrontend/src/config/api.js, showing immediate dependencies. It is referenced by files such as AdminFrontend/src/components/ProtectedAdminRoute.jsx, AdminFrontend/src/pages/ApprovalsPage.jsx, AdminFrontend/src/pages/AuthPage.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/services/approvalService.js
+approvalService.js works as a API service layer inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from AdminFrontend/src/config/api.js, showing immediate dependencies. It is referenced by files such as AdminFrontend/src/pages/ApprovalsPage.jsx, which place it into the overall application flow.
+
+File: AdminFrontend/src/services/bookingService.js
+bookingService.js works as a API service layer inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including getAllBookings, getBookingById, createManualBooking, enabling reuse by connected modules. Direct wiring is visible through imports from AdminFrontend/src/config/api.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/services/dashboardService.js
+dashboardService.js works as a API service layer inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like @/lib/axios to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/services/destinationService.js
+destinationService.js works as a API service layer inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including fetchAllDestinations, fetchDestinationById, createDestination, enabling reuse by connected modules. Direct wiring is visible through imports from AdminFrontend/src/config/api.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/services/faqService.js
+faqService.js works as a API service layer inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including fetchAllFaqs, fetchFaqById, createFaq, enabling reuse by connected modules. Direct wiring is visible through imports from AdminFrontend/src/config/api.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/services/hotelService.js
+hotelService.js works as a API service layer inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. Direct wiring is visible through imports from AdminFrontend/src/config/api.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/services/inquiryService.js
+inquiryService.js works as a API service layer inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including fetchAllInquiries, fetchInquiryById, updateInquiryStatus, enabling reuse by connected modules. Direct wiring is visible through imports from AdminFrontend/src/config/api.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/services/packageService.js
+packageService.js works as a API service layer inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including fetchAllPackages, fetchPackageById, createPackage, enabling reuse by connected modules. Direct wiring is visible through imports from AdminFrontend/src/config/api.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/services/settingsService.js
+settingsService.js works as a API service layer inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including fetchSettings, updateSettings, enabling reuse by connected modules. Direct wiring is visible through imports from AdminFrontend/src/config/api.js, showing immediate dependencies. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/src/types/admin.js
+admin.js works as a project file inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. It exports units including TIER_TYPES, BOOKING_STATUSES, PAYMENT_STATUSES, enabling reuse by connected modules. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/tailwind.config.js
+tailwind.config.js works as a project file inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like tailwindcss-animate to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/vercel.json
+vercel.json works as a project configuration inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It has minimal explicit imports and is connected mostly by build conventions or framework defaults. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/vite.config.js
+vite.config.js works as a project file inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like vite, @vitejs/plugin-react-swc, path to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.
+
+File: AdminFrontend/vite.config.js.timestamp-1771051690020-85d436acc5902.mjs
+vite.config.js.timestamp-1771051690020-85d436acc5902.mjs works as a project file inside AdminFrontend. It defines behavior needed in this layer and keeps concerns scoped. Its main responsibility is configuration, rendering, styling, or static metadata rather than endpoint handlers. It depends on packages like file:///D:/Bharat%20Darshan/bharat-darshan/AdminFrontend/node_modules/vite/dist/node/index.js, file:///D:/Bharat%20Darshan/bharat-darshan/AdminFrontend/node_modules/@vitejs/plugin-react-swc/index.js, path to execute expected behavior. It is wired indirectly through route composition, rendering trees, or project tooling configuration.

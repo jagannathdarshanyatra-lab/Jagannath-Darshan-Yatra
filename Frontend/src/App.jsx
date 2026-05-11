@@ -9,7 +9,9 @@ import { Loader2 } from "lucide-react";
 import ScrollToTop from "@/components/ScrollToTop";
 import { useSettings, SettingsProvider } from "./context/SettingsContext";
 import IntroAnimation from "./components/common/IntroAnimation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 // Lazy-loaded pages — each becomes a separate chunk for faster initial load
 const Index = lazy(() => import("./pages/Index"));
@@ -85,6 +87,25 @@ const AppRoutes = () => {
 
 const App = () => {
   const [showIntro, setShowIntro] = useState(true);
+
+  useEffect(() => {
+    const trackVisit = async () => {
+      try {
+        await fetch(`${API_URL}/api/admin/dashboard/track-visit`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            path: window.location.pathname,
+            userAgent: navigator.userAgent
+          })
+        });
+      } catch (err) {
+        // Silently fail for tracking
+      }
+    };
+    
+    trackVisit();
+  }, []);
 
   return (
     <HelmetProvider>

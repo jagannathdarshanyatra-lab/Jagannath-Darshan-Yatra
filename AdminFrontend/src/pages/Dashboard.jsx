@@ -96,18 +96,18 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           title="Website Visited"
-          value={stats.websiteVisits?.toLocaleString() || '11,000'}
-          change="+24% this week"
-          changeType="positive"
+          value={stats.websiteVisits?.toLocaleString() || '0'}
+          change={stats.websiteVisitsChange || '+0% this week'}
+          changeType={stats.websiteVisitsChangeType || 'neutral'}
           icon={Globe}
           iconColor="text-blue-500"
           delay={0}
         />
         <StatCard
           title="Booking Attempts"
-          value={stats.totalBookings}
-          change="+12% from last month"
-          changeType="positive"
+          value={stats.totalBookings?.toLocaleString() || '0'}
+          change={stats.totalBookingsChange || '+0% from last month'}
+          changeType={stats.totalBookingsChangeType || 'neutral'}
           icon={CalendarCheck}
           iconColor="text-primary"
           delay={0.1}
@@ -124,8 +124,8 @@ export default function Dashboard() {
         <StatCard
           title="This Month Revenue"
           value={formatCurrency(stats.monthlyRevenue)}
-          change="current month"
-          changeType="neutral"
+          change={stats.monthlyRevenueChange || 'current month'}
+          changeType={stats.monthlyRevenueChangeType || 'neutral'}
           icon={TrendingUp}
           iconColor="text-primary"
           delay={0.3}

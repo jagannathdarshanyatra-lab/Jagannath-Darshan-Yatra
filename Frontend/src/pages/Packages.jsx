@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Star, Clock, Users, MapPin, ArrowRight, Filter, Search, Lock, ChevronLeft, Loader2 } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -10,6 +10,11 @@ import heroImage from "@/assets/ExperienceHero.webp";
 import { states, getStateBySlug, getActiveStates, getComingSoonStates } from "@/data/states";
 import { fetchPackages } from "@/services/packageService";
 import DestinationView from "@/components/DestinationView";
+
+const optimizeImageUrl = (url, width = 800) => {
+  if (!url || !url.includes('cloudinary.com')) return url;
+  return url.replace('/upload/', `/upload/f_auto,q_auto,w_${width}/`);
+};
 
 const Packages = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -195,7 +200,7 @@ const Packages = () => {
                           onClick={() => handleDestinationClick(dest)}
                         >
                           <img 
-                            src={coverImage} 
+                            src={optimizeImageUrl(coverImage)} 
                             alt={dest} 
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                           />
@@ -417,7 +422,7 @@ const Packages = () => {
                           onClick={() => handleDestinationClick(dest)}
                         >
                           <img 
-                            src={coverImage} 
+                            src={optimizeImageUrl(coverImage)} 
                             alt={dest} 
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                           />

@@ -72,12 +72,12 @@ export function AdminSidebar({ isCollapsed, onToggle }) {
           animate={{ opacity: isCollapsed ? 0 : 1, width: isCollapsed ? 0 : 'auto' }}
           className="flex items-center gap-3 overflow-hidden"
         >
-          <img src={logo} alt="Logo" className="h-10 w-auto object-contain" />
-          <div className="flex flex-col leading-none">
-            <span className="text-[10px] md:text-xs font-extrabold text-black tracking-wider uppercase">
+          <img src={logo} alt="Logo" className="h-12 w-auto object-contain" />
+          <div className="flex flex-col leading-tight">
+            <span className="text-xs md:text-sm font-extrabold text-white tracking-wider uppercase">
               Jagannath
             </span>
-            <span className="text-[8px] md:text-[10px] font-extrabold text-black border-b border-primary pb-0.5 tracking-tighter uppercase">
+            <span className="text-[10px] md:text-xs font-extrabold text-white border-b border-primary pb-0.5 tracking-tighter uppercase">
               Darshan Yatra
             </span>
           </div>

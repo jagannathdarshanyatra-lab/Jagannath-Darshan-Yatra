@@ -24,6 +24,7 @@ const redIcon = new L.Icon({
 });
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { fetchPackages } from "@/services/packageService";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -75,20 +76,17 @@ const Contact = () => {
 
   // Fetch packages from backend on mount
   useEffect(() => {
-    const fetchPackages = async () => {
+    const loadPackages = async () => {
       try {
-        const res = await fetch(`${API_URL}/packages`);
-        const data = await res.json();
-        if (data.success) {
-          setPackages(data.packages);
-        }
+        const data = await fetchPackages();
+        setPackages(data);
       } catch {
         // Silently fail - dropdown will be empty. Ignore packages fetch error.
       }
     };
     
-    fetchPackages();
-  }, [API_URL]);
+    loadPackages();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

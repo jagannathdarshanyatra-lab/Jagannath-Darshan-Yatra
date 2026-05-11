@@ -2,6 +2,8 @@ const Booking = require('../models/Booking');
 const Package = require('../models/Package');
 const Destination = require('../models/Destination');
 const Hotel = require('../models/Hotel');
+const Visitor = require('../models/Visitor');
+const Contact = require('../models/Contact');
 
 /**
  * @desc    Get dashboard statistics
@@ -10,23 +12,55 @@ const Hotel = require('../models/Hotel');
  */
 exports.getDashboardStats = async (req, res) => {
   try {
-    // 1. Static/Hardcoded Base Values
-    const baseWebsiteVisits = 11000;
-    const baseBookingAttempts = 144;
-
-    // 2. Fetch Real Counts
-    const totalBookingsCount = await Booking.countDocuments();
-    const activeHotelsCount = await Hotel.countDocuments();
+    const now = new Date();
+    const startOfCurrentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const startOfPreviousMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const endOfPreviousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
     
-    // Calculate final displayed values (Base + Real)
-    // For website visits, we don't have real tracking, so just return base
-    const websiteVisits = baseWebsiteVisits;
-    // For bookings, we add real bookings to base
-    const totalBookings = baseBookingAttempts + totalBookingsCount;
-    // For hotels, show actual count from database
-    const activeHotels = activeHotelsCount;
+    const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const fourteenDaysAgo = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
+
+    // 1. Website Visits
+    const totalVisits = await Visitor.countDocuments();
+    const currentWeekVisits = await Visitor.countDocuments({ timestamp: { $gte: sevenDaysAgo } });
+    const previousWeekVisits = await Visitor.countDocuments({ timestamp: { $gte: fourteenDaysAgo, $lt: sevenDaysAgo } });
+    
+    let visitChange = 0;
+    let visitChangeType = 'neutral';
+    
+    if (previousWeekVisits > 0) {
+      visitChange = Math.round(((currentWeekVisits - previousWeekVisits) / previousWeekVisits) * 100);
+    } else if (currentWeekVisits > 0) {
+      visitChange = 100;
+    }
+    
+    if (visitChange > 0) visitChangeType = 'positive';
+    else if (visitChange < 0) visitChangeType = 'negative';
+
+    // 2. Booking Attempts (Inquiries + Bookings)
+    const bookingsCount = await Booking.countDocuments();
+    const inquiriesCount = await Contact.countDocuments();
+    const totalBookings = bookingsCount + inquiriesCount;
+    
+    const currentMonthAttempts = await Booking.countDocuments({ createdAt: { $gte: startOfCurrentMonth } }) + 
+                                await Contact.countDocuments({ createdAt: { $gte: startOfCurrentMonth } });
+    const previousMonthAttempts = await Booking.countDocuments({ createdAt: { $gte: startOfPreviousMonth, $lt: startOfCurrentMonth } }) + 
+                                 await Contact.countDocuments({ createdAt: { $gte: startOfPreviousMonth, $lt: startOfCurrentMonth } });
+    
+    let attemptChange = 0;
+    let attemptChangeType = 'neutral';
+    
+    if (previousMonthAttempts > 0) {
+      attemptChange = Math.round(((currentMonthAttempts - previousMonthAttempts) / previousMonthAttempts) * 100);
+    } else if (currentMonthAttempts > 0) {
+      attemptChange = 100;
+    }
+    
+    if (attemptChange > 0) attemptChangeType = 'positive';
+    else if (attemptChange < 0) attemptChangeType = 'negative';
 
     // 3. Dynamic Counts
+    const activeHotels = await Hotel.countDocuments();
     const activePackages = await Package.countDocuments();
     const activeDestinations = await Destination.countDocuments({ isActive: true });
 
@@ -48,13 +82,11 @@ exports.getDashboardStats = async (req, res) => {
     const totalRevenue = revenueAggregation.length > 0 ? revenueAggregation[0].total : 0;
 
     // Monthly Revenue (Current Month)
-    const now = new Date();
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
     const monthlyRevenueAggregation = await Booking.aggregate([
       { 
         $match: { 
           status: { $in: ['confirmed', 'completed'] },
-          createdAt: { $gte: startOfMonth }
+          createdAt: { $gte: startOfCurrentMonth }
         } 
       },
       { 
@@ -65,6 +97,35 @@ exports.getDashboardStats = async (req, res) => {
       }
     ]);
     const monthlyRevenue = monthlyRevenueAggregation.length > 0 ? monthlyRevenueAggregation[0].total : 0;
+
+    // Monthly Revenue Change (MoM)
+    const previousMonthRevenueAggregation = await Booking.aggregate([
+      { 
+        $match: { 
+          status: { $in: ['confirmed', 'completed'] },
+          createdAt: { $gte: startOfPreviousMonth, $lt: startOfCurrentMonth }
+        } 
+      },
+      { 
+        $group: { 
+          _id: null, 
+          total: { $sum: '$totalPrice' } 
+        } 
+      }
+    ]);
+    const previousMonthRevenue = previousMonthRevenueAggregation.length > 0 ? previousMonthRevenueAggregation[0].total : 0;
+    
+    let revenueChange = 0;
+    let revenueChangeType = 'neutral';
+    
+    if (previousMonthRevenue > 0) {
+      revenueChange = Math.round(((monthlyRevenue - previousMonthRevenue) / previousMonthRevenue) * 100);
+    } else if (monthlyRevenue > 0) {
+      revenueChange = 100;
+    }
+    
+    if (revenueChange > 0) revenueChangeType = 'positive';
+    else if (revenueChange < 0) revenueChangeType = 'negative';
 
     // 5. Recent Activity (Last 5 Bookings)
     const recentBookings = await Booking.find()
@@ -224,13 +285,19 @@ exports.getDashboardStats = async (req, res) => {
     res.status(200).json({
       success: true,
       data: {
-        websiteVisits,
+        websiteVisits: totalVisits,
+        websiteVisitsChange: `${visitChange > 0 ? '+' : ''}${visitChange}% this week`,
+        websiteVisitsChangeType: visitChangeType,
         totalBookings,
+        totalBookingsChange: `${attemptChange > 0 ? '+' : ''}${attemptChange}% from last month`,
+        totalBookingsChangeType: attemptChangeType,
         activeHotels,
         activePackages,
         activeDestinations,
         totalRevenue,
         monthlyRevenue,
+        monthlyRevenueChange: `${revenueChange > 0 ? '+' : ''}${revenueChange}% from last month`,
+        monthlyRevenueChangeType: revenueChangeType,
         recentActivity,
         upcomingTrips,
         bookingsByMonth,
@@ -300,5 +367,26 @@ exports.markNotificationAsRead = async (req, res) => {
   } catch (error) {
      console.error('Mark Read Error:', error);
      res.status(500).json({ success: false, error: 'Server Error' });
+  }
+};
+// @desc    Track website visit
+// @route   POST /api/admin/dashboard/track-visit
+// @access  Public
+exports.trackVisit = async (req, res) => {
+  try {
+    const { path, userAgent } = req.body;
+    
+    // Simple check to avoid tracking too many repeated visits from same user in short time
+    // In a real app we might use cookies or session IDs, but here we'll just record it
+    
+    await Visitor.create({
+      path: path || '/',
+      userAgent: userAgent || req.headers['user-agent']
+    });
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error('Track Visit Error:', error);
+    res.status(500).json({ success: false });
   }
 };
